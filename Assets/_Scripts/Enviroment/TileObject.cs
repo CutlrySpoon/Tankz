@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// This script is attached to a tile object. It allows for the customization of the tile's appearance and behavior based on a list of tile types.
+// This script is attached to a tile object. This allows for setting references and properties for the tile object.
 
 // By OS.
 
@@ -25,6 +25,7 @@ public class TileObject : MonoBehaviour
     public Collider tileCollider { get; private set; }
 
 
+    //Assign references to the tile mesh and collider to be used by manager.
     private void Awake()
     {
         tileMesh = GetComponentInChildren<MeshRenderer>().transform;

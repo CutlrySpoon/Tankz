@@ -6,9 +6,14 @@ public class UnitMovement : MonoBehaviour
     public Transform target;
     public float speed = 5f;
     public LayerMask layermask;
+    public float maxFallSpeed = 4f;
+    private Vector3 movement;
+    private float fallSpeed;
+    private bool grounded;
     void Awake()
     {
         layermask = LayerMask.GetMask("Ground");
+        target = transform;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,22 +23,36 @@ public class UnitMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RaycastHit hit;
-
-        if(!Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, layermask))
+        transform.Translate(movement, Space.World);
+        if (!Physics.Raycast(transform.position, -transform.up, out hit, 0.55f, layermask))
         {
-            target.position = target.position - 0.5f * Vector3.up;
-
+            grounded = false;
         }
+        else
+        {
+            grounded = true;
+        }
+        if (!grounded)
+        {
+            fallSpeed = fallSpeed + 8.9f * Time.deltaTime;
+            target.position = target.position + (Vector3.down * Mathf.Clamp(fallSpeed, 0, maxFallSpeed) * Time.deltaTime);
+        }
+        if (grounded)
+        {
+            fallSpeed = 0f;
+        }
+        
     }
     public void Move(InputAction.CallbackContext context)
     {
-        
+
         Vector2 input = context.ReadValue<Vector2>();
-        Vector3 movement = new Vector3(input.x, input.y, 0f) * speed * Time.fixedDeltaTime;
-        transform.Translate(movement, Space.World);
+        movement = new Vector3(input.x, input.y, 0f) * speed * Time.fixedDeltaTime;
         
+        
+
     }
 }

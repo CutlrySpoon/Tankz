@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a77169634ffc4699916bd2b56e248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
-  startSpeed: 5
-  maxSpeed: 20
-  weight: 2
+  startSpeed: 7
   damage: 10
   lifetime: 5
+  weight: 0.6
+  shotAssistLinePrefab: {fileID: 0}

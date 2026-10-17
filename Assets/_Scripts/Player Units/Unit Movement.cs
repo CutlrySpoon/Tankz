@@ -3,56 +3,81 @@ using UnityEngine.InputSystem;
 
 public class UnitMovement : MonoBehaviour
 {
-    public Transform target;
     public float speed = 5f;
     public LayerMask layermask;
-    public float maxFallSpeed = 4f;
-    private Vector3 movement;
-    private float fallSpeed;
+
+    public float maxFallSpeed = 15f;
+    private Vector2 moveInput;
+    private float verticalVelocity;
     private bool grounded;
+    private float gravity = 9.81f; 
+    public float jumpHeight = 8f;
+    private bool jumpUp;
+    
+
+
     void Awake()
     {
         layermask = LayerMask.GetMask("Ground");
-        target = transform;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void FixedUpdate()
+
     {
+        //check if the player is grounded by casting a ray down
         RaycastHit hit;
-        transform.Translate(movement, Space.World);
-        if (!Physics.Raycast(transform.position, -transform.up, out hit, 0.55f, layermask))
+
+
+        if(!Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, layermask))
         {
-            grounded = false;
+            transform.position = transform.position - 0.5f * Vector3.up;
+
+        }
+
+        grounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.55f, layermask);
+
+        if (grounded)
+        {
+            verticalVelocity = 0f;
+
+            if (jumpUp)
+            {
+                //if grounded and jump is pressed, set vertical velocity to jump height
+                verticalVelocity = jumpHeight;
+                grounded = false;
+                jumpUp = false;
+            }
         }
         else
         {
-            grounded = true;
+            //if not grounded, apply gravity to vertical velocity
+            verticalVelocity -= gravity * Time.fixedDeltaTime;
+            verticalVelocity = Mathf.Max(verticalVelocity, -maxFallSpeed);
         }
+
         if (!grounded)
         {
-            fallSpeed = fallSpeed + 8.9f * Time.deltaTime;
-            target.position = target.position + (Vector3.down * Mathf.Clamp(fallSpeed, 0, maxFallSpeed) * Time.deltaTime);
+            jumpUp = false;
         }
-        if (grounded)
-        {
-            fallSpeed = 0f;
-        }
-        
+
+        Vector3 finalMovement = new Vector3(moveInput.x * speed, verticalVelocity, 0f) * Time.fixedDeltaTime;
+        transform.Translate(finalMovement, Space.World);
+
     }
+
     public void Move(InputAction.CallbackContext context)
     {
 
+        
+
         Vector2 input = context.ReadValue<Vector2>();
-        movement = new Vector3(input.x, input.y, 0f) * speed * Time.fixedDeltaTime;
-        
-        
+        moveInput = new Vector2(input.x, 0f);
+        if (input.y > 0 && (context.started || context.performed))
+        {
+            if (grounded)
+            {
+                jumpUp = true;
+            }
+        }
 
     }
 }

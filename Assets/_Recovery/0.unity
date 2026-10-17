@@ -119,7 +119,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!1 &133245085
+========
+--- !u!1 &1038485909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5207556468245680617, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+  m_PrefabInstance: {fileID: 1880086570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1184128682
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,10 +136,109 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   - component: {fileID: 133245089}
   - component: {fileID: 133245088}
   - component: {fileID: 133245087}
   - component: {fileID: 133245086}
+========
+  - component: {fileID: 1184128685}
+  - component: {fileID: 1184128684}
+  - component: {fileID: 1184128683}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1184128683
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184128682}
+  m_Enabled: 1
+--- !u!20 &1184128684
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184128682}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1184128685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184128682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1450749584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450749588}
+  - component: {fileID: 1450749587}
+  - component: {fileID: 1450749586}
+  - component: {fileID: 1450749585}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
@@ -138,13 +246,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!64 &133245086
+========
+--- !u!64 &1450749585
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   m_GameObject: {fileID: 133245085}
+========
+  m_GameObject: {fileID: 1450749584}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -160,13 +276,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!23 &133245087
+========
+--- !u!23 &1450749586
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   m_GameObject: {fileID: 133245085}
+========
+  m_GameObject: {fileID: 1450749584}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -209,29 +333,47 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!33 &133245088
+========
+--- !u!33 &1450749587
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   m_GameObject: {fileID: 133245085}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &133245089
+========
+  m_GameObject: {fileID: 1450749584}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1450749588
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   m_GameObject: {fileID: 133245085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.63967, y: -2.09, z: 1}
+========
+  m_GameObject: {fileID: 1450749584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.01, y: -1.73, z: -0.17}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!1 &600748395
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +625,9 @@ MonoBehaviour:
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &1246989588
+========
+--- !u!1 &1570184649
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -490,6 +635,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   - component: {fileID: 1246989591}
   - component: {fileID: 1246989590}
   - component: {fileID: 1246989589}
@@ -585,6 +731,11 @@ GameObject:
   - component: {fileID: 2001215563}
   - component: {fileID: 2001215562}
   - component: {fileID: 2001215564}
+========
+  - component: {fileID: 1570184651}
+  - component: {fileID: 1570184650}
+  - component: {fileID: 1570184652}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -592,13 +743,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!108 &2001215562
+========
+--- !u!108 &1570184650
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   m_GameObject: {fileID: 2001215561}
+========
+  m_GameObject: {fileID: 1570184649}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   m_Enabled: 1
   serializedVersion: 13
   m_Type: 1
@@ -657,13 +816,21 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!4 &2001215563
+========
+--- !u!4 &1570184651
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   m_GameObject: {fileID: 2001215561}
+========
+  m_GameObject: {fileID: 1570184649}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
@@ -672,13 +839,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
 --- !u!114 &2001215564
+========
+--- !u!114 &1570184652
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   m_GameObject: {fileID: 2001215561}
+========
+  m_GameObject: {fileID: 1570184649}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
@@ -701,11 +876,82 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
+========
+--- !u!1001 &1880086570
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1678714860511866790, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_Name
+      value: cubert
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521368711581075010, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8375931838074745838, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+      propertyPath: pivot
+      value: 
+      objectReference: {fileID: 1038485909}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5d7a12e10039caa49b24e840b9e874af, type: 3}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+<<<<<<<< HEAD:Assets/_Recovery/0.unity
   - {fileID: 1246989591}
   - {fileID: 2001215563}
   - {fileID: 600748399}
   - {fileID: 133245089}
+========
+  - {fileID: 1184128685}
+  - {fileID: 1570184651}
+  - {fileID: 1450749588}
+  - {fileID: 1880086570}
+>>>>>>>> JM-Branch:Assets/_Scenes/Movement Test.unity

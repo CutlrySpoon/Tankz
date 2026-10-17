@@ -2,28 +2,24 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    public float startSpeed = 10f;
-    public float maxSpeed = 20f;
-    public float weight = 1f;
+    public float startSpeed = 20f;
     public float damage = 10f;
-    public float lifetime = 10f;
-    private float currentSpeed;
-    private Vector3 lastPosition;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float lifetime = 5f;
+    private float gravity = 9.81f;
+    public float weight = 1f;
+    private float shotStregth = 1f;
+    public LineRenderer shotAssistLinePrefab;
+    private Vector3 velocity;
+
     void Start()
     {
-        
+        //set the initial velocity of the bullet
+        velocity = transform.right * startSpeed * shotStregth;
     }
 
-    private void Awake()
-    {
-        currentSpeed = startSpeed;
-        lastPosition = transform.position;
-    }
-    // Update is called once per frame
     void Update()
     {
-        lastPosition = transform.position;
+        // decrease lifetime and destroy the bullet if it has expired
         if (lifetime > 0f)
         {
             lifetime -= Time.deltaTime;
@@ -31,20 +27,33 @@ public class BulletBehaviour : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
-        
-        if(lastPosition.y > transform.position.y && currentSpeed < maxSpeed)
+
+        // apply gravity to the bullet's velocity and update its position
+        velocity.y -= gravity * weight * Time.deltaTime;
+        transform.position += velocity * Time.deltaTime;
+        if (velocity != Vector3.zero)
         {
-            currentSpeed += weight * Time.deltaTime;
-        }
-        else
-        {
-            currentSpeed -= weight * Time.deltaTime;
+            // rotate the bullet to face the direction of its velocity
+            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
         }
 
-        Mathf.Clamp(currentSpeed, 1.2f, maxSpeed);
-        transform.Translate(Vector3.up * currentSpeed * Time.deltaTime);
-        lastPosition = transform.position;
     }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        // add logic for destroying tiles and doing damage
+
+        Destroy(collision.gameObject);
+        Destroy(gameObject);
+    }
+
+
+
+
 }

@@ -30,6 +30,7 @@ public class WeaponControler : MonoBehaviour
 
     private void RotatePivotToMouse()
     {
+
         // Get the position of the pivot in screen space
         Vector3 pivotScreenPos = Camera.main.WorldToScreenPoint(pivot.transform.position);
         Vector2 direction = mouseScreenPos - (Vector2)pivotScreenPos;

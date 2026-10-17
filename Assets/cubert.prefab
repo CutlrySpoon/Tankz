@@ -223,7 +223,7 @@ MonoBehaviour:
   speed: 2
   layermask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   maxFallSpeed: 18
 --- !u!114 &5607351868229891723
 MonoBehaviour:
@@ -383,7 +383,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8617979246963341252, guid: e48f3b68a08de4f44afea4b304b7f60a, type: 3}
   pivot: {fileID: 5207556468245680617}
   shootPoint: {fileID: 5786964197245504843}
-  shotAssistLine: {fileID: 8617979246963341252, guid: e48f3b68a08de4f44afea4b304b7f60a, type: 3}
 --- !u!1 &5207556468245680617
 GameObject:
   m_ObjectHideFlags: 0

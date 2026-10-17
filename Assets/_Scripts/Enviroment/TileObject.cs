@@ -21,16 +21,8 @@ public class TileObject : MonoBehaviour
     }
 
 
-    public Transform tileMesh { get; private set; }
-    public Collider tileCollider { get; private set; }
-
-
-    //Assign references to the tile mesh and collider to be used by manager.
     private void Awake()
     {
-        tileMesh = GetComponentInChildren<MeshRenderer>().transform;
-        tileCollider = GetComponentInChildren<Collider>();
-
         MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshRenderer.material.color = tileType[0].color;
     }

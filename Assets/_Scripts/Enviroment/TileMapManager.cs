@@ -1,54 +1,68 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
-// This is a manager script. This controlls the procedrual, seed based generation of the tile map with perlin noise.
+// This is a singleton manager script. This controlls the procedrual, seed based generation of the tile map with perlin noise.
 
 // By OS.
 
 public class TileMapManager : MonoBehaviour
 {
+    private static TileMapManager instance;
+
+    // Check if instance exists already.
+    public static TileMapManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                GameObject obj = new GameObject("TileMapManager");
+                instance = obj.AddComponent<TileMapManager>();
+            }
+
+            return instance;
+        }
+    }
+
     // References and settings for tile map generation. Customise in the inspector.
     [SerializeField]
     private GameObject tilePrefab;
 
     [SerializeField]
-    private int mapWidth = 10;
+    private int mapWidth = 150;
 
     [SerializeField]
-    private int mapHeight = 10;
+    private int mapHeight = 75;
     [Space(20)]
 
     [SerializeField]
-    [Range(0.1f, 1f)]
-    private float mapResolution = 1f;   // Sets the size of each tile.
-
-    [SerializeField]
-    [Range(0.25f, 0.75f)]
+    [Range(0.35f, 0.55f)]
     private float noiseVolume = 0.5f;   // Sets the sensitivity of the noise gradient for tile generation.
+    public float minNoiseVolume { get { return 0.35f; } }
+    public float maxNoiseVolume { get { return 0.55f; } }
 
     [SerializeField]
-    [Range(1f, 15f)]
-    private float noiseScale = 1f;      // Sets the size of the noise pattern.
+    [Range(8f, 14f)]
+    private float noiseScale = 12f;      // Sets the size of the noise pattern.
+    public float minNoiseScale { get { return 8f; } }
+    public float maxNoiseScale { get { return 14f; } }
 
     [SerializeField]
-    [Range(1, 10000)]
     private int seed = 1;               // Adds this value to noise coordinates for unique generation.
 
 
-    private bool isMapGenerated = false;
+    private List<GameObject> tileGrid = new List<GameObject>();
+
+    private bool isMapGenerated = true;
 
     private float xPos;
     private float yPos;
 
-    private Camera camera;
 
-    private List<GameObject> tileGrid = new List<GameObject>();
-
-
-    // ####TEMP#### assigns camera for centering.
     private void Awake()
     {
-        camera = Camera.main.GetComponent<Camera>();
+        instance = this;
     }
 
     private void Update()
@@ -57,40 +71,58 @@ public class TileMapManager : MonoBehaviour
             GenerateTileGrid();
     }
 
+    // Public function to generate map with outside values.
+    public void SetMap(float volumeValue, float scaleValue, int seedValue, bool useNewValue)
+    {
+        if (useNewValue)
+        {
+            noiseVolume = volumeValue;
+            noiseScale = scaleValue;
+            seed = seedValue;
+        }
+
+
+        if (tileGrid.Count != 0)
+        {
+            foreach (GameObject tile in tileGrid)
+            {
+                Destroy(tile);
+            }
+
+            tileGrid.Clear();
+        }
+
+        xPos = 0;
+        yPos = 0;
+
+        isMapGenerated = false;
+    }
+
     // Generates the tile grid based on settings.
     private void GenerateTileGrid()
     {
-        while (xPos < mapWidth * mapResolution)
+        while (xPos <= mapWidth)
         {
-            while (yPos < mapHeight * mapResolution)
+            while (yPos <= mapHeight)
             {
-                float noiseValue = GenerateNoise((xPos / mapResolution), (yPos / mapResolution));
+                float noiseValue = GenerateNoise((xPos), (yPos));
 
                 if (CanGenerateTile(noiseValue))
                 {
                     // Generates tile object
                     GameObject tile = Instantiate(tilePrefab, new Vector3(xPos, yPos, 0), Quaternion.identity, this.transform);
                     tileGrid.Add(tile);
-
-                    // Sets the scale of the tile mesh and collider based on map resolution.
-                    // (The mesh is scaled to 90% of the map resolution to allow for a small gap between tiles.)
-                    float tileResolution = (mapResolution * 0.9f) / 10;
-                    tile.GetComponent<TileObject>().tileMesh.localScale = new Vector3(tileResolution, tileResolution, tileResolution);
-                    tile.GetComponent<TileObject>().tileCollider.transform.localScale = new Vector3(mapResolution, mapResolution, mapResolution);
                 }
 
-                yPos += mapResolution;
+                yPos++;
             }
 
-            xPos += mapResolution;
+            xPos++;
 
             yPos = 0;
         }
 
         isMapGenerated = true;
-
-        //####TEMP#### Centers camera on the generated tile map.
-        camera.GetComponent<CameraController>().CenterCamera(mapWidth, mapHeight, mapResolution);
     }
 
     // Generates perlin noise value based on x / y position of current tile.
@@ -117,12 +149,8 @@ public class TileMapManager : MonoBehaviour
         return false;
     }
 
-    private void RandomiseSeed()
-    {
-        seed = Random.Range(1, 10000);
-    }
 
-    // Public function to destroy current tiles and generate a new map.
+    //####TEMP#### Generates a new map for testing only.
     public void GenerateNewMap()
     {
         foreach (GameObject tile in tileGrid)
@@ -134,10 +162,15 @@ public class TileMapManager : MonoBehaviour
 
         xPos = 0;
         yPos = 0;
-        
-        RandomiseSeed();
-        camera.GetComponent<CameraController>().CenterCamera(mapWidth, mapHeight, mapResolution);
 
+        RandomiseSeed();
+        
         isMapGenerated = false;
+    }
+
+    //####TEMP####
+    private void RandomiseSeed()
+    {
+        seed = Random.Range(1, 10000);
     }
 }

@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 4376079142709194931}
   - component: {fileID: 3792123075022667407}
   - component: {fileID: 3764451841011041245}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7846661276702427814}
   - component: {fileID: 4361835765099173023}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TileObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6521057917789594652}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

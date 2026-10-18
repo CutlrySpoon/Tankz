@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,12 +10,12 @@ public class UnitMovement : MonoBehaviour
     public float maxFallSpeed = 15f;
     private Vector2 moveInput;
     private float verticalVelocity;
-    private bool grounded;
+    private bool grounded, grounded2;
     private float gravity = 9.81f; 
     public float jumpHeight = 8f;
     private bool jumpUp;
-    
-
+    public float raycastDistance = 0.55f;
+    public float rayOffset = 0.5f;
 
     void Awake()
     {
@@ -27,15 +28,37 @@ public class UnitMovement : MonoBehaviour
         RaycastHit hit;
 
 
-        if(!Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, layermask))
+        grounded = Physics.Raycast(transform.position - new Vector3(rayOffset, 0f, 0f), Vector3.down, out hit, raycastDistance, layermask);
+        grounded2 = Physics.Raycast(transform.position + new Vector3(rayOffset, 0f, 0f), Vector3.down, out hit, raycastDistance, layermask);
+        bool touchingWallLeft = Physics.Raycast(transform.position - new Vector3(0f, rayOffset, 0f), Vector3.left, out hit, raycastDistance, layermask);
+        bool touchingWallLeft2 = Physics.Raycast(transform.position + new Vector3(0f, rayOffset, 0f), Vector3.left, out hit, raycastDistance, layermask);
+        bool touchingWallRight = Physics.Raycast(transform.position - new Vector3(0f, rayOffset, 0f), Vector3.right, out hit, raycastDistance, layermask);
+        bool touchingWallRight2 = Physics.Raycast(transform.position + new Vector3(0f, rayOffset, 0f), Vector3.right, out hit, raycastDistance, layermask);
+        bool touchingCeiling = Physics.Raycast(transform.position + new Vector3(rayOffset, 0f, 0f), Vector3.up, out hit, raycastDistance, layermask);
+        bool touchingCeiling2 = Physics.Raycast(transform.position - new Vector3(rayOffset, 0f, 0f), Vector3.up, out hit, raycastDistance, layermask);
+        if (touchingWallLeft || touchingWallLeft2)
         {
-            transform.position = transform.position - 0.5f * Vector3.up;
-
+            if(moveInput.x < 0)
+            {
+                moveInput.x = 0;
+            }
+        }
+        if(touchingWallRight || touchingWallRight2)
+        {
+            if(moveInput.x > 0)
+            {
+                moveInput.x = 0;
+            }
+        }
+        if(touchingCeiling || touchingCeiling2)
+        {
+            if (verticalVelocity > 0)
+            {
+                verticalVelocity = 0;
+            }
         }
 
-        grounded = Physics.Raycast(transform.position, Vector3.down, out hit, 0.55f, layermask);
-
-        if (grounded)
+        if (grounded || grounded2)
         {
             verticalVelocity = 0f;
 
@@ -54,7 +77,7 @@ public class UnitMovement : MonoBehaviour
             verticalVelocity = Mathf.Max(verticalVelocity, -maxFallSpeed);
         }
 
-        if (!grounded)
+        if (!grounded || !grounded2)
         {
             jumpUp = false;
         }
@@ -73,7 +96,7 @@ public class UnitMovement : MonoBehaviour
         moveInput = new Vector2(input.x, 0f);
         if (input.y > 0 && (context.started || context.performed))
         {
-            if (grounded)
+            if (grounded || grounded2)
             {
                 jumpUp = true;
             }

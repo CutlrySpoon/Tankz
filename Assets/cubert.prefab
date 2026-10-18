@@ -219,12 +219,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f83891602c36164abbfc4191d9d1903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitMovement
-  target: {fileID: 0}
   speed: 2
   layermask:
     serializedVersion: 2
-    m_Bits: 0
-  maxFallSpeed: 18
+    m_Bits: 8
+  maxFallSpeed: 8
+  jumpHeight: 6
 --- !u!114 &5607351868229891723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,6 +383,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8617979246963341252, guid: e48f3b68a08de4f44afea4b304b7f60a, type: 3}
   pivot: {fileID: 5207556468245680617}
   shootPoint: {fileID: 5786964197245504843}
+  shotAssistLine: {fileID: 0}
 --- !u!1 &5207556468245680617
 GameObject:
   m_ObjectHideFlags: 0

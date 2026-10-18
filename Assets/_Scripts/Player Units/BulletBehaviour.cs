@@ -48,8 +48,11 @@ public class BulletBehaviour : MonoBehaviour
     {
 
         // add logic for destroying tiles and doing damage
+        if(collision.gameObject.transform.parent != null)
+        {
+            Destroy(collision.gameObject.transform.parent.gameObject);
+        }
 
-        Destroy(collision.gameObject);
         Destroy(gameObject);
     }
 

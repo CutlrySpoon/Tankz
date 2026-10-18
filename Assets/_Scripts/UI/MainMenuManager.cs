@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // This is a manager script that controls main menu UI and data transfer.
 
@@ -29,6 +30,10 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField]
     private TMP_InputField seedText;
+    [Space(10)]
+
+    [SerializeField]
+    private string gameSceneName;
 
 
     // Map data to pass onto map generator.
@@ -80,6 +85,14 @@ public class MainMenuManager : MonoBehaviour
         TileMapManager.Instance.SetMap(volume, scale, seed, true);
     }
 
+    public void OnStartGameButtonClick()
+    {
+        SceneManager.LoadScene(gameSceneName);
+    }
+
+    #endregion
+
+    //Sliders
     public void OnVolumeSliderChanged()
     {
         volume = volumeSlider.value;
@@ -95,7 +108,6 @@ public class MainMenuManager : MonoBehaviour
         scaleText.text = $"{norScale:F2}";
     }
 
-    #endregion
 
     // Set the map settings based on map present and display sliders based on selected preset.
     public void SetMapType (int index)

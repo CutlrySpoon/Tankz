@@ -30,10 +30,10 @@ public class TileMapManager : MonoBehaviour
     private GameObject tilePrefab;
 
     [SerializeField]
-    private int mapWidth = 150;
+    public int mapWidth = 150;
 
     [SerializeField]
-    private int mapHeight = 75;
+    public int mapHeight = 75;
     [Space(20)]
 
     [SerializeField]
@@ -101,9 +101,9 @@ public class TileMapManager : MonoBehaviour
     // Generates the tile grid based on settings.
     private void GenerateTileGrid()
     {
-        while (xPos <= mapWidth)
+        while (xPos < mapWidth)
         {
-            while (yPos <= mapHeight)
+            while (yPos < mapHeight)
             {
                 float noiseValue = GenerateNoise((xPos), (yPos));
 

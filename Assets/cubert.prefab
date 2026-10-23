@@ -225,6 +225,8 @@ MonoBehaviour:
     m_Bits: 8
   maxFallSpeed: 8
   jumpHeight: 6
+  raycastDistance: 0.55
+  rayOffset: 0.5
 --- !u!114 &5607351868229891723
 MonoBehaviour:
   m_ObjectHideFlags: 0

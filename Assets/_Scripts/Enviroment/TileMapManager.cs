@@ -11,7 +11,7 @@ public class TileMapManager : MonoBehaviour
     private static TileMapManager instance;
 
     // Check if instance exists already.
-    public static TileMapManager Instance
+    public static TileMapManager tm
     {
         get
         {
@@ -114,10 +114,10 @@ public class TileMapManager : MonoBehaviour
                     tileGrid.Add(tile);
                 }
 
-                yPos++;
+                ++yPos;
             }
 
-            xPos++;
+            ++xPos;
 
             yPos = 0;
         }

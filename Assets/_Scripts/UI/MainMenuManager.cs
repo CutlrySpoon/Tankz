@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static TileMapManager;
 
 // This is a manager script that controls main menu UI and data transfer.
 
@@ -46,11 +47,11 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         PlayPanel.SetActive(false);
-        volumeSlider.minValue = TileMapManager.Instance.minNoiseVolume;
-        volumeSlider.maxValue = TileMapManager.Instance.maxNoiseVolume;
+        volumeSlider.minValue = tm.minNoiseVolume;
+        volumeSlider.maxValue = tm.maxNoiseVolume;
 
-        scaleSlider.minValue = TileMapManager.Instance.minNoiseScale;
-        scaleSlider.maxValue = TileMapManager.Instance.maxNoiseScale;
+        scaleSlider.minValue = tm.minNoiseScale;
+        scaleSlider.maxValue = tm.maxNoiseScale;
 
         SetMapType(0);
         SetSliderUI();
@@ -82,7 +83,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnGenerateButtonClick()
     {
-        TileMapManager.Instance.SetMap(volume, scale, seed, true);
+        tm.SetMap(volume, scale, seed, true);
     }
 
     public void OnStartGameButtonClick()

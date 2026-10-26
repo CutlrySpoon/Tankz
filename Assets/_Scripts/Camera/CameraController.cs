@@ -1,6 +1,7 @@
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static GameManager;
 
 // This is a camera controller which is used to drag and zoom the camera around the playable area.
 
@@ -14,6 +15,8 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     private GameObject camParent;
+    [SerializeField]
+    private Transform defaultPos;
     [Space(10)]
 
 
@@ -46,11 +49,11 @@ public class CameraController : MonoBehaviour
     // Clamp the camera max position based on the map size and zoom level
     private void LateUpdate()
     {
-        float minX = TileMapManager.Instance.mapWidth / 2 - scrollCount * (zoomIncrement * 1.6f);
-        float maxX = TileMapManager.Instance.mapWidth / 2 + scrollCount * (zoomIncrement * 1.6f);
+        float minX = TileMapManager.tm.mapWidth / 2 - scrollCount * (zoomIncrement * 1.6f);
+        float maxX = TileMapManager.tm.mapWidth / 2 + scrollCount * (zoomIncrement * 1.6f);
 
-        float minY = TileMapManager.Instance.mapHeight / 2 - scrollCount * (zoomIncrement * 0.8f);
-        float maxY = TileMapManager.Instance.mapHeight / 2 + scrollCount * (zoomIncrement * 0.8f);
+        float minY = TileMapManager.tm.mapHeight / 2 - scrollCount * (zoomIncrement * 0.8f);
+        float maxY = TileMapManager.tm.mapHeight / 2 + scrollCount * (zoomIncrement * 0.8f);
 
         Vector3 clampPos = camParent.transform.position;
 
@@ -63,32 +66,41 @@ public class CameraController : MonoBehaviour
     // Dragging and scrolling
     private void Update()
     {
-        if (holdingDrag)
+        if (gm.inPlay)
         {
-            dragDifference = cam.ScreenToWorldPoint(mousePos) - camParent.transform.position;
-            camParent.transform.position = dragOrigin - dragDifference;
-        }
-
-        // Scroll Up
-        if (scroll.y > 0)
-        {
-            if (cam.orthographicSize > minZoom)
+            if (holdingDrag)
             {
-                cam.orthographicSize -= zoomIncrement;
-                scrollCount++;
+                dragDifference = cam.ScreenToWorldPoint(mousePos) - camParent.transform.position;
+                camParent.transform.position = dragOrigin - dragDifference;
             }
 
-        }
-
-        // Scroll Down
-        if (scroll.y < 0)
-        {
-            if (cam.orthographicSize < maxZoom)
+            // Scroll Up
+            if (scroll.y > 0)
             {
-                cam.orthographicSize += zoomIncrement;
-                scrollCount--;
+                if (cam.orthographicSize > minZoom)
+                {
+                    cam.orthographicSize -= zoomIncrement;
+                    scrollCount++;
+                }
+
             }
 
+            // Scroll Down
+            if (scroll.y < 0)
+            {
+                if (cam.orthographicSize < maxZoom)
+                {
+                    cam.orthographicSize += zoomIncrement;
+                    scrollCount--;
+                }
+
+            }
+        }
+        else
+        {
+            camParent.transform.position = defaultPos.position;
+            cam.orthographicSize = maxZoom;
+            scrollCount = 0;
         }
     }
 

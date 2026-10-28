@@ -196,11 +196,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a77169634ffc4699916bd2b56e248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
-  startSpeed: 7
+  startSpeed: 8
   damage: 10
+  isExplosive: 0
+  explosionRadius: 0
   lifetime: 5
-  weight: 0.6
-  shotAssistLinePrefab: {fileID: 0}
+  weight: 5
+  zigZag: 0
+  zigZagfrequency: 5
 --- !u!136 &6906784112259460851
 CapsuleCollider:
   m_ObjectHideFlags: 0

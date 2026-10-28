@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 6363613058260358894}
   - component: {fileID: 5607351868229891723}
   - component: {fileID: 8375931838074745838}
+  - component: {fileID: 1175972814953113712}
   m_Layer: 0
   m_Name: cubert
   m_TagString: Untagged
@@ -385,7 +386,21 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8617979246963341252, guid: e48f3b68a08de4f44afea4b304b7f60a, type: 3}
   pivot: {fileID: 5207556468245680617}
   shootPoint: {fileID: 5786964197245504843}
-  shotAssistLine: {fileID: 0}
+--- !u!114 &1175972814953113712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678714860511866790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7162df0c7f9f63142b6ab80536b6cf62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitHealth
+  health: 100
+  explosionResistane: 1
+  flashTime: 25
 --- !u!1 &5207556468245680617
 GameObject:
   m_ObjectHideFlags: 0

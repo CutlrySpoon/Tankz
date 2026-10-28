@@ -3,7 +3,8 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     public float startSpeed = 20f;
-    public float damage = 10f;
+    public int damage = 10;
+    public bool isExplosive = false;
     public float explosionRadius = 0f;
     public float lifetime = 5f;
     private float gravity = 9.81f;
@@ -21,12 +22,12 @@ public class BulletBehaviour : MonoBehaviour
         baseDirection = transform.right;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // decrease lifetime and destroy the bullet if it has expired
         if (lifetime > 0f)
         {
-            lifetime -= Time.deltaTime;
+            lifetime -= Time.fixedDeltaTime;
         }
         else
         {
@@ -36,7 +37,7 @@ public class BulletBehaviour : MonoBehaviour
         if (zigZag)
         {
             // rotate the bullet's velocity vector by 45 degrees to create a zig-zag effect
-            float flipDirection = Mathf.Sign(Mathf.Sin(Time.time * zigZagfrequency));
+            float flipDirection = Mathf.Sign(Mathf.Sin(Time.fixedDeltaTime * zigZagfrequency));
             Quaternion rotationOffset = Quaternion.Euler(0, 0, flipDirection * 45);
             Vector3 travelDir = rotationOffset * baseDirection;
             velocity.x = travelDir.x * startSpeed * shotStregth;
@@ -47,8 +48,8 @@ public class BulletBehaviour : MonoBehaviour
             velocity = baseDirection * startSpeed * shotStregth;
         }
         // apply gravity to the bullet's velocity and update its position
-        velocity.y -= gravity * weight * Time.deltaTime;
-        transform.position += velocity * Time.deltaTime;
+        velocity.y -= gravity * weight * Time.fixedDeltaTime;
+        transform.position += velocity * Time.fixedDeltaTime;
         if (velocity != Vector3.zero)
         {
             // rotate the bullet to face the direction of its velocity
@@ -83,6 +84,13 @@ public class BulletBehaviour : MonoBehaviour
 
 
         Destroy(gameObject);
+
+        if(collision.gameObject.GetComponent<UnitHealth>() != null)
+        {
+            UnitHealth doDamage = collision.gameObject.GetComponent<UnitHealth>();
+            doDamage.TakeDamage(damage, isExplosive);
+
+        }
     }
 
 

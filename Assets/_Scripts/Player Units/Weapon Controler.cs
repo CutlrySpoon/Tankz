@@ -9,8 +9,6 @@ public class WeaponControler : MonoBehaviour
     public GameObject shootPoint;
     private Vector2 mouseScreenPos;
 
-    public GameObject shotAssistLine;
-
     void Update()
     {
         RotatePivotToMouse();

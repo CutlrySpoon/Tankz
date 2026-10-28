@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using static GameManager;
+using static UIManager;
 
 public class PlayMenuManager : MonoBehaviour
 {

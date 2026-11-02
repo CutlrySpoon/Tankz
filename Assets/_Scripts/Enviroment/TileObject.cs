@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using System.Numerics;
+using static GameManager;
 
 // This script is attached to a tile object. This allows for setting references and properties for the tile object.
 
@@ -8,22 +11,28 @@ using System.Collections.Generic;
 public class TileObject : MonoBehaviour
 {
     [SerializeField]
-    public List<TileType> tileType;
+    private MeshRenderer meshRenderer;
 
-    [System.Serializable]
-    public class TileType
+
+    public void SetMaterial(Material mat, bool isTeamColour)
     {
-        [SerializeField]
-        public string name;
+        if (isTeamColour)
+        {
+            if (gm.turnCount % 2 == 0)
+            {
+                meshRenderer.material = gm.teamBMaterial;
+            }
 
-        [SerializeField]
-        public Color color;
-    }
+            else
+            {
+                meshRenderer.material = gm.teamBMaterial;
+            }
+        }
 
-
-    private void Awake()
-    {
-        MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
-        meshRenderer.material.color = tileType[0].color;
+        else
+        {
+            meshRenderer.material = mat;
+        }
+        
     }
 }

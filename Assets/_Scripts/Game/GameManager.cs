@@ -1,5 +1,9 @@
 using UnityEngine;
 
+// This stores all core game data for other scripts to access
+
+// By OS
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
@@ -27,6 +31,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private int startingCash = 500;
+    [Space(5)]
+
+    [SerializeField]
+    public Material teamAMaterial;
+    [SerializeField]
+    public Material teamBMaterial;
 
     //Game
     public bool inPlay { get; private set; } = false;
@@ -47,6 +57,7 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    // Reset timer
     private void Start()
     {
         currentTurnTime = maxTurnTime;
@@ -60,6 +71,7 @@ public class GameManager : MonoBehaviour
         Timer();
     }
 
+    // Count up time
     private void Timer()
     {
         elapsedTime += Time.deltaTime;

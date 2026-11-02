@@ -5,6 +5,10 @@ using System;
 using static GameManager;
 using static UIManager;
 
+// This is a UI manager for the game scene. It controls the display of data.
+
+// By OS
+
 public class PlayMenuManager : MonoBehaviour
 {
     [Header("UI")]
@@ -47,8 +51,10 @@ public class PlayMenuManager : MonoBehaviour
     private TextMeshProUGUI teamBCashText;
 
 
+    // Set the UI to the correct format and data from the begining.
     private void Start()
     {
+        turnScreen.SetActive(true);
         SetUI();
 
         currentTurnTimeText.text = gm.currentTurnTime.ToString();
@@ -59,7 +65,8 @@ public class PlayMenuManager : MonoBehaviour
         teamACashText.text = $"$ {gm.teamACash}";
         teamBCashText.text = $"$ {gm.teamBCash}";
     }
-
+     
+    // Update UI that requires frequent updates
     private void Update()
     {
         UpdateUI();
@@ -68,6 +75,7 @@ public class PlayMenuManager : MonoBehaviour
             OnEndTurnButtonClick();
     }
 
+    // Check which team turn it is
     private bool IsBlueTurn()
     {
         if (gm.turnCount % 2 == 0)
@@ -75,7 +83,6 @@ public class PlayMenuManager : MonoBehaviour
         else
             return false;
     }
-
     private void UpdateUI()
     {
         currentTurnTimeText.text = gm.currentTurnTime.ToString();
@@ -84,6 +91,7 @@ public class PlayMenuManager : MonoBehaviour
         totalTurnTimeText.text = ts.Minutes.ToString("00") + ":" + ts.Seconds.ToString("00");
     }
 
+    // Set the UI to the correct team turn
     private void SetUI()
     {
         if (IsBlueTurn())

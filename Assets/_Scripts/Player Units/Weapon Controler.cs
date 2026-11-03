@@ -19,37 +19,56 @@ public class WeaponControler : MonoBehaviour
 
     void FixedUpdate()
     {
-        RotatePivotToMouse();
-        if (isCharging)
+        if(1==1)//add condition for selected unit
         {
-            chargeTime = Mathf.PingPong(Time.time * chargeRate, maxChargeTime) + 1;
+            
+            if (isCharging)
+            {
+                
+                chargeTime = Mathf.PingPong(Time.time * chargeRate, maxChargeTime) + 1;
 
-            chargeBar.fillAmount = chargeTime/maxChargeTime;
+                chargeBar.fillAmount = ((chargeTime - 1) / (maxChargeTime));
+            }
+            else if (shotqueued == false)
+            {
+                RotatePivotToMouse();
+            }
+            if (shotqueued)// && enter conditon for shoot turn
+            {
+                Instantiate(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation);
+                shotqueued = false;
+                
+            }
         }
-        if(shotqueued)//enter conditon for shoot turn
-        {
-            Instantiate(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation);
-            shotqueued = false;
-        }
+
     }
 
     public void LookAtMouse(InputAction.CallbackContext context)
     {
-        mouseScreenPos = context.ReadValue<Vector2>();
+        if (1 == 1)//add condition for selected unit
+        {
+            mouseScreenPos = context.ReadValue<Vector2>();
+        }
     }
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (1 == 1)//add condition for selected unit
         {
-            isCharging = true;
+            if (context.started)
+            {
+                isCharging = true;
 
-        }
-        if (context.canceled)
-        {
-            isCharging = false;
-            bulletPrefab.GetComponent<BulletBehaviour>().shotStregth = chargeTime;
-            shotqueued = true;
+            }
+            if (context.canceled)
+            {
+               
+                isCharging = false;
+                bulletPrefab.GetComponent<BulletBehaviour>().shotStregth = chargeTime;
+                chargeTime = 0;
+                chargeBar.fillAmount = 0f;
+                shotqueued = true;
+            }
         }
 
     }
@@ -57,13 +76,15 @@ public class WeaponControler : MonoBehaviour
 
     private void RotatePivotToMouse()
     {
-
-        // Get the position of the pivot in screen space
-        Vector3 pivotScreenPos = Camera.main.WorldToScreenPoint(pivot.transform.position);
-        Vector2 direction = mouseScreenPos - (Vector2)pivotScreenPos;
-        // Calculate the angle between the pivot and the mouse position
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        pivot.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
+        if (1 == 1)//add condition for selected unit
+        {
+            // Get the position of the pivot in screen space
+            Vector3 pivotScreenPos = Camera.main.WorldToScreenPoint(pivot.transform.position);
+            Vector2 direction = mouseScreenPos - (Vector2)pivotScreenPos;
+            // Calculate the angle between the pivot and the mouse position
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            pivot.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
+        }
     }
 
 

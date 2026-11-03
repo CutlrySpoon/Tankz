@@ -6,7 +6,7 @@ public class BulletBehaviour : MonoBehaviour
     public float startSpeed = 20f;
     public int damage = 10;
     public int penetration = 1;
-    public bool isExplosive = false;
+    private bool isExplosive = false;
     public float explosionRadius = 0f;
     public float lifetime = 5f;
     private float gravity = 9.81f;
@@ -16,7 +16,8 @@ public class BulletBehaviour : MonoBehaviour
     public bool zigZag = false;
     public float zigZagfrequency = 5f;
     private Vector3 baseDirection;
-
+    private Vector3 collisionPoint;
+    private bool firstCollision = true;
     void Start()
     {
         //set the initial velocity of the bullet
@@ -35,6 +36,10 @@ public class BulletBehaviour : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+        if (penetration != 0 && Vector3.Distance(collisionPoint, transform.position) > penetration && firstCollision == false)
+        {
+            Destroy(gameObject);
         }
         Vector3 travelDir = baseDirection;
         if (zigZag)
@@ -61,11 +66,12 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
+        
         // logic for doing damage
 
-        if(explosionRadius > 0f)
+        if (explosionRadius > 0f)
         {
+            isExplosive = true;
             Vector3 center = transform.position;
             Collider[] colliders = Physics.OverlapSphere(center, explosionRadius);
             
@@ -82,17 +88,19 @@ public class BulletBehaviour : MonoBehaviour
             Destroy(collision.gameObject.transform.parent.gameObject);
         }
 
-        if(penetration >= 0)
+        //after first collision, reduce penetration and continue moving unitl it reaches 0
+        if (firstCollision == true)
         {
-            penetration--;
+            firstCollision = false;
+            collisionPoint = transform.position;
+            
         }
-        else
+        if(penetration == 0)
         {
             Destroy(gameObject);
         }
 
-
-        if(collision.gameObject.GetComponent<UnitHealth>() != null)
+        if (collision.gameObject.GetComponent<UnitHealth>() != null)
         {
             UnitHealth doDamage = collision.gameObject.GetComponent<UnitHealth>();
             doDamage.TakeDamage(damage, isExplosive);

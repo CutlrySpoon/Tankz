@@ -89,16 +89,18 @@ public class UnitMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-
-        
-
-        Vector2 input = context.ReadValue<Vector2>();
-        moveInput = new Vector2(input.x, 0f);
-        if (input.y > 0 && (context.started || context.performed))
+        if (1 == 1)//add condition for selected unit
         {
-            if (grounded || grounded2)
+
+
+            Vector2 input = context.ReadValue<Vector2>();
+            moveInput = new Vector2(input.x, 0f);
+            if (input.y > 0 && (context.started || context.performed))
             {
-                jumpUp = true;
+                if (grounded || grounded2)
+                {
+                    jumpUp = true;
+                }
             }
         }
 

@@ -198,12 +198,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
   startSpeed: 5
   damage: 10
-  penetration: 1
-  isExplosive: 1
-  explosionRadius: 5
+  penetration: 3
+  explosionRadius: 0
   lifetime: 5
   weight: 0.2
-  shotStregth: 2.0800047
+  shotStregth: 3.1200333
   zigZag: 0
   zigZagfrequency: 5
 --- !u!136 &6906784112259460851

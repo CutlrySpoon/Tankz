@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class WeaponControler : MonoBehaviour
 {
@@ -8,10 +10,27 @@ public class WeaponControler : MonoBehaviour
     public GameObject pivot;
     public GameObject shootPoint;
     private Vector2 mouseScreenPos;
+    public Image chargeBar;
+    private bool isCharging = false;
+    [SerializeField] private float chargeTime = 0f;
+    [SerializeField] private float maxChargeTime = 2.5f;
+    [SerializeField] private float chargeRate = 1f;
+    private bool shotqueued = false;
 
-    void Update()
+    void FixedUpdate()
     {
         RotatePivotToMouse();
+        if (isCharging)
+        {
+            chargeTime = Mathf.PingPong(Time.time * chargeRate, maxChargeTime) + 1;
+
+            chargeBar.fillAmount = chargeTime/maxChargeTime;
+        }
+        if(shotqueued)//enter conditon for shoot turn
+        {
+            Instantiate(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation);
+            shotqueued = false;
+        }
     }
 
     public void LookAtMouse(InputAction.CallbackContext context)
@@ -21,9 +40,19 @@ public class WeaponControler : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        Instantiate(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation);
-    }
+        if (context.started)
+        {
+            isCharging = true;
 
+        }
+        if (context.canceled)
+        {
+            isCharging = false;
+            bulletPrefab.GetComponent<BulletBehaviour>().shotStregth = chargeTime;
+            shotqueued = true;
+        }
+
+    }
 
 
     private void RotatePivotToMouse()

@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: rayOffset
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 8375931838074745838, guid: 12a2d8cb8c0147f4291ea202e3300b81, type: 3}
+      propertyPath: chargeRate
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -4730,8 +4730,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   maxTurnTime: 60
   startingCash: 500
-  teamAMaterial: {fileID: 2100000, guid: 6f45fdb6f4fdce043b340d5dab9ca008, type: 2}
-  teamBMaterial: {fileID: 2100000, guid: 06c5adc1bca75d544b3cf4d3a660c8ff, type: 2}
+  teamAColour: {r: 0.22745098, g: 0.5568628, b: 0.6117647, a: 1}
+  teamBColour: {r: 0.6117647, g: 0.22745098, b: 0.22745098, a: 1}
 --- !u!1 &1340344282
 GameObject:
   m_ObjectHideFlags: 0

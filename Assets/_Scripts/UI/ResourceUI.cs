@@ -1,9 +1,15 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using static ResourceManager;
+
+// This is a UI prefab for displaying a given resource in the resource menu.
+
+// By OS.
 
 public class ResourceUI : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField]
     private Image resourceSprite;
     [SerializeField]
@@ -12,21 +18,22 @@ public class ResourceUI : MonoBehaviour
     private TextMeshProUGUI resourceCost;
     [SerializeField]
     private TextMeshProUGUI resourceDescription;
-    [Space(10)]
 
-    private SpawnableObject obj;
+    public ObjectData objectData { get; private set; }
 
-    public void SetUI(SpawnableObject obj)
+    // Assign the UI to its given resource data and display it in the resource menu.
+    public void SetUI(ObjectData obj)
     {
-        this.obj = obj;
+        this.objectData = obj;
         resourceSprite.sprite = obj.objectSprite;
         resourceName.text = obj.objectName;
         resourceCost.text = $"$ {obj.objectCost}";
         resourceDescription.text = obj.objectDescription;
     }
 
-    public void SpawnObject()
+    // Spawn the selected object, set its data and start following the pointer.
+    public void OnClick()
     {
-        
+        rm.SpawnObject(objectData);
     }
 }

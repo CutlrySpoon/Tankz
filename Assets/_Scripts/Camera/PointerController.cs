@@ -1,22 +1,26 @@
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using static GameManager;
 
-// This is a camera controller which is used to drag and zoom the camera around the playable area.
+// This is a pointer controller which is used for camera movement and object placement.
 
 // By OS.
 
-public class CameraController : MonoBehaviour
+public class PointerController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
     private Camera cam;
-
     [SerializeField]
     private GameObject camParent;
     [SerializeField]
     private Transform defaultPos;
+    [Space(5)]
+
+    [SerializeField]
+    private ResourceButton resourceButton;
     [Space(10)]
 
 
@@ -39,6 +43,10 @@ public class CameraController : MonoBehaviour
     private int scrollCount = 0;
 
     private bool holdingDrag;
+
+
+    private GameObject targetObject;
+    private bool isFollowing = false;
 
 
     private void Start()
@@ -102,7 +110,37 @@ public class CameraController : MonoBehaviour
             cam.orthographicSize = maxZoom;
             scrollCount = 0;
         }
+
+        if (isFollowing && targetObject != null)
+        {
+            Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(mousePos);
+            pointerPosition = new Vector3(Mathf.Ceil(pointerPosition.x) - 0.5f, Mathf.Ceil(pointerPosition.y) - 0.5f, 0f);
+            targetObject.transform.position = pointerPosition;
+        }
     }
+
+    // Stop object from following the pointer and place it in the world.
+    private void PlaceObject()
+    {
+        isFollowing = false;
+        targetObject = null;
+    }
+
+    // Start following the pointer with the given object.
+    public void FollowPointer(GameObject obj)
+    {
+        resourceButton.CloseMenu();
+        targetObject = obj;
+        this.isFollowing = true;
+    }
+
+    // Stop following the pointer and destroy the object.
+    public void StopFollowPointer()
+    {
+        Destroy(targetObject);
+        this.isFollowing = false;
+    }
+
 
     // Input
     public void OnMiddleClick(InputAction.CallbackContext context)
@@ -119,5 +157,21 @@ public class CameraController : MonoBehaviour
     public void OnScrollWheel(InputAction.CallbackContext context)
     {
         scroll = context.ReadValue<Vector2>();
+    }
+
+    public void OnLeftClick(InputAction.CallbackContext context)
+    {
+        if (context.performed && isFollowing)
+        {
+            PlaceObject();
+        }
+    }
+
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            StopFollowPointer();
+        }
     }
 }

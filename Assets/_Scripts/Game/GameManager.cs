@@ -34,9 +34,9 @@ public class GameManager : MonoBehaviour
     [Space(5)]
 
     [SerializeField]
-    public Material teamAMaterial;
+    public Color teamAColour;
     [SerializeField]
-    public Material teamBMaterial;
+    public Color teamBColour;
 
     //Game
     public bool inPlay { get; private set; } = false;

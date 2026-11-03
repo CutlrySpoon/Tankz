@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Graphics/Textures.meta
 guid: 166d52ea2f9e23d47ae844371ec8fbdd
 folderAsset: yes
 DefaultImporter:
+========
+guid: e48f3b68a08de4f44afea4b304b7f60a
+PrefabImporter:
+>>>>>>>> JM-Branch:Assets/Prefabs/bullet.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

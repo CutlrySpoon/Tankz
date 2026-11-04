@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Object
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 5
-  isTiled: 0
+  objectCost: 50
+  objectSize: {x: 1, y: 1}
   objectSprite: {fileID: 7482667652216324306, guid: ea0404cbe2feec84483796a2c0ea263b, type: 3}
   objectName: Test
   objectDescription: Testing object
-  objectCost: 50
-  objectSize: {x: 1, y: 1}
-  tileObject: {fileID: 0}
-  customMaterial: {fileID: 0}
+  useCustomColor: 0
+  customColor: {r: 1, g: 1, b: 1, a: 1}

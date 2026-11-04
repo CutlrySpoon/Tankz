@@ -18,4 +18,9 @@ public class ObjectController : MonoBehaviour
 
         collider.localScale = new Vector3(size.x, size.y, 1f);
     }
+
+    public void PlaceObject()
+    {
+        collider.tag = "Object";
+    }
 }

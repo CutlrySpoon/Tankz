@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using static GameManager;
+using static ResourceManager;
 
 // This is a pointer controller which is used for camera movement and object placement.
 
@@ -21,6 +22,13 @@ public class PointerController : MonoBehaviour
 
     [SerializeField]
     private ResourceButton resourceButton;
+
+    [SerializeField]
+    private PointerMarker pointerMarker;
+    [SerializeField]
+    private Sprite canPlaceMarker;
+    [SerializeField]
+    private Sprite cannotPlaceMarker;
     [Space(10)]
 
 
@@ -47,6 +55,7 @@ public class PointerController : MonoBehaviour
 
     private GameObject targetObject;
     private bool isFollowing = false;
+    private bool canPlaceObject = false;
 
 
     private void Start()
@@ -71,9 +80,23 @@ public class PointerController : MonoBehaviour
         camParent.transform.position = clampPos;        
     }
 
-    // Dragging and scrolling
     private void Update()
     {
+        CameraMovement();
+        ObjectMovement();
+
+        CheckPlacement();
+
+        if (!gm.inPlay && isFollowing)
+        {
+            StopFollowPointer();
+        }
+    }
+
+    // Camera movement and zooming
+    private void CameraMovement()
+    {
+        // Only allow camera movement and zooming if the game is in play mode.
         if (gm.inPlay)
         {
             if (holdingDrag)
@@ -104,26 +127,89 @@ public class PointerController : MonoBehaviour
 
             }
         }
+        // Reset camera position and zoom if the game is not in play mode to default.
         else
         {
             camParent.transform.position = defaultPos.position;
             cam.orthographicSize = maxZoom;
             scrollCount = 0;
         }
+    }
 
+    // Object movement to follow pointer.
+    private void ObjectMovement()
+    {
         if (isFollowing && targetObject != null)
         {
             Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(mousePos);
             pointerPosition = new Vector3(Mathf.Ceil(pointerPosition.x) - 0.5f, Mathf.Ceil(pointerPosition.y) - 0.5f, 0f);
             targetObject.transform.position = pointerPosition;
+            pointerMarker.transform.position = pointerPosition;
+        }
+    }
+
+    // Checking if object can be placed
+    private void CheckPlacement()
+    {
+        if (isFollowing && targetObject != null)
+        {
+            bool inTeamSection = false;
+            bool overGround = false;
+            bool isGrounded = false;
+            bool isTeamATurn = gm.turnCount % 2 == 0;
+
+            Ray ray = cam.ScreenPointToRay(mousePos);
+
+            //Check if the pointer is over a team section and not over ground.
+            foreach (RaycastHit hit in Physics.RaycastAll(ray, 100))
+            {
+                Collider col = hit.collider;
+
+                if (isTeamATurn && col.CompareTag("TeamASection"))
+                    inTeamSection = true;
+
+                else if (!isTeamATurn && col.CompareTag("TeamBSection"))
+                    inTeamSection = true;
+
+                else if (col.CompareTag("Ground") || col.CompareTag("Object"))
+                    overGround = true;
+            }            
+
+            // Check one tile below to see if the object is being placed on ground.
+            Ray offsetRay = new Ray(ray.origin + Vector3.down * 1f, ray.direction);
+
+            foreach (RaycastHit hit in Physics.RaycastAll(offsetRay, 100))
+            {
+                if(hit.collider.CompareTag("Ground") || hit.collider.CompareTag("Object"))
+                {
+                    isGrounded = true;
+                    break;
+                }
+            }
+
+
+            bool valid = inTeamSection && !overGround && isGrounded;
+
+            // Set UI marker to show if the obejct can be placed or not.
+            canPlaceObject = valid;
+            pointerMarker.SetMarker(valid ? canPlaceMarker : cannotPlaceMarker, valid ? Color.green : Color.red);
         }
     }
 
     // Stop object from following the pointer and place it in the world.
     private void PlaceObject()
     {
-        isFollowing = false;
-        targetObject = null;
+        if (canPlaceObject)
+        {
+            targetObject.GetComponent<ObjectController>().PlaceObject();
+
+            targetObject = null;
+            isFollowing = false;
+
+            canPlaceObject = false;
+
+            pointerMarker.SetMarker(null, Color.white);
+        }
     }
 
     // Start following the pointer with the given object.
@@ -138,7 +224,13 @@ public class PointerController : MonoBehaviour
     public void StopFollowPointer()
     {
         Destroy(targetObject);
-        this.isFollowing = false;
+
+        targetObject = null;
+        isFollowing = false;
+
+        canPlaceObject = false;
+
+        pointerMarker.SetMarker(null, Color.white);
     }
 
 

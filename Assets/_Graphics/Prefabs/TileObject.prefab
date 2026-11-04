@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7647132818064393662}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 7846661276702427814}
   m_Layer: 0
   m_Name: TileObject
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 5214739652055607846}
   m_Layer: 0
   m_Name: Mesh
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

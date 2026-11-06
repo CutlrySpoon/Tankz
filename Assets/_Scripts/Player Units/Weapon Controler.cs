@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class WeaponControler : MonoBehaviour
 {
+    
     public GameObject gun;
     public GameObject bulletPrefab;
     public GameObject pivot;
@@ -19,7 +20,7 @@ public class WeaponControler : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(1==1)//add condition for selected unit
+        if(PointerController.Instance.selectedUnit == this.gameObject)//add condition for selected unit
         {
             
             if (isCharging)
@@ -33,7 +34,7 @@ public class WeaponControler : MonoBehaviour
             {
                 RotatePivotToMouse();
             }
-            if (shotqueued)// && enter conditon for shoot turn
+            if (shotqueued && GameManager.gm.shootTurn)// && enter conditon for shoot turn
             {
                 Instantiate(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation);
                 shotqueued = false;
@@ -45,7 +46,7 @@ public class WeaponControler : MonoBehaviour
 
     public void LookAtMouse(InputAction.CallbackContext context)
     {
-        if (1 == 1)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject)//add condition for selected unit
         {
             mouseScreenPos = context.ReadValue<Vector2>();
         }
@@ -53,7 +54,7 @@ public class WeaponControler : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (1 == 1)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject)//add condition for selected unit
         {
             if (context.started)
             {
@@ -76,7 +77,7 @@ public class WeaponControler : MonoBehaviour
 
     private void RotatePivotToMouse()
     {
-        if (1 == 1)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject)//add condition for selected unit
         {
             // Get the position of the pivot in screen space
             Vector3 pivotScreenPos = Camera.main.WorldToScreenPoint(pivot.transform.position);

@@ -9,8 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1058337916205389752}
+<<<<<<< Updated upstream
   - component: {fileID: 434868789108037}
   m_Layer: 0
+=======
+  - component: {fileID: 7647132818064393662}
+  m_Layer: 3
+>>>>>>> Stashed changes
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7846661276702427814}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TileObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6729887555603793705}
   - component: {fileID: 5214739652055607846}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,47 +1,58 @@
+using System.Collections;
 using UnityEngine;
 
 public class UnitHealth : MonoBehaviour
 {
+    public float health = 100;
+    public float explosionResistance = 0f;
+    public float flashTime = 0.5f; // Duration of the flash
 
-    public int health;
-    public int  explosionResistane = 1;
-    public float flashTime;
+    private MeshRenderer savedRenderer;
+    private Color originalColor;
+    private Coroutine flashCoroutine;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        health = 100;
+        savedRenderer = GetComponent<MeshRenderer>();
+        if (savedRenderer != null)
+        {
+            originalColor = savedRenderer.material.color;
+        }
     }
 
     public void TakeDamage(int damage, bool isExplosive)
     {
-        bool damageTaken = false;
-        if(isExplosive == true)
+        if (isExplosive)
         {
-            health = health - (damage / (explosionResistane));
-            damageTaken = true;
+            health -= damage * (1f - explosionResistance);
         }
         else
         {
-            health = health - damage;
-            damageTaken = true;
+            health -= damage;
         }
-        
-        if (damageTaken == true)
+
+        // Trigger flash effect
+        if (savedRenderer != null)
         {
-           // MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
-            //Color defaultColor = renderer.material.color;
-            //
-             //   renderer.material.color = Color.white;
-              //  Debug.Log("flashing");
-
+            if (flashCoroutine != null)
+            {
+                StopCoroutine(flashCoroutine);
+            }
+            flashCoroutine = StartCoroutine(FlashWhiteRoutine());
         }
-
 
         if (health <= 0)
         {
-            // Add death sequence
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
+    }
+
+    private IEnumerator FlashWhiteRoutine()
+    {
+        savedRenderer.material.color = Color.white;
+        Debug.Log("Flashing white");
+        yield return new WaitForSeconds(flashTime);
+        savedRenderer.material.color = originalColor;
+        flashCoroutine = null;
     }
 }

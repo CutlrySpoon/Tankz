@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // This stores all core game data for other scripts to access
@@ -44,12 +45,13 @@ public class GameManager : MonoBehaviour
     public int turnCount { get; private set; } = 0;
     public int currentTurnTime { get; private set; } = 0;
     public int totalTurnTime { get; private set; } = 0;
-    public bool shootTurn { get; private set; } = false;
+    public bool shootTurn = false;
 
     //Team
     public int teamACash { get; private set; } = 0;
     public int teamBCash { get; private set; } = 0;
 
+    public bool blueTurn;
     //Logic
     float elapsedTime = 0;
 
@@ -99,31 +101,46 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         inPlay = false;
+        PointerController.Instance.selectedUnit = null;
         ShootTurn();
         turnCount++;
-
+        blueTurn = (turnCount % 2 == 0);
         currentTurnTime = maxTurnTime;
+        
     }
 
 
     public void PurchaseObject(int cost)
     {
         if (turnCount % 2 == 0)
+        {
+            blueTurn = true;
             teamACash -= cost;
+        }
         else
+        {
             teamBCash -= cost;
+            blueTurn = false;
+        }
+
     }
 
-    IEnumerator ShootTurn()
+    private void ShootTurn()
+    {
+        StartCoroutine(ManageShootTurnRoutine());
+    }
+
+    private IEnumerator ManageShootTurnRoutine()
     {
         shootTurn = true;
-        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
-        if (bullets.Length > 0)
-        {
-            WaitUntil wait = new WaitUntil(() => GameObject.FindGameObjectsWithTag("Bullet").Length == 0);
-            yield return wait;
-        }
+        Debug.Log("Shoot Turn Started");
+        
+        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Bullet").Length == 0);
+
+
         shootTurn = false;
-        yield return new WaitForSeconds(1f);
+        Debug.Log("Shoot Turn Ended");
     }
+    
+
 }

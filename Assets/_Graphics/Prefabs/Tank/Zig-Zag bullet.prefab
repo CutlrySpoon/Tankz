@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: -7468616801302794256}
   m_Layer: 0
   m_Name: Zig-Zag bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -446,9 +446,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
   startSpeed: 4
   damage: 10
+  penetration: 1
   explosionRadius: 0
   lifetime: 5
   weight: 0.14
+  shotStregth: 1
   zigZag: 1
   zigZagfrequency: 15
 --- !u!136 &6906784112259460851

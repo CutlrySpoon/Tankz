@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: -7468616801302794256}
   m_Layer: 0
   m_Name: bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,14 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a77169634ffc4699916bd2b56e248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
-  startSpeed: 5
-  damage: 10
-  penetration: 3
-  explosionRadius: 0
-  lifetime: 5
+  startSpeed: 6
+  damage: 35
+  penetration: 6
+  explosionRadius: 3
+  lifetime: 6
   weight: 0.2
-  shotStregth: 3.1200333
-  zigZag: 0
+  shotStregth: 1
   zigZagfrequency: 5
 --- !u!136 &6906784112259460851
 CapsuleCollider:

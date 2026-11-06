@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: -7468616801302794256}
   m_Layer: 0
   m_Name: AP shot
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,7 +199,6 @@ MonoBehaviour:
   startSpeed: 5
   damage: 10
   penetration: 5
-  isExplosive: 0
   explosionRadius: 5
   lifetime: 5
   weight: 0.2

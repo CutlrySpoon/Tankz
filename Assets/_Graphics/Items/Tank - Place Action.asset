@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f048e4c32a911a64db5a145dc02c8bef, type: 3}
+  m_Name: Tank - Place Action
+  m_EditorClassIdentifier: Assembly-CSharp::Object_Tank
+  tankPrefab: {fileID: 1678714860511866790, guid: 12a2d8cb8c0147f4291ea202e3300b81, type: 3}

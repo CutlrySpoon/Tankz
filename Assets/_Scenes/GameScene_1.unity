@@ -5479,7 +5479,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
   buildings:
   - {fileID: 11400000, guid: a3366e6af911d984080988f195abc13f, type: 2}
-  units: []
+  units:
+  - {fileID: 11400000, guid: af8f0ff227897b942815dccd73d30f16, type: 2}
   walls: []
   pointerController: {fileID: 1539581691}
   objectController: {fileID: 6513882334713031099, guid: f087f332fa2916647a14233145fd1e37, type: 3}
@@ -5559,6 +5560,7 @@ MonoBehaviour:
   zoomIncrement: 5
   minZoom: 15
   maxZoom: 75
+  selectedUnit: {fileID: 0}
 --- !u!114 &1539581692
 MonoBehaviour:
   m_ObjectHideFlags: 0

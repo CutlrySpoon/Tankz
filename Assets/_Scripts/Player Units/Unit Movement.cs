@@ -16,17 +16,30 @@ public class UnitMovement : MonoBehaviour
     private bool jumpUp;
     public float raycastDistance = 0.55f;
     public float rayOffset = 0.5f;
+    [HideInInspector] public bool isBlue;
 
     void Awake()
     {
+        if (GameManager.gm.turnCount % 2 == 0)
+        {
+            isBlue = true;
+        }
+        else
+        {
+            isBlue = false;
+        }
         layermask = LayerMask.GetMask("Ground");
     }
     void FixedUpdate()
-
     {
+        if(GetComponent<WeaponControler>().isCharging == true)
+        {
+            moveInput = Vector2.zero;
+        }
+        
+
         //check if the player is grounded by casting a ray down
         RaycastHit hit;
-
 
         grounded = Physics.Raycast(transform.position - new Vector3(rayOffset, 0f, 0f), Vector3.down, out hit, raycastDistance, layermask);
         grounded2 = Physics.Raycast(transform.position + new Vector3(rayOffset, 0f, 0f), Vector3.down, out hit, raycastDistance, layermask);
@@ -89,7 +102,7 @@ public class UnitMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (PointerController.Instance.selectedUnit == this.gameObject)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<WeaponControler>().shotqueued == false && isBlue == GameManager.gm.blueTurn)//add condition for selected unit
         {
 
 

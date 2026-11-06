@@ -13,7 +13,6 @@ public class BulletBehaviour : MonoBehaviour
     public float weight = 1f;
     public float shotStregth = 1f;
     private Vector3 velocity;
-    public bool zigZag = false;
     public float zigZagfrequency = 5f;
     private Vector3 baseDirection;
     private Vector3 collisionPoint;
@@ -39,10 +38,10 @@ public class BulletBehaviour : MonoBehaviour
         }
         if (penetration != 0 && Vector3.Distance(collisionPoint, transform.position) > penetration && firstCollision == false)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         Vector3 travelDir = baseDirection;
-        if (zigZag)
+        if (zigZagfrequency > 0)
         {
             // rotate the bullet's velocity vector by 45 degrees to create a zig-zag effect
             float flipDirection = Mathf.Sign(Mathf.Sin(Time.time * zigZagfrequency));
@@ -66,10 +65,15 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
-        // logic for doing damage
+        //after first collision, reduce penetration and continue moving unitl it reaches 0
+        if (firstCollision == true)
+        {
+            firstCollision = false;
+            collisionPoint = transform.position;
 
-        if (explosionRadius > 0f)
+        }
+        // logic for doing damage
+        if (explosionRadius > 0f && Vector3.Distance(collisionPoint, transform.position) >= penetration)
         {
             isExplosive = true;
             Vector3 center = transform.position;
@@ -77,35 +81,27 @@ public class BulletBehaviour : MonoBehaviour
             
             foreach (Collider hit in colliders)
             {
-                if (hit.gameObject.transform.parent != null)
+                if (hit.gameObject.transform.GetComponent<UnitHealth>() != null)
                 {
-                    Destroy(hit.gameObject.transform.parent.gameObject);
+                    //Destroy(hit.gameObject.transform.parent.gameObject);
+                    Debug.Log("Hit " + hit.gameObject.name + " with explosion");
+                    hit.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
                 }
             }
+            Destroy(gameObject);
         }
-        else if (collision.gameObject.transform.parent != null)
+        else if (collision.gameObject.transform.GetComponent<UnitHealth>() != null)
         {
-            Destroy(collision.gameObject.transform.parent.gameObject);
+            collision.gameObject.transform.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
         }
 
-        //after first collision, reduce penetration and continue moving unitl it reaches 0
-        if (firstCollision == true)
-        {
-            firstCollision = false;
-            collisionPoint = transform.position;
-            
-        }
-        if(penetration == 0)
+        
+        if(penetration == 0 && explosionRadius <= 0)
         {
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.GetComponent<UnitHealth>() != null)
-        {
-            UnitHealth doDamage = collision.gameObject.GetComponent<UnitHealth>();
-            doDamage.TakeDamage(damage, isExplosive);
-
-        }
+       
     }
 
 

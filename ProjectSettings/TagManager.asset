@@ -8,6 +8,7 @@ TagManager:
   - TeamBSection
   - Ground
   - Object
+  - Bullet
   layers:
   - Default
   - TransparentFX

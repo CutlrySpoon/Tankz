@@ -136,64 +136,90 @@ public class PointerController : MonoBehaviour
         }
     }
 
-    // Object movement to follow pointer.
+    // Object movement to follow pointer with grid snapping.
     private void ObjectMovement()
     {
         if (isFollowing && targetObject != null)
         {
-            Vector3 pointerPosition = Camera.main.ScreenToWorldPoint(mousePos);
-            pointerPosition = new Vector3(Mathf.Ceil(pointerPosition.x) - 0.5f, Mathf.Ceil(pointerPosition.y) - 0.5f, 0f);
-            targetObject.transform.position = pointerPosition;
-            pointerMarker.transform.position = pointerPosition;
+            ObjectController obj = targetObject.GetComponent<ObjectController>();
+
+            int width = Mathf.RoundToInt(obj.size.x);
+            int height = Mathf.RoundToInt(obj.size.y);
+
+            Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
+
+            Vector3 snapped = new Vector3(SnapAxis(worldPos.x, width), SnapAxis(worldPos.y, height), 0f);
+
+            targetObject.transform.position = snapped;
+            pointerMarker.transform.position = snapped;
         }
+    }
+
+    // Snap the object to the grid based on its size.
+    private float SnapAxis(float value, int size)
+    {
+        return size % 2 == 0 ? Mathf.Round(value) : Mathf.Floor(value) + 0.5f;
     }
 
     // Checking if object can be placed
     private void CheckPlacement()
     {
-        if (isFollowing && targetObject != null)
+        if (!isFollowing || targetObject == null) return;
+
+        ObjectController obj = targetObject.GetComponent<ObjectController>();
+
+        int width = Mathf.RoundToInt(obj.size.x);
+        int height = Mathf.RoundToInt(obj.size.y);
+
+        Vector3 origin = obj.center - new Vector3(width / 2f, height / 2f, 0f);
+
+        string collTag = gm.turnCount % 2 == 0 ? "TeamASection" : "TeamBSection";
+
+        bool inTeamSection = false;
+        bool overlapping = false;
+        bool overGround = false;
+
+        // Check each tile the object would occupy to see if it can be placed.
+        for (int x = 0; x < width; x++)
         {
-            bool inTeamSection = false;
-            bool overGround = false;
-            bool isGrounded = false;
-            bool isTeamATurn = gm.turnCount % 2 == 0;
-
-            Ray ray = cam.ScreenPointToRay(mousePos);
-
-            //Check if the pointer is over a team section and not over ground.
-            foreach (RaycastHit hit in Physics.RaycastAll(ray, 100))
+            for (int y = 0; y < height; y++)
             {
-                Collider col = hit.collider;
+                Vector3 checkPos = origin + new Vector3(x + 0.5f, y + 0.5f, 0f);
 
-                if (isTeamATurn && col.CompareTag("TeamASection"))
+                if (CanPlaceObject(checkPos, collTag, null))
                     inTeamSection = true;
+                if (CanPlaceObject(checkPos, "Object", "Ground"))
+                    overlapping = true;
 
-                else if (!isTeamATurn && col.CompareTag("TeamBSection"))
-                    inTeamSection = true;
-
-                else if (col.CompareTag("Ground") || col.CompareTag("Object"))
-                    overGround = true;
-            }            
-
-            // Check one tile below to see if the object is being placed on ground.
-            Ray offsetRay = new Ray(ray.origin + Vector3.down * 1f, ray.direction);
-
-            foreach (RaycastHit hit in Physics.RaycastAll(offsetRay, 100))
-            {
-                if(hit.collider.CompareTag("Ground") || hit.collider.CompareTag("Object"))
-                {
-                    isGrounded = true;
-                    break;
-                }
             }
-
-
-            bool valid = inTeamSection && !overGround && isGrounded;
-
-            // Set UI marker to show if the obejct can be placed or not.
-            canPlaceObject = valid;
-            pointerMarker.SetMarker(valid ? canPlaceMarker : cannotPlaceMarker, valid ? Color.green : Color.red);
         }
+
+        // Check if the object is over ground tiles.
+        for (int x = 0; x < width; x++)
+        {
+            Vector3 below = origin + new Vector3(x + 0.5f, -0.5f, 0f);
+
+            if (CanPlaceObject(below, "Ground", "Object"))
+                overGround = true;
+        }
+
+        bool valid = inTeamSection && !overlapping && overGround;
+
+        canPlaceObject = valid;
+        pointerMarker.SetMarker(valid ? canPlaceMarker : cannotPlaceMarker, valid ? Color.green : Color.red);
+    }
+
+    // Check if the object can be placed at the given position by checking for collisions with other objects or ground tiles.
+    private bool CanPlaceObject(Vector3 position, string tagA, string tagB)
+    {
+        Collider[] cols = Physics.OverlapBox(position, new Vector3(0.1f, 0.1f, 50f));
+
+        foreach (Collider col in cols)
+        {
+            if (col.CompareTag(tagA) || (tagB != null && col.CompareTag(tagB)))
+                return true;
+        }
+        return false;
     }
 
     // Stop object from following the pointer and place it in the world.

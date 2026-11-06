@@ -100,4 +100,12 @@ public class GameManager : MonoBehaviour
 
         currentTurnTime = maxTurnTime;
     }
+
+    public void PurchaseObject(int cost)
+    {
+        if (turnCount % 2 == 0)
+            teamACash -= cost;
+        else
+            teamBCash -= cost;
+    }
 }

@@ -10,7 +10,7 @@ public class ObjectData : ScriptableObject
     [Header("Settings")]
     public int health;
     public int objectCost;
-    [Space(5)]
+    [Space(10)]
 
     public Vector2 objectSize;
 
@@ -23,4 +23,7 @@ public class ObjectData : ScriptableObject
 
     public bool useCustomColor;
     public Color customColor;
+
+    [Space(5)]
+    public PlaceAction placeAction;
 }

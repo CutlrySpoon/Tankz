@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using static ResourceManager;
+using static GameManager;
 
 // This is a UI prefab for displaying a given resource in the resource menu.
 
@@ -26,6 +27,8 @@ public class ResourceUI : MonoBehaviour
     {
         this.objectData = obj;
         resourceSprite.sprite = obj.objectSprite;
+        resourceSprite.color = Color.white;
+        resourceSprite.SetNativeSize();
         resourceName.text = obj.objectName;
         resourceCost.text = $"$ {obj.objectCost}";
         resourceDescription.text = obj.objectDescription;

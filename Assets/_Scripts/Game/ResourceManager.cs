@@ -96,7 +96,7 @@ public class ResourceManager : MonoBehaviour
         }
 
         ObjectController obj = Instantiate(this.objectController, pointerController.transform.position, Quaternion.identity);
-        obj.SetObject(objectData.objectSprite, objectColour, objectData.objectSize);
+        obj.SetObject(objectData);
         pointerController.FollowPointer(obj.gameObject);
     }
 }

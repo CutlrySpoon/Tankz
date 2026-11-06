@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 // This stores all core game data for other scripts to access
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     public int turnCount { get; private set; } = 0;
     public int currentTurnTime { get; private set; } = 0;
     public int totalTurnTime { get; private set; } = 0;
+    public bool shootTurn { get; private set; } = false;
 
     //Team
     public int teamACash { get; private set; } = 0;
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     //Logic
     float elapsedTime = 0;
+
 
 
     private void Awake()
@@ -96,10 +99,12 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         inPlay = false;
+        ShootTurn();
         turnCount++;
 
         currentTurnTime = maxTurnTime;
     }
+
 
     public void PurchaseObject(int cost)
     {
@@ -107,5 +112,18 @@ public class GameManager : MonoBehaviour
             teamACash -= cost;
         else
             teamBCash -= cost;
+    }
+
+    IEnumerator ShootTurn()
+    {
+        shootTurn = true;
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+        if (bullets.Length > 0)
+        {
+            WaitUntil wait = new WaitUntil(() => GameObject.FindGameObjectsWithTag("Bullet").Length == 0);
+            yield return wait;
+        }
+        shootTurn = false;
+        yield return new WaitForSeconds(1f);
     }
 }

@@ -89,7 +89,7 @@ public class UnitMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (1 == 1)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject)//add condition for selected unit
         {
 
 

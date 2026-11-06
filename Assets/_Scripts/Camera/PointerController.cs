@@ -56,11 +56,15 @@ public class PointerController : MonoBehaviour
     private GameObject targetObject;
     private bool isFollowing = false;
     private bool canPlaceObject = false;
-
+    public GameObject selectedUnit = null;
+    public static PointerController Instance;
+    private LayerMask unitLayerMask;
 
     private void Start()
     {
+        unitLayerMask = LayerMask.GetMask("Units");
         cam.orthographicSize = maxZoom;
+        Instance = this;
     }
 
     // Clamp the camera max position based on the map size and zoom level
@@ -279,9 +283,16 @@ public class PointerController : MonoBehaviour
 
     public void OnLeftClick(InputAction.CallbackContext context)
     {
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        RaycastHit hit;
         if (context.performed && isFollowing)
         {
             PlaceObject();
+        }
+        if(context.performed && !isFollowing && Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayerMask))
+        {
+            selectedUnit = hit.collider.gameObject;
+            Debug.Log("Selected Unit: " + selectedUnit.name);
         }
     }
 
@@ -292,4 +303,5 @@ public class PointerController : MonoBehaviour
             StopFollowPointer();
         }
     }
+    
 }

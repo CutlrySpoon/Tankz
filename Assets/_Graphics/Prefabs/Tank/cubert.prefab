@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 5607351868229891723}
   - component: {fileID: 8375931838074745838}
   - component: {fileID: 1175972814953113712}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cubert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,6 +388,9 @@ MonoBehaviour:
   pivot: {fileID: 5207556468245680617}
   shootPoint: {fileID: 5786964197245504843}
   chargeBar: {fileID: 6761564686802107774}
+  chargeTime: 0
+  maxChargeTime: 2.5
+  chargeRate: 1
 --- !u!114 &1175972814953113712
 MonoBehaviour:
   m_ObjectHideFlags: 0

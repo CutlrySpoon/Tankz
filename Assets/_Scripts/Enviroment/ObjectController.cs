@@ -13,16 +13,35 @@ public class ObjectController : MonoBehaviour
     private Transform colliderTransform;
 
     public Vector2 size { get; private set; }
+
+    public Vector2Int WorldSize
+    {
+        get
+        {
+            int quarterTurns = Mathf.RoundToInt(transform.eulerAngles.z / 90f);
+            bool sideways = quarterTurns % 2 != 0;
+
+            int width = Mathf.RoundToInt(size.x);
+            int height = Mathf.RoundToInt(size.y);
+
+            return sideways ? new Vector2Int(height, width) : new Vector2Int(width, height);
+        }
+    }
+
     public Vector3 center => colliderTransform.position;
 
-    private PlaceAction placeAction;
-    private ObjectData objectData;
+    public ObjectData objectData { get; private set; }
+
+    private PlaceAction placeAction;   
 
     bool isPlaced = false;
 
-    public void SetObject(ObjectData data)
+    ResourceUI ui;
+
+    public void SetObject(ObjectData data, ResourceUI resourceUI)
     {
         objectData = data;
+        ui = resourceUI;
         size = data.objectSize;
         spriteRenderer.sprite = data.objectSprite;
         spriteRenderer.color = data.useCustomColor ? data.customColor : gm.turnCount % 2 == 0 ? gm.teamAColour : gm.teamBColour;
@@ -30,20 +49,27 @@ public class ObjectController : MonoBehaviour
         placeAction = data.placeAction;
 
         colliderTransform.localScale = new Vector3(data.objectSize.x, data.objectSize.y, 1f);
-
-        int spriteSize = data.objectSize.x > data.objectSize.y ? (int)data.objectSize.x : (int)data.objectSize.y;
-        spriteRenderer.transform.localScale = new Vector3(spriteSize, spriteSize, 1f);
     }
 
     public void PlaceObject()
     {
         isPlaced = true;
 
-        colliderTransform.tag = "Object";
-        gm.PurchaseObject(objectData.objectCost);
+        if (!objectData.isBuilding)
+            colliderTransform.tag = "Object";
+        else
+            colliderTransform.tag = "Building";
+        
+        if (gm.turnCount % 2 == 0)
+            gm.teamACash -= objectData.objectCost;
+        else
+            gm.teamBCash -= objectData.objectCost;
 
         placeAction?.OnPlace(this);
+
+        ui.PlaceObject();
     }
+
 
     private void OnDestroy()
     {

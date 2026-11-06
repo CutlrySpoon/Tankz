@@ -8,6 +8,7 @@ TagManager:
   - TeamBSection
   - Ground
   - Object
+  - Building
   layers:
   - Default
   - TransparentFX

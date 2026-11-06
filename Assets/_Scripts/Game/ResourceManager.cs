@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static GameManager;
 
@@ -50,6 +51,8 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     private GameObject wallsContainer;
 
+    [SerializeField]
+    private ResourceButton[] buttons;
 
     private void Awake()
     {
@@ -79,8 +82,13 @@ public class ResourceManager : MonoBehaviour
     }
 
     // Spawn the selected object, set its data and start following the pointer.
-    public void SpawnObject(ObjectData objectData)
+    public void SpawnObject(ObjectData objectData, ResourceUI ui)
     {
+        foreach(ResourceButton button in buttons)
+        {
+            button.CloseMenu();
+        }
+
         pointerController.StopFollowPointer();
 
         Color objectColour;
@@ -96,7 +104,8 @@ public class ResourceManager : MonoBehaviour
         }
 
         ObjectController obj = Instantiate(this.objectController, pointerController.transform.position, Quaternion.identity);
-        obj.SetObject(objectData);
+        obj.SetObject(objectData, ui);
+
         pointerController.FollowPointer(obj.gameObject);
     }
 }

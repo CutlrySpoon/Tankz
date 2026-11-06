@@ -4732,6 +4732,14 @@ MonoBehaviour:
   startingCash: 500
   teamAColour: {r: 0.22745098, g: 0.5568628, b: 0.6117647, a: 1}
   teamBColour: {r: 0.6117647, g: 0.22745098, b: 0.22745098, a: 1}
+  teamACash: 0
+  teamAResearch: 0
+  teamAPower: 0
+  teamAIncome: 0
+  teamBCash: 0
+  teamBResearch: 0
+  teamBPower: 0
+  teamBIncome: 0
 --- !u!1 &1340344282
 GameObject:
   m_ObjectHideFlags: 0

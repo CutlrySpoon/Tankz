@@ -1,9 +1,6 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 using static GameManager;
-using static ResourceManager;
 
 // This is a pointer controller which is used for camera movement and object placement.
 
@@ -82,10 +79,14 @@ public class PointerController : MonoBehaviour
 
     private void Update()
     {
-        CameraMovement();
-        ObjectMovement();
+        CameraMovement();        
 
-        CheckPlacement();
+        if (targetObject != null)
+        {
+            CheckPlacement();
+            ObjectMovement();
+        }
+            
 
         if (!gm.inPlay && isFollowing)
         {
@@ -143,8 +144,8 @@ public class PointerController : MonoBehaviour
         {
             ObjectController obj = targetObject.GetComponent<ObjectController>();
 
-            int width = Mathf.RoundToInt(obj.size.x);
-            int height = Mathf.RoundToInt(obj.size.y);
+            int width = obj.WorldSize.x;
+            int height = obj.WorldSize.y;
 
             Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
 
@@ -161,6 +162,12 @@ public class PointerController : MonoBehaviour
         return size % 2 == 0 ? Mathf.Round(value) : Mathf.Floor(value) + 0.5f;
     }
 
+    private void ObjectRotate(float degrees)
+    {
+        float z = Mathf.Round((targetObject.transform.eulerAngles.z + degrees) / 90f) * 90f;
+        targetObject.transform.rotation = Quaternion.Euler(0f, 0f, z);
+    }
+
     // Checking if object can be placed
     private void CheckPlacement()
     {
@@ -168,16 +175,17 @@ public class PointerController : MonoBehaviour
 
         ObjectController obj = targetObject.GetComponent<ObjectController>();
 
-        int width = Mathf.RoundToInt(obj.size.x);
-        int height = Mathf.RoundToInt(obj.size.y);
+        int width = obj.WorldSize.x;
+        int height = obj.WorldSize.y;
 
         Vector3 origin = obj.center - new Vector3(width / 2f, height / 2f, 0f);
 
         string collTag = gm.turnCount % 2 == 0 ? "TeamASection" : "TeamBSection";
+        string invCollTag = gm.turnCount % 2 == 0 ? "TeamBSection" : "TeamASection";
 
-        bool inTeamSection = false;
+        bool inTeamSection = true;
         bool overlapping = false;
-        bool overGround = false;
+        bool overGround = true;
 
         // Check each tile the object would occupy to see if it can be placed.
         for (int x = 0; x < width; x++)
@@ -186,21 +194,36 @@ public class PointerController : MonoBehaviour
             {
                 Vector3 checkPos = origin + new Vector3(x + 0.5f, y + 0.5f, 0f);
 
-                if (CanPlaceObject(checkPos, collTag, null))
-                    inTeamSection = true;
-                if (CanPlaceObject(checkPos, "Object", "Ground"))
-                    overlapping = true;
+                if (!obj.objectData.isWall)
+                {
+                    if (!CanPlaceObject(checkPos, collTag, null))
+                        inTeamSection = false;
+                    if (CanPlaceObject(checkPos, "Object", "Ground"))
+                        overlapping = true;
+                }
 
+                else
+                {
+                    if (CanPlaceObject(checkPos, invCollTag, null))
+                        inTeamSection = false;
+                    if (CanPlaceObject(checkPos, "Object", "Ground"))
+                        overlapping = true;
+                }
             }
         }
 
         // Check if the object is over ground tiles.
         for (int x = 0; x < width; x++)
         {
-            Vector3 below = origin + new Vector3(x + 0.5f, -0.5f, 0f);
+            if (!obj.objectData.isWall)
+            {
+                Vector3 below = origin + new Vector3(x + 0.5f, -0.5f, 0f);
 
-            if (CanPlaceObject(below, "Ground", "Object"))
-                overGround = true;
+                if (!CanPlaceObject(below, "Ground", "Object"))
+                    overGround = false;
+            }
+            else
+                overGround = true;                
         }
 
         bool valid = inTeamSection && !overlapping && overGround;
@@ -290,6 +313,22 @@ public class PointerController : MonoBehaviour
         if (context.performed)
         {
             StopFollowPointer();
+        }
+    }
+
+    public void OnKeyPressE(InputAction.CallbackContext context)
+    {
+        if (context.performed && targetObject != null)
+        {
+            ObjectRotate(90);
+        }
+    }
+
+    public void OnKeyPressQ(InputAction.CallbackContext context)
+    {
+        if (context.performed && targetObject != null)
+        {
+            ObjectRotate(-90);
         }
     }
 }

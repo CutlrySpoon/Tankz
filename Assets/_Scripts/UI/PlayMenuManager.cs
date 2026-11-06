@@ -40,6 +40,12 @@ public class PlayMenuManager : MonoBehaviour
     private string teamAName;
     [SerializeField]
     private TextMeshProUGUI teamACashText;
+    [SerializeField]
+    private TextMeshProUGUI teamAIncome;
+    [SerializeField]
+    private TextMeshProUGUI teamAPower;
+    [SerializeField]
+    private TextMeshProUGUI teamAResearch;
     [Space(5)]
 
     [Header("Team B")]
@@ -49,6 +55,12 @@ public class PlayMenuManager : MonoBehaviour
     private string teamBName;
     [SerializeField]
     private TextMeshProUGUI teamBCashText;
+    [SerializeField]
+    private TextMeshProUGUI teamBIncome;
+    [SerializeField]
+    private TextMeshProUGUI teamBPower;
+    [SerializeField]
+    private TextMeshProUGUI teamBResearch;
 
 
     // Set the UI to the correct format and data from the begining.
@@ -89,6 +101,17 @@ public class PlayMenuManager : MonoBehaviour
 
         var ts = TimeSpan.FromSeconds(gm.totalTurnTime);
         totalTurnTimeText.text = ts.Minutes.ToString("00") + ":" + ts.Seconds.ToString("00");
+
+        teamACashText.text = $"$ {gm.teamACash}";
+        teamBCashText.text = $"$ {gm.teamBCash}";
+
+        teamAIncome.text = $"{gm.teamAIncome}";
+        teamAPower.text = $"{gm.teamAPower}";
+        teamAResearch.text = $"{gm.teamAResearch}";
+
+        teamBIncome.text = $"{gm.teamBIncome}";
+        teamBPower.text = $"{gm.teamBPower}";
+        teamBResearch.text = $"{gm.teamBResearch}";
     }
 
     // Set the UI to the correct team turn

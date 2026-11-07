@@ -11,8 +11,6 @@ public class ResourceButton : MonoBehaviour
     [SerializeField]
     private RectTransform targetObject;
     [SerializeField]
-    private Button button;
-    [SerializeField]
     private RectTransform contentParent;
     [SerializeField]
     private GameObject targetContent;

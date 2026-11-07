@@ -13,12 +13,20 @@ MonoBehaviour:
   m_Name: FOB - Object
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 5
-  objectCost: 50
+  objectCost: 0
+  maxObjects: 1
+  requiresPower: 0
+  requiresResearch: 0
+  isWall: 0
+  isBuilding: 1
+  canRotate: 0
   objectSize: {x: 2, y: 3}
   objectSprite: {fileID: 21300000, guid: 931bc73973024694cb5de8e131559a11, type: 3}
   objectName: FOB
-  objectDescription: "Forward operating base. Manages units and buildings.\n[+2 Units]
-    \n[Must not be destroyed by enemy]"
+  objectDescription: 'Forward operating base. Protect at all costs.
+
+    [+2 Units]
+    [+2 Research] '
   useCustomColor: 0
   customColor: {r: 1, g: 1, b: 1, a: 1}
   placeAction: {fileID: 11400000, guid: 171774b99699364408e1123aaa645f79, type: 2}

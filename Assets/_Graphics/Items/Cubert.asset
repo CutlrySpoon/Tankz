@@ -21,7 +21,7 @@ MonoBehaviour:
   isBuilding: 0
   canRotate: 0
   objectSize: {x: 1, y: 1}
-  objectSprite: {fileID: 7482667652216324306, guid: ea0404cbe2feec84483796a2c0ea263b, type: 3}
+  objectSprite: {fileID: 21300000, guid: ea0404cbe2feec84483796a2c0ea263b, type: 3}
   objectName: Cuber
   objectDescription: Testing object
   useCustomColor: 0

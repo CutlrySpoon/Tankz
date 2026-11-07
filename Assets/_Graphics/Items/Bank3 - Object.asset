@@ -16,7 +16,7 @@ MonoBehaviour:
   objectCost: 800
   maxObjects: 5
   requiresPower: 0
-  requiresResearch: 0
+  requiresResearch: 1
   isWall: 0
   isBuilding: 1
   canRotate: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     private int TurnCount;
 
 
-    public bool blueTurn;
+    public bool blueTurn = true;
     //Logic
     float elapsedTime = 0;
 
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
     // Reset timer
     private void Start()
     {
+        blueTurn = true;
         currentTurnTime = maxTurnTime;
 
         teamACash = startingCash;
@@ -123,10 +125,12 @@ public class GameManager : MonoBehaviour
 
         if (turnCount % 2 == 0)
         {
+            blueTurn = true;
             teamACash += teamAIncome;
         }
         else
         {
+            blueTurn = false;
             teamBCash += teamBIncome;
         }
     }
@@ -134,12 +138,12 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         inPlay = false;
-        PointerController.Instance.selectedUnit = null;
-        ShootTurn();
-        turnCount++;
-        blueTurn = (turnCount % 2 == 0);
-        currentTurnTime = maxTurnTime;
-        
+        if (PointerController.Instance != null)
+        {
+            PointerController.Instance.selectedUnit = null;
+        }
+
+        StartCoroutine(ManageShootTurn());
     }
 
 
@@ -158,22 +162,51 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void ShootTurn()
+    public struct QueuedShot
     {
-        StartCoroutine(ManageShootTurnRoutine());
+        public GameObject prefab;
+        public Vector3 position;
+        public Quaternion rotation;
+        public float strength;
     }
 
-    private IEnumerator ManageShootTurnRoutine()
+
+    private Queue<QueuedShot> shotQueue = new Queue<QueuedShot>();
+
+    public void QueueShot(GameObject prefab, Vector3 pos, Quaternion rot, float strength)
     {
-        shootTurn = true;
-        Debug.Log("Shoot Turn Started");
+        shotQueue.Enqueue(new QueuedShot { prefab = prefab, position = pos, rotation = rot, strength = strength });
+    }
+
+
+
+    private IEnumerator ManageShootTurn()
+    {
+        PlayMenuManager.instance.turnScreen.SetActive(false);
         
-        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Bullet").Length == 0);
+        shootTurn = true;
+        while (shotQueue.Count > 0)
+        {
+            QueuedShot shot = shotQueue.Dequeue();
+            GameObject bullet = Instantiate(shot.prefab, shot.position, shot.rotation);
+            BulletBehaviour bulletScript = bullet.GetComponent<BulletBehaviour>();
+            if (bulletScript != null)
+            {
+                bulletScript.shotStregth = shot.strength;
+            }
 
-
+            yield return new WaitUntil(() => bullet == null);
+            yield return new WaitForSeconds(1f);
+        }
+        
+        turnCount++;
+        blueTurn = (turnCount % 2 == 0);
+        currentTurnTime = maxTurnTime;
         shootTurn = false;
         Debug.Log("Shoot Turn Ended");
+        PlayMenuManager.instance.SetUI();
+        PlayMenuManager.instance.turnScreen.SetActive(true);
     }
-    
+
 
 }

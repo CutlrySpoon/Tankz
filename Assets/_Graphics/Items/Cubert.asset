@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 5
   objectCost: 50
+  maxObjects: 5
+  requiresPower: 0
+  requiresResearch: 0
+  isWall: 0
+  isBuilding: 0
+  canRotate: 0
   objectSize: {x: 1, y: 1}
   objectSprite: {fileID: 7482667652216324306, guid: ea0404cbe2feec84483796a2c0ea263b, type: 3}
   objectName: Cuber

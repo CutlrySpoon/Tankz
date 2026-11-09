@@ -14,6 +14,7 @@ public class UnitMovement : MonoBehaviour
     private float gravity = 9.81f;
     public float jumpHeight = 8f;
     private bool jumpUp;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [HideInInspector] public bool isBlue;
 
     void Awake()
@@ -115,6 +116,14 @@ public class UnitMovement : MonoBehaviour
 
             Vector2 input = context.ReadValue<Vector2>();
             moveInput = new Vector2(input.x, 0f);
+            if(input.x > 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (input.x < 0)
+            {
+                spriteRenderer.flipX = false;
+            }
             if (input.y > 0 && (context.started || context.performed))
             {
                 if (grounded)

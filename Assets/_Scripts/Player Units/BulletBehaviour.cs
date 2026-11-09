@@ -12,6 +12,7 @@ public class BulletBehaviour : MonoBehaviour
     private float gravity = 9.81f;
     public float weight = 1f;
     public float shotStregth = 1f;
+    public GameObject explosionEffectPrefab;
     private Vector3 velocity;
     public float zigZagfrequency = 5f;
     private Vector3 baseDirection;
@@ -75,6 +76,7 @@ public class BulletBehaviour : MonoBehaviour
         // logic for doing damage
         if (explosionRadius > 0f && Vector3.Distance(collisionPoint, transform.position) >= penetration)
         {
+            
             isExplosive = true;
             Vector3 center = transform.position;
             Collider[] colliders = Physics.OverlapSphere(center, explosionRadius);
@@ -88,6 +90,7 @@ public class BulletBehaviour : MonoBehaviour
                     hit.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
                 }
             }
+            Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         else if (collision.gameObject.transform.GetComponent<UnitHealth>() != null)

@@ -198,11 +198,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
   startSpeed: 6
   damage: 35
-  penetration: 6
+  penetration: 8
   explosionRadius: 3
   lifetime: 6
   weight: 0.2
   shotStregth: 1
+  explosionEffectPrefab: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}
   zigZagfrequency: 0
 --- !u!136 &6906784112259460851
 CapsuleCollider:

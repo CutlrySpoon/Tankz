@@ -61,9 +61,25 @@ public class ObjectController : MonoBehaviour
             colliderTransform.tag = "Building";
         
         if (gm.turnCount % 2 == 0)
+        {
             gm.teamACash -= objectData.objectCost;
+
+            if (objectData.requiresResearch)
+                gm.teamAResearch--;
+            if (objectData.requiresPower)
+                gm.teamAPower--;
+        }
+            
         else
+        {
             gm.teamBCash -= objectData.objectCost;
+
+            if (objectData.requiresResearch)
+                gm.teamBResearch--;
+            if (objectData.requiresPower)
+                gm.teamBPower--;
+        }
+            
 
         placeAction?.OnPlace(this);
 

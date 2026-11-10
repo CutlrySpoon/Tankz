@@ -25,6 +25,16 @@ public class ResourceUI : MonoBehaviour
     private GameObject dissabledScreen;
     [SerializeField]
     private TextMeshProUGUI dissabledText;
+    [Space(5)]
+
+    [SerializeField]
+    private GameObject countObject;
+    [SerializeField]
+    private GameObject requirementImage;
+    [SerializeField]
+    private Sprite powerSprite;
+    [SerializeField]
+    private Sprite researchSprite;
 
 
     public ObjectData objectData { get; private set; }
@@ -57,6 +67,26 @@ public class ResourceUI : MonoBehaviour
         resourceName.text = obj.objectName;
         resourceCost.text = $"$ {obj.objectCost}";
         resourceDescription.text = obj.objectDescription;
+
+        if (obj.requiresPower)
+        {
+            countObject.SetActive(false);
+            requirementImage.SetActive(true);
+
+            requirementImage.GetComponent<Image>().sprite = powerSprite;
+        }
+        else if (obj.requiresResearch)
+        {
+            countObject.SetActive(false);
+            requirementImage.SetActive(true);
+
+            requirementImage.GetComponent<Image>().sprite = researchSprite;
+        }
+        else
+        {
+            countObject.SetActive(true);
+            requirementImage.SetActive(false);
+        }
     }
 
     private void UpdateUI()
@@ -71,21 +101,27 @@ public class ResourceUI : MonoBehaviour
         bool notEnoughCash = cash < objectData.objectCost;
 
         int max = objectData.maxObjects;
-        string blockedReason = "MAX REACHED";
+        string blockedReason = count >= max ? "MAX REACHED": null;
 
         if (notEnoughCash)
             blockedReason = "NOT ENOUGH CASH";
 
-        else if (objectData.requiresPower)
+        if (objectData.requiresPower)
         {
-            max = power;
-            blockedReason = "NOT ENOUGH POWER";
+            if (power < 1)
+            {
+                blockedReason = "NOT ENOUGH POWER";
+                max = 0;
+            }                
         }
 
         else if (objectData.requiresResearch)
         {
-            max = research;
-            blockedReason = "NOT ENOUGH RESEARCH";
+            if (research < 1)
+            {
+                blockedReason = "NOT ENOUGH RESEARCH";
+                max = 0;
+            }                
         }
 
         if (isTeamA)

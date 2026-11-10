@@ -1,6 +1,6 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using static ResourceManager;
 
 // This stores all core game data for other scripts to access
 
@@ -139,7 +139,8 @@ public class GameManager : MonoBehaviour
         turnCount++;
         blueTurn = (turnCount % 2 == 0);
         currentTurnTime = maxTurnTime;
-        
+
+        rm.CloseMenu();
     }
 
 

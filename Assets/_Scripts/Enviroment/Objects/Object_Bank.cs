@@ -14,14 +14,16 @@ public class Object_Bank : PlaceAction
         if (gm.turnCount % 2 == 0)
         {
             gm.teamAIncome += income;
+            isTeamA = true;
         }
 
         else
         {
             gm.teamBIncome += income;
+            isTeamA = false;
         }
 
-        Debug.Log("Bank1 placed");
+        Debug.Log("Bank placed");
     }
 
     public override void OnObjectDestroyed(ObjectController obj)
@@ -36,6 +38,6 @@ public class Object_Bank : PlaceAction
             gm.teamBIncome -= income;
         }
 
-        Debug.Log("Bank1 destroyed");
+        Debug.Log("Bank destroyed");
     }
 }

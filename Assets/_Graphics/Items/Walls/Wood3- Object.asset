@@ -14,15 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 10
   objectCost: 100
-  maxObjects: 5
-  isTroop: 0
-  isBuilding: 0
+  maxObjects: 15
+  requiresPower: 0
+  requiresResearch: 0
   isWall: 1
+  isBuilding: 0
   canRotate: 1
   objectSize: {x: 3, y: 1}
   objectSprite: {fileID: 21300000, guid: acdb8311e4e38f744b8c4874ea1cf584, type: 3}
   objectName: Wood 1x3
-  objectDescription: Wooden wall. Weak but affordable defence
+  objectDescription: Wooden Wall. Weak but affordable defence
   useCustomColor: 1
   customColor: {r: 1, g: 1, b: 1, a: 1}
   placeAction: {fileID: 0}

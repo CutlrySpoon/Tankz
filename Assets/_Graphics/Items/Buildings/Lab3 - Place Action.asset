@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c9f9c6ff9dce74c9eb6d7365b37d92, type: 3}
-  m_Name: FOB - Place Action
-  m_EditorClassIdentifier: Assembly-CSharp::Object_FOB
+  m_Script: {fileID: 11500000, guid: 58f13f76377475e48a308316f9f7636d, type: 3}
+  m_Name: Lab3 - Place Action
+  m_EditorClassIdentifier: Assembly-CSharp::Object_Lab
+  research: 6

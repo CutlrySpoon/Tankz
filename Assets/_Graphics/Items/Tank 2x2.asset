@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tank 2x2
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 100
+  explosionResistance: 0
   objectCost: 50
   maxObjects: 2
   requiresPower: 0
@@ -26,4 +27,6 @@ MonoBehaviour:
   objectDescription: 
   useCustomColor: 0
   customColor: {r: 0, g: 0, b: 0, a: 0}
+  deathEffect: {fileID: 0}
   placeAction: {fileID: 11400000, guid: 3ba024c620b9282418b79806dd2a0f94, type: 2}
+  healthBar: {fileID: 3570146258254840631, guid: 0437167346aaa394e9b23749902a235d, type: 3}

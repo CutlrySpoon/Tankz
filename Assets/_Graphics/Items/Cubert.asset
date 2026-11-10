@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c17da4d16d53547893ead8b1385b2c, type: 3}
   m_Name: Cubert
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
-  health: 5
+  health: 100
+  explosionResistance: 0
   objectCost: 50
   maxObjects: 5
   requiresPower: 0
@@ -26,4 +27,6 @@ MonoBehaviour:
   objectDescription: Testing object
   useCustomColor: 0
   customColor: {r: 0, g: 0, b: 0, a: 0}
+  deathEffect: {fileID: 0}
   placeAction: {fileID: 11400000, guid: c05ac672f1fe4904a97d0a4e16d9148c, type: 2}
+  healthBar: {fileID: 3570146258254840631, guid: 0437167346aaa394e9b23749902a235d, type: 3}

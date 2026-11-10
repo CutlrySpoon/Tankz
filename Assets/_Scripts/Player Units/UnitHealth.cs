@@ -16,8 +16,6 @@ public class UnitHealth : MonoBehaviour
     
     [SerializeField] private HealthBarPrefab healthUI;
 
-    bool setHealthUI = false;
-
     public void SetUnit(int health, int explosionResistance, float offset)
     {
         this.health = health;
@@ -27,21 +25,25 @@ public class UnitHealth : MonoBehaviour
 
         savedRenderer = GetComponent<MeshRenderer>();
 
-        if (healthUI != null)
-        {
-            healthUI.damageText.alpha = 1f;
-            healthUI.healthBar.fillAmount = health / maxHealth;
-            healthUI.healthBarText.text = health.ToString();
-
-            Vector3 pos = new Vector3(transform.position.x, transform.position.y - (offset / 2), transform.position.z);
-
-            if (setHealthUI)
-                this.healthUI = Instantiate(healthUI, pos, Quaternion.identity, transform);
-        }
-
         if (savedRenderer != null)
         {
             originalColor = savedRenderer.material.color;
+        }
+
+        SetHealthUI(offset);
+    }
+
+    public void SetHealthUI(float offset)
+    {
+        if (healthUI != null)
+        {
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y - (offset / 2), transform.position.z);
+
+            this.healthUI = Instantiate(healthUI, pos, Quaternion.identity, transform);
+
+            healthUI.damageText.alpha = 1f;
+            healthUI.healthBar.fillAmount = health / maxHealth;
+            healthUI.healthBarText.text = health.ToString();
         }
     }
 
@@ -53,7 +55,6 @@ public class UnitHealth : MonoBehaviour
     public void SetHealthBar(HealthBarPrefab healthBar)
     {
         this.healthUI = healthBar;
-        setHealthUI = true;
     }
 
     private void Update()

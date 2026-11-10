@@ -10,7 +10,7 @@ public class PointerController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    private Camera cam;
+    public Camera cam;
     [SerializeField]
     private GameObject camParent;
     [SerializeField]
@@ -34,10 +34,10 @@ public class PointerController : MonoBehaviour
     private int zoomIncrement;
 
     [SerializeField]
-    private int minZoom;
+    public int minZoom;
 
     [SerializeField]
-    private int maxZoom;
+    public int maxZoom;
 
 
     private Vector3 mousePos;
@@ -306,6 +306,7 @@ public class PointerController : MonoBehaviour
 
     public void OnLeftClick(InputAction.CallbackContext context)
     {
+        Debug.Log("is following: " + isFollowing);
         Ray ray = cam.ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (context.performed && isFollowing)
@@ -324,6 +325,10 @@ public class PointerController : MonoBehaviour
         if (context.performed)
         {
             StopFollowPointer();
+            if(selectedUnit != null)
+            {
+                selectedUnit = null;
+            }
         }
     }
 

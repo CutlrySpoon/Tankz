@@ -20,6 +20,7 @@ public class WeaponControler : MonoBehaviour
     public bool shotqueued = false;
     private float finalShotStrength = 0f;
     private float selectionTime = 0f;
+    private bool hitMaxCharge = false;
 
     void FixedUpdate()
     {
@@ -34,18 +35,20 @@ public class WeaponControler : MonoBehaviour
         selectionTime += Time.fixedDeltaTime;
         if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)//add condition for selected unit
         {
-            
+
             if (isCharging)
             {
-                if(chargeTime < maxChargeTime)
+                if (chargeTime < maxChargeTime && hitMaxCharge == false)
                 {
                     chargeTime += chargeRate * Time.fixedDeltaTime;
+                    if (chargeTime >= maxChargeTime) hitMaxCharge = true;
+
                 }
-                else
+                else if (hitMaxCharge == true)
                 {
                     chargeTime -= chargeRate * Time.fixedDeltaTime;
+                    if (chargeTime <= 0) hitMaxCharge = false;
                 }
-
 
                 chargeBar.fillAmount = ((chargeTime) / (maxChargeTime));
             }
@@ -63,26 +66,13 @@ public class WeaponControler : MonoBehaviour
     {
         if (shotqueued == true)
         {
-
-            if (GameManager.gm.shootTurn)
-            {
-                GameObject newBullet = Instantiate(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation);
-
-                // Pass the stored charge strength to the bullet
-                BulletBehaviour bulletScript = newBullet.GetComponent<BulletBehaviour>();
-                if (bulletScript != null)
-                {
-                    bulletScript.shotStregth = finalShotStrength;
-                }
-
-
-                // Reset after the shot
-                shotqueued = false;
-                chargeTime = 0;
-                chargeBar.fillAmount = 0f;
-            }
+            GameManager.gm.QueueShot(bulletPrefab,shootPoint.transform.position,shootPoint.transform.rotation,finalShotStrength);
+            shotqueued = false;
+            chargeTime = 0;
+            chargeBar.fillAmount = 0f;
         }
     }
+
     public void LookAtMouse(InputAction.CallbackContext context)
     {
         if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)//add condition for selected unit
@@ -93,8 +83,7 @@ public class WeaponControler : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-
-            if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && selectionTime > 0.5f)
+        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && selectionTime > 0.5f)
             {
                 if (GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
                 {

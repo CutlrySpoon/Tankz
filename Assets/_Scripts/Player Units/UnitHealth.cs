@@ -6,6 +6,7 @@ public class UnitHealth : MonoBehaviour
     public float health = 100;
     public float explosionResistance = 0f;
     public float flashTime = 0.5f; // Duration of the flash
+    public GameObject deathFX;
 
     private MeshRenderer savedRenderer;
     private Color originalColor;
@@ -43,6 +44,10 @@ public class UnitHealth : MonoBehaviour
 
         if (health <= 0)
         {
+            if(deathFX != null && isExplosive == false)
+            {
+                Instantiate(deathFX, transform.position, Quaternion.identity);
+            }   
             Destroy(gameObject);
         }
     }

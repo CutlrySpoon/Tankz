@@ -11,9 +11,10 @@ using static UIManager;
 
 public class PlayMenuManager : MonoBehaviour
 {
+
     [Header("UI")]
     [SerializeField]
-    private GameObject turnScreen;
+    public GameObject turnScreen;
     [SerializeField]
     private Image turnScreenImage;
     [SerializeField]
@@ -62,10 +63,11 @@ public class PlayMenuManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI teamBResearch;
 
-
+    public static PlayMenuManager instance;
     // Set the UI to the correct format and data from the begining.
     private void Start()
     {
+        instance = this;
         turnScreen.SetActive(true);
         SetUI();
 
@@ -115,7 +117,7 @@ public class PlayMenuManager : MonoBehaviour
     }
 
     // Set the UI to the correct team turn
-    private void SetUI()
+    public void SetUI()
     {
         if (IsBlueTurn())
         {
@@ -144,8 +146,12 @@ public class PlayMenuManager : MonoBehaviour
     
     public void OnEndTurnButtonClick()
     {
-        gm.EndTurn();
-        SetUI();
-        turnScreen.SetActive(true);
+        if(gm.shootTurn != true)
+        {
+            gm.EndTurn();
+            SetUI();
+        }
+
+        
     }
 }

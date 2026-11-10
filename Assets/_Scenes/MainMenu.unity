@@ -4740,6 +4740,8 @@ MonoBehaviour:
   teamBResearch: 0
   teamBPower: 0
   teamBIncome: 0
+  shootTurn: 0
+  blueTurn: 0
 --- !u!1 &1340344282
 GameObject:
   m_ObjectHideFlags: 0

@@ -6862,6 +6862,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ae21e5eaa7a7ade43bebc15993fd053b, type: 2}
   units:
   - {fileID: 11400000, guid: af8f0ff227897b942815dccd73d30f16, type: 2}
+  - {fileID: 11400000, guid: 0e6c0ef059145ee45a3e58e7e293c2b4, type: 2}
   walls:
   - {fileID: 11400000, guid: 38c270f9734330e4d8472b8bd2898a34, type: 2}
   - {fileID: 11400000, guid: fa88d144033be7c478048e42c2b90c3f, type: 2}
@@ -6948,7 +6949,7 @@ MonoBehaviour:
   cannotPlaceMarker: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   zoomIncrement: 5
   minZoom: 15
-  maxZoom: 75
+  maxZoom: 50
   selectedUnit: {fileID: 0}
 --- !u!114 &1539581692
 MonoBehaviour:

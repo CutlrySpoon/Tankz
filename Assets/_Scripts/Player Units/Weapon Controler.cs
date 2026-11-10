@@ -21,10 +21,11 @@ public class WeaponControler : MonoBehaviour
     private float finalShotStrength = 0f;
     private float selectionTime = 0f;
     private bool hitMaxCharge = false;
+    private bool hasShot = false;
 
     void FixedUpdate()
     {
-        if(PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)//add condition for selected unit
+        if(PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
         {
             selectionTime += Time.fixedDeltaTime;
         }
@@ -33,7 +34,7 @@ public class WeaponControler : MonoBehaviour
             selectionTime = 0f;
         }
         selectionTime += Time.fixedDeltaTime;
-        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
         {
 
             if (isCharging)
@@ -64,18 +65,19 @@ public class WeaponControler : MonoBehaviour
     }
     private void Update()
     {
-        if (shotqueued == true)
+        if(PointerController.Instance.selectedUnit != this.gameObject)
         {
-            GameManager.gm.QueueShot(bulletPrefab,shootPoint.transform.position,shootPoint.transform.rotation,finalShotStrength);
-            shotqueued = false;
-            chargeTime = 0;
-            chargeBar.fillAmount = 0f;
+            ResetUI();
+        }
+        if (GameManager.gm.shootTurn == true)
+        {
+            hasShot = false;
         }
     }
 
     public void LookAtMouse(InputAction.CallbackContext context)
     {
-        if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
         {
             mouseScreenPos = context.ReadValue<Vector2>();
         }
@@ -83,7 +85,7 @@ public class WeaponControler : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && selectionTime > 0.5f)
+        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && selectionTime > 0.5f && GetComponent<UnitMovement>().grounded == true)
             {
                 if (GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
                 {
@@ -102,14 +104,21 @@ public class WeaponControler : MonoBehaviour
                     shotqueued = true;
                     PointerController.Instance.selectedUnit = null;
                 }
-            }
+        }
+        if (shotqueued == true && GetComponent<UnitMovement>().grounded == true && hasShot == false)
+        {
+            GameManager.gm.QueueShot(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation, finalShotStrength);
+            shotqueued = false;
+            ResetUI();
+            hasShot = true;
+        }
 
     }
 
 
     private void RotatePivotToMouse()
     {
-        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)//add condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
         {
             // Get the position of the pivot in screen space
             Vector3 pivotScreenPos = Camera.main.WorldToScreenPoint(pivot.transform.position);
@@ -120,6 +129,12 @@ public class WeaponControler : MonoBehaviour
         }
     }
 
-
+    public void ResetUI()
+    {
+        chargeTime = 0f;
+        chargeBar.fillAmount = 0f;
+        isCharging = false;
+        hitMaxCharge = false;
+    }
 
 }

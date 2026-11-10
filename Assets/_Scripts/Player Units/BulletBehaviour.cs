@@ -18,6 +18,7 @@ public class BulletBehaviour : MonoBehaviour
     private Vector3 baseDirection;
     private Vector3 collisionPoint;
     private bool firstCollision = true;
+    private bool detonate = false;
     void Start()
     {
         //set the initial velocity of the bullet
@@ -66,6 +67,11 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.layer == LayerMask.NameToLayer("Building"))
+        {
+            detonate = true;
+        }
         //after first collision, reduce penetration and continue moving unitl it reaches 0
         if (firstCollision == true)
         {
@@ -74,7 +80,7 @@ public class BulletBehaviour : MonoBehaviour
 
         }
         // logic for doing damage
-        if (explosionRadius > 0f && Vector3.Distance(collisionPoint, transform.position) >= penetration)
+        if (explosionRadius > 0f && Vector3.Distance(collisionPoint, transform.position) >= penetration || detonate)
         {
             
             isExplosive = true;

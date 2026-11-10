@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using static GameManager;
 
@@ -13,6 +14,8 @@ public class ObjectController : MonoBehaviour
     private Transform colliderTransform;
 
     public Vector2 size { get; private set; }
+
+    private UnitHealth unitHealth;
 
     public Vector2Int WorldSize
     {
@@ -41,6 +44,13 @@ public class ObjectController : MonoBehaviour
     public void SetObject(ObjectData data, ResourceUI resourceUI)
     {
         objectData = data;
+
+        unitHealth = this.AddComponent<UnitHealth>();
+        unitHealth.SetUnit(data.health, data.explosionResistance);
+
+        if (data.deathEffect != null)
+            unitHealth.SetFX(data.deathEffect);
+
         ui = resourceUI;
         size = data.objectSize;
         spriteRenderer.sprite = data.objectSprite;

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using static GameManager;
 
@@ -38,15 +39,7 @@ public class Object_FOB : PlaceAction
 
     public override void OnObjectDestroyed(ObjectController obj)
     {
-        if (isTeamA)
-        {
-
-        }
-
-        else
-        {
-
-        }
+        gm.EndGame(isTeamA);
 
         Debug.Log("FOB destroyed");
     }

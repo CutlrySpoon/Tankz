@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static ResourceManager;
 
@@ -70,6 +69,8 @@ public class GameManager : MonoBehaviour
     }
 
     public bool inPlay { get; private set; } = false;
+    public bool gameEnded { get; private set; } = false;
+    public bool teamALost { get; private set; } = false;
     public int currentTurnTime { get; private set; } = 0;
     public int totalTurnTime { get; private set; } = 0;
     public bool shootTurn = false;
@@ -120,6 +121,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetManager()
+    {
+        teamACash = 0;
+        teamAResearch = 0;
+        teamAPower = 0;
+        teamAIncome = 0;
+
+        teamBCash = 0;
+        teamBResearch = 0;
+        teamBPower = 0;
+        teamBIncome = 0;
+
+        totalTurnTime = 0;
+        turnCount = 0;
+        TurnCount = 0;
+        elapsedTime = 0;
+
+        inPlay = false;
+        gameEnded = false;
+        teamALost = false;
+        shootTurn = false;
+
+        blueTurn = true;
+        currentTurnTime = maxTurnTime;
+
+        teamACash = startingCash;
+        teamBCash = startingCash;
+    }
+
     public void StartTurn()
     {
         inPlay = true;
@@ -139,6 +169,8 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         inPlay = false;
+        rm.CloseMenu();
+
         if (PointerController.Instance != null)
         {
             PointerController.Instance.selectedUnit = null;
@@ -147,6 +179,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ManageShootTurn());
     }
 
+    public void EndGame(bool teamALost)
+    {
+        this.teamALost = teamALost;
+        gameEnded = true;        
+    }
 
     public void PurchaseObject(int cost)
     {

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static TileMapManager;
+using static GameManager;
 
 // This is a manager script that controls main menu UI and data transfer.
 
@@ -67,6 +68,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnPlayButtonClick()
     {
+        gm.ResetManager();
         PlayPanel.SetActive(!PlayPanel.activeSelf);
     }
 

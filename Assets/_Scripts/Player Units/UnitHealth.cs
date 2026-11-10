@@ -21,6 +21,17 @@ public class UnitHealth : MonoBehaviour
         }
     }
 
+    public void SetUnit(int health, int explosionResistance)
+    {
+        this.health = health;
+        this.explosionResistance = explosionResistance;
+    }
+
+    public void SetFX(GameObject deathFX)
+    {
+        this.deathFX = deathFX;
+    }
+
     public void TakeDamage(int damage, bool isExplosive)
     {
         if (isExplosive)

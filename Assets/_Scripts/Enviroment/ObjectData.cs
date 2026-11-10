@@ -9,6 +9,7 @@ public class ObjectData : ScriptableObject
 {
     [Header("Settings")]
     public int health;
+    public int explosionResistance;
     public int objectCost;
     public int maxObjects;
     [Space(5)]
@@ -34,6 +35,9 @@ public class ObjectData : ScriptableObject
     public bool useCustomColor;
     public Color customColor;
     [Space(10)]
+
+    public GameObject deathEffect;
+    [Space(5)]
 
     public PlaceAction placeAction;
 }

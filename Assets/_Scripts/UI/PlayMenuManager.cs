@@ -1,7 +1,8 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static GameManager;
 using static UIManager;
 
@@ -13,6 +14,10 @@ public class PlayMenuManager : MonoBehaviour
 {
 
     [Header("UI")]
+    [SerializeField]
+    private GameObject playScreen;
+    [SerializeField]
+    private GameObject endScreen;
     [SerializeField]
     public GameObject turnScreen;
     [SerializeField]
@@ -27,10 +32,12 @@ public class PlayMenuManager : MonoBehaviour
     private TextMeshProUGUI totalTurnTimeText;
     [SerializeField]
     private TextMeshProUGUI turnCountText;
+    [SerializeField]
+    private TextMeshProUGUI topBarTurnText;
     [Space(5)]
 
     [SerializeField]
-    private TextMeshProUGUI topBarTurnText;
+    private TextMeshProUGUI endScreenText;
     [Space(10)]
 
 
@@ -69,6 +76,8 @@ public class PlayMenuManager : MonoBehaviour
     {
         instance = this;
         turnScreen.SetActive(true);
+        endScreen.SetActive(false);
+        playScreen.SetActive(true);
         SetUI();
 
         currentTurnTimeText.text = gm.currentTurnTime.ToString();
@@ -87,6 +96,9 @@ public class PlayMenuManager : MonoBehaviour
 
         if (gm.currentTurnTime <= 0)
             OnEndTurnButtonClick();
+
+        if (gm.gameEnded)
+            EndGameUI(gm.teamALost);
     }
 
     // Check which team turn it is
@@ -137,10 +149,27 @@ public class PlayMenuManager : MonoBehaviour
         turnCountText.text = $"Turn: {Mathf.CeilToInt(gm.turnCount / 2) + 1}";
     }
 
+    private void EndGameUI(bool teamALost)
+    {
+        playScreen.SetActive(false);
+        endScreen.SetActive(true);
+
+        if (teamALost)
+            endScreenText.text = $"! RED WINS !";
+        else
+            endScreenText.text = $"! BLUE WINS !";
+
+        RectTransform endScreenRT = endScreen.GetComponent<RectTransform>();
+
+        StartCoroutine(um.Lerp(endScreenRT, endScreenRT.anchoredPosition, new Vector2(0, 0), 0.5f));
+    }
+
     //Buttons
     public void OnStartTurnButtonClick()
     {
         turnScreen.SetActive(false);
+        playScreen.SetActive(true);
+
         gm.StartTurn();
     }
     
@@ -151,7 +180,10 @@ public class PlayMenuManager : MonoBehaviour
             gm.EndTurn();
             SetUI();
         }
+    }
 
-        
+    public void OnReturnToMenuButtonClick()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

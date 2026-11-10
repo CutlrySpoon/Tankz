@@ -48,6 +48,7 @@ public class PointerController : MonoBehaviour
     private int scrollCount = 0;
 
     private bool holdingDrag;
+    private bool lockedScroll = false;
 
 
     private GameObject targetObject;
@@ -111,7 +112,7 @@ public class PointerController : MonoBehaviour
             }
 
             // Scroll Up
-            if (scroll.y > 0)
+            if (scroll.y > 0 && !lockedScroll)
             {
                 if (cam.orthographicSize > minZoom)
                 {
@@ -122,7 +123,7 @@ public class PointerController : MonoBehaviour
             }
 
             // Scroll Down
-            if (scroll.y < 0)
+            if (scroll.y < 0 && !lockedScroll)
             {
                 if (cam.orthographicSize < maxZoom)
                 {
@@ -200,17 +201,17 @@ public class PointerController : MonoBehaviour
 
                 if (!obj.objectData.isWall)
                 {
-                    if (!CanPlaceObject(checkPos, collTag, null))
+                    if (!CanPlaceObject(checkPos, collTag, null, null))
                         inTeamSection = false;
-                    if (CanPlaceObject(checkPos, "Object", "Ground"))
+                    if (CanPlaceObject(checkPos, "Object", "Ground", "Building"))
                         overlapping = true;
                 }
 
                 else
                 {
-                    if (CanPlaceObject(checkPos, invCollTag, null))
+                    if (CanPlaceObject(checkPos, invCollTag, null, null))
                         inTeamSection = false;
-                    if (CanPlaceObject(checkPos, "Object", "Ground"))
+                    if (CanPlaceObject(checkPos, "Object", "Ground", "Building"))
                         overlapping = true;
                 }
             }
@@ -223,7 +224,7 @@ public class PointerController : MonoBehaviour
             {
                 Vector3 below = origin + new Vector3(x + 0.5f, -0.5f, 0f);
 
-                if (!CanPlaceObject(below, "Ground", "Object"))
+                if (!CanPlaceObject(below, "Ground", "Object", null))
                     overGround = false;
             }
             else
@@ -237,13 +238,13 @@ public class PointerController : MonoBehaviour
     }
 
     // Check if the object can be placed at the given position by checking for collisions with other objects or ground tiles.
-    private bool CanPlaceObject(Vector3 position, string tagA, string tagB)
+    private bool CanPlaceObject(Vector3 position, string tagA, string tagB, string tagC)
     {
         Collider[] cols = Physics.OverlapBox(position, new Vector3(0.1f, 0.1f, 50f));
 
         foreach (Collider col in cols)
         {
-            if (col.CompareTag(tagA) || (tagB != null && col.CompareTag(tagB)))
+            if (col.CompareTag(tagA) || (tagB != null && col.CompareTag(tagB)) || (tagC != null && col.CompareTag(tagC)))
                 return true;
         }
         return false;
@@ -284,6 +285,16 @@ public class PointerController : MonoBehaviour
         canPlaceObject = false;
 
         pointerMarker.SetMarker(null, Color.white);
+    }
+
+    public void LockScroll()
+    {
+        lockedScroll = true;
+    }
+
+    public void UnlockScroll()
+    {
+        lockedScroll = false;
     }
 
 

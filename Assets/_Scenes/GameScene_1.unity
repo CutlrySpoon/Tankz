@@ -3082,9 +3082,9 @@ MonoBehaviour:
   m_Vertical: 1
   m_MovementType: 2
   m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 10
+  m_Inertia: 0
+  m_DecelerationRate: 5
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 681795981}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 107596137}
@@ -3144,6 +3144,7 @@ GameObject:
   - component: {fileID: 765501149}
   - component: {fileID: 765501151}
   - component: {fileID: 765501150}
+  - component: {fileID: 765501152}
   m_Layer: 0
   m_Name: ContentArea
   m_TagString: Untagged
@@ -3211,6 +3212,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765501148}
   m_CullTransparentMesh: 1
+--- !u!114 &765501152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765501148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1539581691}
+          m_TargetAssemblyTypeName: PointerController, Assembly-CSharp
+          m_MethodName: LockScroll
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1539581691}
+          m_TargetAssemblyTypeName: PointerController, Assembly-CSharp
+          m_MethodName: UnlockScroll
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &803788862
 GameObject:
   m_ObjectHideFlags: 0
@@ -6860,6 +6906,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7c855b11244c80b479ea8ff9472bfe5c, type: 2}
   - {fileID: 11400000, guid: 7d01041b870e8194bb9abfe964aacc3c, type: 2}
   - {fileID: 11400000, guid: ae21e5eaa7a7ade43bebc15993fd053b, type: 2}
+  - {fileID: 11400000, guid: e0cfc1e9eedd56f48bb31b8c506bc157, type: 2}
+  - {fileID: 11400000, guid: 355af7600ceb03d47952206e566a5449, type: 2}
+  - {fileID: 11400000, guid: eefbb5c17462a104d964e77c1763cb27, type: 2}
+  - {fileID: 11400000, guid: b1ada26fbd02e934c8b0124df8bb82f9, type: 2}
+  - {fileID: 11400000, guid: 3c2281ae0221ae7458c925ea0c689fa4, type: 2}
+  - {fileID: 11400000, guid: da1a9cbc8f3af714e8ee055fdbefa2c4, type: 2}
   units:
   - {fileID: 11400000, guid: af8f0ff227897b942815dccd73d30f16, type: 2}
   walls:
@@ -6867,6 +6919,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa88d144033be7c478048e42c2b90c3f, type: 2}
   - {fileID: 11400000, guid: de7fea59d9853674e8c0e80bae05ff99, type: 2}
   - {fileID: 11400000, guid: cb5cfcd983c832b40a54327d357777d5, type: 2}
+  - {fileID: 11400000, guid: be1f88651a27da247ba9d6947e8ec177, type: 2}
+  - {fileID: 11400000, guid: cacfd232d316fc24e9d7c239e6732a73, type: 2}
+  - {fileID: 11400000, guid: 1390d27567d81e44596425a956eaeb9e, type: 2}
+  - {fileID: 11400000, guid: 137ee04edf28ba64da688abee5872d7f, type: 2}
   pointerController: {fileID: 1539581691}
   objectController: {fileID: 6513882334713031099, guid: f087f332fa2916647a14233145fd1e37, type: 3}
   prefabUI: {fileID: 4212335317119606630, guid: 0ce636bea07ddfc41adfc652772cf0cf, type: 3}
@@ -8199,9 +8255,9 @@ MonoBehaviour:
   m_Vertical: 1
   m_MovementType: 2
   m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 10
+  m_Inertia: 0
+  m_DecelerationRate: 5
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 429687436}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 347912093}
@@ -8734,9 +8790,9 @@ MonoBehaviour:
   m_Vertical: 1
   m_MovementType: 2
   m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 10
+  m_Inertia: 0
+  m_DecelerationRate: 5
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 650629467}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1907606593}

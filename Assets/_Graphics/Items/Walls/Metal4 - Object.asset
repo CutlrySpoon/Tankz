@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1c17da4d16d53547893ead8b1385b2c, type: 3}
-  m_Name: Wood4 - Object
+  m_Name: Metal4 - Object
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
-  health: 15
-  objectCost: 125
-  maxObjects: 2
+  health: 5
+  objectCost: 300
+  maxObjects: 6
   requiresPower: 0
   requiresResearch: 0
   isWall: 1
+  isBuilding: 0
   canRotate: 1
   objectSize: {x: 4, y: 1}
-  objectSprite: {fileID: 21300000, guid: c03902e1a53c4f241a98cd7a50f0c8a5, type: 3}
-  objectName: Wood 1x4
-  objectDescription: Wooden wall. Weak but affordable defence
+  objectSprite: {fileID: 21300000, guid: 24bdb2ae5e883594784fa5d90fa62ba7, type: 3}
+  objectName: Metal 1x4
+  objectDescription: 'Metal Wall. Strong yet expensive defence. '
   useCustomColor: 1
   customColor: {r: 1, g: 1, b: 1, a: 1}
   placeAction: {fileID: 0}

@@ -84,10 +84,7 @@ public class ResourceManager : MonoBehaviour
     // Spawn the selected object, set its data and start following the pointer.
     public void SpawnObject(ObjectData objectData, ResourceUI ui)
     {
-        foreach(ResourceButton button in buttons)
-        {
-            button.CloseMenu();
-        }
+        CloseMenu();
 
         pointerController.StopFollowPointer();
 
@@ -107,5 +104,13 @@ public class ResourceManager : MonoBehaviour
         obj.SetObject(objectData, ui);
 
         pointerController.FollowPointer(obj.gameObject);
+    }
+
+    public void CloseMenu()
+    {
+        foreach (ResourceButton button in buttons)
+        {
+            button.CloseMenu();
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static ResourceManager;
 
 // This stores all core game data for other scripts to access
 

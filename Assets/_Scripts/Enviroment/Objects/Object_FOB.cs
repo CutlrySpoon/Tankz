@@ -4,18 +4,33 @@ using static GameManager;
 [CreateAssetMenu(fileName = "FOB - Place Action", menuName = "ScriptableObject/PlaceAction/FOB")]
 public class Object_FOB : PlaceAction
 {
+    [SerializeField]
+    private int income = 0;
+    [SerializeField]
+    private int power = 0;
+    [SerializeField]
+    private int research = 0;
+
+    private bool isTeamA;
+
     public override void OnPlace(ObjectController obj)
     {
         if (gm.turnCount % 2 == 0)
         {
-            gm.teamAPower += 2;
-            gm.teamAResearch += 2;
+            gm.teamAIncome += income;
+            gm.teamAPower += power;
+            gm.teamAResearch += research;
+
+            isTeamA = true;
         }
 
         else
         {
-            gm.teamBPower += 2;
-            gm.teamBResearch += 2;
+            gm.teamBIncome += income;
+            gm.teamBPower += power;
+            gm.teamBResearch += research;
+
+            isTeamA = false;
         }
 
         Debug.Log("FOB placed");
@@ -23,6 +38,16 @@ public class Object_FOB : PlaceAction
 
     public override void OnObjectDestroyed(ObjectController obj)
     {
+        if (isTeamA)
+        {
+
+        }
+
+        else
+        {
+
+        }
+
         Debug.Log("FOB destroyed");
     }
 }

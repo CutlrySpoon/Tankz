@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using static UIManager;
 
 // This controls the logic and animation of the resource buttons

@@ -68,7 +68,7 @@ public class BulletBehaviour : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.layer == LayerMask.NameToLayer("Building"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building"))
         {
             detonate = true;
         }
@@ -94,6 +94,13 @@ public class BulletBehaviour : MonoBehaviour
                     //Destroy(hit.gameObject.transform.parent.gameObject);
                     Debug.Log("Hit " + hit.gameObject.name + " with explosion");
                     hit.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
+                }
+
+                if (hit.gameObject.transform.GetComponentInParent<UnitHealth>() != null)
+                {
+                    //Destroy(hit.gameObject.transform.parent.gameObject);
+                    Debug.Log("Hit " + hit.gameObject.name + " with explosion");
+                    hit.gameObject.GetComponentInParent<UnitHealth>().TakeDamage(damage, isExplosive);
                 }
             }
             Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);

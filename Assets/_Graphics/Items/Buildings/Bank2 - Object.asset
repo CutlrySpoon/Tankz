@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bank2 - Object
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 5
+  explosionResistance: 0
   objectCost: 500
   maxObjects: 7
   requiresPower: 0
@@ -29,4 +30,6 @@ MonoBehaviour:
     Income]'
   useCustomColor: 0
   customColor: {r: 0, g: 0, b: 0, a: 0}
+  deathEffect: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}
   placeAction: {fileID: 11400000, guid: f217f7667f171e647b91d04db833b553, type: 2}
+  healthBar: {fileID: 3570146258254840631, guid: 0437167346aaa394e9b23749902a235d, type: 3}

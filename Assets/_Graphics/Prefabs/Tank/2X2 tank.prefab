@@ -263,6 +263,7 @@ MonoBehaviour:
   explosionResistance: 0
   flashTime: 25
   deathFX: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}
+  healthUI: {fileID: 3570146258254840631, guid: 0437167346aaa394e9b23749902a235d, type: 3}
 --- !u!54 &6313686698627899973
 Rigidbody:
   m_ObjectHideFlags: 0

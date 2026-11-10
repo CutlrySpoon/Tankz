@@ -40,4 +40,6 @@ public class ObjectData : ScriptableObject
     [Space(5)]
 
     public PlaceAction placeAction;
+
+    public HealthBarPrefab healthBar;
 }

@@ -46,10 +46,17 @@ public class ObjectController : MonoBehaviour
         objectData = data;
 
         unitHealth = this.AddComponent<UnitHealth>();
-        unitHealth.SetUnit(data.health, data.explosionResistance);
+
+        if (data.healthBar != null)
+            unitHealth.SetHealthBar(data.healthBar);
 
         if (data.deathEffect != null)
             unitHealth.SetFX(data.deathEffect);
+
+        unitHealth.SetUnit(data.health, data.explosionResistance, data.objectSize.y);
+
+
+
 
         ui = resourceUI;
         size = data.objectSize;

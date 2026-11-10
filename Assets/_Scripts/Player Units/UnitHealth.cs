@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
+using UnityEditor.Build;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using Unity.VisualScripting;
 public class UnitHealth : MonoBehaviour
 {
     public float health = 100;
@@ -15,30 +13,36 @@ public class UnitHealth : MonoBehaviour
     private MeshRenderer savedRenderer;
     private Color originalColor;
     private Coroutine flashCoroutine;
-    [SerializeField] private TMP_Text damageText;
-    [SerializeField] private Image healthBar;
-    [SerializeField] private TMP_Text healthBarText;
-    [SerializeField] private GameObject healthBarPrefab;
+    
+    [SerializeField] private HealthBarPrefab healthUI;
 
-    void Start()
+    bool setHealthUI = false;
+
+    public void SetUnit(int health, int explosionResistance, float offset)
     {
-        Instantiate(healthBarPrefab,transform.position, Quaternion.identity, transform);
+        this.health = health;
+        this.explosionResistance = explosionResistance;
+        
         maxHealth = health;
-        if(damageText != null)
-        {
-            damageText.alpha = 0f;
-        }
+
         savedRenderer = GetComponent<MeshRenderer>();
+
+        if (healthUI != null)
+        {
+            healthUI.damageText.alpha = 1f;
+            healthUI.healthBar.fillAmount = health / maxHealth;
+            healthUI.healthBarText.text = health.ToString();
+
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y - (offset / 2), transform.position.z);
+
+            if (setHealthUI)
+                this.healthUI = Instantiate(healthUI, pos, Quaternion.identity, transform);
+        }
+
         if (savedRenderer != null)
         {
             originalColor = savedRenderer.material.color;
         }
-    }
-
-    public void SetUnit(int health, int explosionResistance)
-    {
-        this.health = health;
-        this.explosionResistance = explosionResistance;
     }
 
     public void SetFX(GameObject deathFX)
@@ -46,11 +50,17 @@ public class UnitHealth : MonoBehaviour
         this.deathFX = deathFX;
     }
 
+    public void SetHealthBar(HealthBarPrefab healthBar)
+    {
+        this.healthUI = healthBar;
+        setHealthUI = true;
+    }
+
     private void Update()
     {
-        if(damageText != null)
+        if (healthUI != null)
         {
-            damageText.alpha -= Time.deltaTime * 0.2f;
+            healthUI.damageText.alpha -= Time.deltaTime * 0.2f;
         }
 
     }
@@ -61,32 +71,29 @@ public class UnitHealth : MonoBehaviour
         if (isExplosive)
         {
             health -= damage * (1f - explosionResistance);
-            if (damageText != null)
+            if (healthUI != null)
             {
-                damageText.text = ("-" + (damage * (1f - explosionResistance)).ToString());
+                healthUI.damageText.text = ("-" + (damage * (1f - explosionResistance)).ToString());
             }
         }
         else
         {
             health -= damage;
-            if (damageText != null)
+            if (healthUI != null)
             {
-                damageText.text = ("-" + damage.ToString());
+                healthUI.damageText.text = ("-" + damage.ToString());
             }
         }
-        if(damageText != null)
+        if (healthUI != null)
         {
-            damageText.alpha = 1f;
-            damageText.fontSize = Mathf.Lerp(damageText.fontSize, 5f, Time.deltaTime * 0.5f);
+            healthUI.damageText.alpha = 1f;
+            healthUI.damageText.fontSize = Mathf.Lerp(healthUI.damageText.fontSize, 5f, Time.deltaTime * 0.5f);
+
+            healthUI.healthBar.fillAmount = health / maxHealth;
+
+            healthUI.healthBarText.text = health.ToString();
         }
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = health / maxHealth;
-        }
-        if (healthBarText != null)
-        {
-            healthBarText.text = health.ToString();
-        }
+
         // Trigger flash effect
         if (savedRenderer != null)
         {

@@ -317,17 +317,15 @@ public class PointerController : MonoBehaviour
 
     public void OnLeftClick(InputAction.CallbackContext context)
     {
-        Debug.Log("is following: " + isFollowing);
         Ray ray = cam.ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (context.performed && isFollowing)
         {
             PlaceObject();
         }
-        if(context.performed && !isFollowing && Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayerMask))
+        if(context.performed && !isFollowing && Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayerMask) && selectedUnit == null)
         {
             selectedUnit = hit.collider.gameObject;
-            Debug.Log("Selected Unit: " + selectedUnit.name);
         }
     }
 
@@ -338,6 +336,8 @@ public class PointerController : MonoBehaviour
             StopFollowPointer();
             if(selectedUnit != null)
             {
+                selectedUnit.GetComponent<WeaponControler>().shotqueued = false;
+                selectedUnit.GetComponent<WeaponControler>().ResetUI();
                 selectedUnit = null;
             }
         }

@@ -174,6 +174,7 @@ public class GameManager : MonoBehaviour
         if (PointerController.Instance != null)
         {
             PointerController.Instance.selectedUnit = null;
+
         }
 
         StartCoroutine(ManageShootTurn());

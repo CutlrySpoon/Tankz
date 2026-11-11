@@ -40,7 +40,7 @@ public class BulletBehaviour : MonoBehaviour
         }
         if (penetration != 0 && Vector3.Distance(collisionPoint, transform.position) > penetration && firstCollision == false)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         Vector3 travelDir = baseDirection;
         if (zigZagfrequency > 0)
@@ -61,17 +61,22 @@ public class BulletBehaviour : MonoBehaviour
             float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
         }
-
+        if (penetration <= 0 && explosionRadius <= 0)
+        {
+            Destroy(gameObject);
+        }
+       
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
         
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object"))
         {
             detonate = true;
         }
+        
         //after first collision, reduce penetration and continue moving unitl it reaches 0
         if (firstCollision == true)
         {
@@ -112,10 +117,7 @@ public class BulletBehaviour : MonoBehaviour
         }
 
         
-        if(penetration == 0 && explosionRadius <= 0)
-        {
-            Destroy(gameObject);
-        }
+        
 
        
     }

@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
   startSpeed: 6
-  damage: 35
+  damage: 5
   penetration: 8
   explosionRadius: 3
   lifetime: 6

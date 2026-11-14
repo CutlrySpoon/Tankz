@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
     [Space(5)]
 
     [SerializeField]
+    public AudioSource audioSource;
+    [Space(5)]
+
+    [SerializeField]
     public Color teamAColour;
     [SerializeField]
     public Color teamBColour;

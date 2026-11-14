@@ -50,6 +50,8 @@ MonoBehaviour:
   explosionResistance: 0
   flashTime: 0
   deathFX: {fileID: 7668926386312958630, guid: 30e6a45729a149340bd83fce43feedf6, type: 3}
+  deathSFX: {fileID: 8300000, guid: 48a4591ac66fcca43ac00c41b7e2cc48, type: 3}
+  healthUI: {fileID: 0}
 --- !u!65 &3677100940726419582
 BoxCollider:
   m_ObjectHideFlags: 0

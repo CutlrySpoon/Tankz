@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8502940163809579534}
   - component: {fileID: 3294708716143550025}
   - component: {fileID: 8859773396826133572}
-  - component: {fileID: 8708323419974404999}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -91,27 +90,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8708323419974404999
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440263086793335104}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: -0.0000019073486}
 --- !u!1 &1852629693106373396
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +101,6 @@ GameObject:
   - component: {fileID: 5855162522174970044}
   - component: {fileID: 796812876841206144}
   - component: {fileID: 2356722633954611373}
-  - component: {fileID: 4307524875632393780}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -203,27 +180,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4307524875632393780
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852629693106373396}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: -0.0000019073486}
 --- !u!1 &6730297476101709058
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +191,6 @@ GameObject:
   - component: {fileID: 5065254564331530040}
   - component: {fileID: 1182819808233987931}
   - component: {fileID: 6553453720394901230}
-  - component: {fileID: 2445703380672241382}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -251,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6730297476101709058}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.23747835, w: 0.9713928}
+  m_LocalRotation: {x: -0, y: -0, z: -0.23747836, w: 0.97139287}
   m_LocalPosition: {x: 0.277, y: 1.511, z: -0.05}
   m_LocalScale: {x: 0.6376, y: 0.6376, z: 0.95714194}
   m_ConstrainProportionsScale: 0
@@ -315,27 +270,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2445703380672241382
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6730297476101709058}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: -0.0000019073486}
 --- !u!1 &8617979246963341252
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +301,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.30859, y: -0, z: 26.69032}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.38, y: 0.38, z: 0.38}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8502940163809579534}
@@ -444,15 +378,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a77169634ffc4699916bd2b56e248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
-  startSpeed: 4
-  damage: 10
-  penetration: 1
+  startSpeed: 8
+  damage: 25
+  penetration: 20
   explosionRadius: 0
-  lifetime: 8
-  weight: 0.14
+  lifetime: 15
+  weight: 0
   shotStregth: 1
-  explosionEffectPrefab: {fileID: 0}
-  zigZagfrequency: 15
+  explosionEffectPrefab: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}
+  zigZagfrequency: 2
   shootSound: {fileID: 8300000, guid: ab50168445e2b5744ac6d789e41f49dc, type: 3}
   explosionSound: {fileID: 8300000, guid: 0862024b6fc4fd345a95bacdf22c0c1c, type: 3}
 --- !u!136 &6906784112259460851
@@ -475,9 +409,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5000001
-  m_Height: 2
+  m_Height: 1.4707577
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.00000007842716, y: 1.0701785, z: -0.00000007842716}
 --- !u!54 &-7468616801302794256
 Rigidbody:
   m_ObjectHideFlags: 0

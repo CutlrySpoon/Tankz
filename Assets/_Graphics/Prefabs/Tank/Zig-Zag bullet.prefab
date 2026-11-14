@@ -448,10 +448,10 @@ MonoBehaviour:
   damage: 10
   penetration: 1
   explosionRadius: 0
-  lifetime: 5
+  lifetime: 8
   weight: 0.14
   shotStregth: 1
-  zigZag: 1
+  explosionEffectPrefab: {fileID: 0}
   zigZagfrequency: 15
 --- !u!136 &6906784112259460851
 CapsuleCollider:

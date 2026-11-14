@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7162df0c7f9f63142b6ab80536b6cf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitHealth
-  health: 25
+  health: 1
   explosionResistance: 0
   flashTime: 0
   deathFX: {fileID: 7668926386312958630, guid: 30e6a45729a149340bd83fce43feedf6, type: 3}
+  healthUI: {fileID: 0}
 --- !u!65 &3677100940726419582
 BoxCollider:
   m_ObjectHideFlags: 0

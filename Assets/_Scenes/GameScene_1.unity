@@ -7630,6 +7630,7 @@ MonoBehaviour:
   units:
   - {fileID: 11400000, guid: af8f0ff227897b942815dccd73d30f16, type: 2}
   - {fileID: 11400000, guid: 0e6c0ef059145ee45a3e58e7e293c2b4, type: 2}
+  - {fileID: 11400000, guid: 2458f9255d1901b4595a860bb7da2e3b, type: 2}
   walls:
   - {fileID: 11400000, guid: 38c270f9734330e4d8472b8bd2898a34, type: 2}
   - {fileID: 11400000, guid: fa88d144033be7c478048e42c2b90c3f, type: 2}

@@ -358,4 +358,9 @@ public class PointerController : MonoBehaviour
             ObjectRotate(-90);
         }
     }
+
+    public bool ReturnIsFollowing()
+    {
+        return isFollowing;
+    }
 }

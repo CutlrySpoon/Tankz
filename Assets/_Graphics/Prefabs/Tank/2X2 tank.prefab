@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6313686698627899973}
   m_Layer: 6
   m_Name: 2X2 tank
-  m_TagString: Building
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -219,6 +219,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ee807e14-f855-4201-85c9-be45622ef3fe
+    m_ActionName: 'UI/RotateCw[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 74dcf07c-1e21-4c30-b22c-69d8173c04b4
+    m_ActionName: 'UI/RotateAcw[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -263,7 +271,7 @@ MonoBehaviour:
   explosionResistance: 0
   flashTime: 25
   deathFX: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}
-  healthUI: {fileID: 3570146258254840631, guid: 0437167346aaa394e9b23749902a235d, type: 3}
+  healthUI: {fileID: 0}
 --- !u!54 &6313686698627899973
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -452,7 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.78431374}
+  m_Color: {r: 1, g: 0.99215686, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

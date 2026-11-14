@@ -197,10 +197,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
   startSpeed: 6
-  damage: 35
+  damage: 30
   penetration: 8
   explosionRadius: 3
-  lifetime: 6
+  lifetime: 15
   weight: 0.2
   shotStregth: 1
   explosionEffectPrefab: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}

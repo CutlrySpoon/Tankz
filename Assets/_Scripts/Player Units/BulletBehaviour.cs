@@ -100,13 +100,6 @@ public class BulletBehaviour : MonoBehaviour
                     Debug.Log("Hit " + hit.gameObject.name + " with explosion");
                     hit.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
                 }
-
-                if (hit.gameObject.transform.GetComponentInParent<UnitHealth>() != null)
-                {
-                    //Destroy(hit.gameObject.transform.parent.gameObject);
-                    Debug.Log("Hit " + hit.gameObject.name + " with explosion");
-                    hit.gameObject.GetComponentInParent<UnitHealth>().TakeDamage(damage, isExplosive);
-                }
             }
             Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);

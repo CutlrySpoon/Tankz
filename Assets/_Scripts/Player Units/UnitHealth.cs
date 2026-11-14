@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using static GameManager;
 public class UnitHealth : MonoBehaviour
 {
     public float health = 100;
@@ -8,6 +8,7 @@ public class UnitHealth : MonoBehaviour
     public float explosionResistance = 0f;
     public float flashTime = 0.5f; // Duration of the flash
     public GameObject deathFX;
+    public AudioClip deathSFX;
 
     private MeshRenderer savedRenderer;
     private Color originalColor;
@@ -118,10 +119,18 @@ public class UnitHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            if(deathFX != null && isExplosive == false)
+            if(isExplosive == false)
             {
-                Instantiate(deathFX, transform.position, Quaternion.identity);
-            }   
+                if(deathFX != null)
+                    Instantiate(deathFX, transform.position, Quaternion.identity);
+
+                if (deathSFX != null)
+                {
+                    gm.audioSource.PlayOneShot(deathSFX, 0.1f);
+                }
+            }
+            
+
             Destroy(gameObject);
         }
     }

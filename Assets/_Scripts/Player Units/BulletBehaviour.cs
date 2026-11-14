@@ -1,5 +1,7 @@
+using System;
 using UnityEditor;
 using UnityEngine;
+using static GameManager;
 
 public class BulletBehaviour : MonoBehaviour
 {
@@ -19,11 +21,22 @@ public class BulletBehaviour : MonoBehaviour
     private Vector3 collisionPoint;
     private bool firstCollision = true;
     private bool detonate = false;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip shootSound;
+    [SerializeField]
+    private AudioClip explosionSound;
+
+
     void Start()
     {
         //set the initial velocity of the bullet
         velocity = transform.right * startSpeed * shotStregth;
         baseDirection = transform.right;
+
+        gm.audioSource.clip = shootSound;
+        gm.audioSource.Play();
     }
 
     void FixedUpdate()
@@ -87,10 +100,12 @@ public class BulletBehaviour : MonoBehaviour
         // logic for doing damage
         if (explosionRadius > 0f && Vector3.Distance(collisionPoint, transform.position) >= penetration || detonate)
         {
-            
             isExplosive = true;
             Vector3 center = transform.position;
             Collider[] colliders = Physics.OverlapSphere(center, explosionRadius);
+
+            gm.audioSource.clip = explosionSound;
+            gm.audioSource.Play();
             
             foreach (Collider hit in colliders)
             {

@@ -33,14 +33,6 @@ public class UnitMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(PointerController.Instance.ReturnIsFollowing() == true && grounded == true)
-        {
-            
-        }
-        else
-        {
-            
-        }
         if (!Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f, layermask) && !PointerController.Instance.selectedUnit == this.gameObject)
         {
             grounded = false;

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// Reference to pointer UI prefab components and setter
+
 public class PointerMarker : MonoBehaviour
 {
     [SerializeField]

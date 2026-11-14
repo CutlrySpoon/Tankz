@@ -89,6 +89,7 @@ public class ResourceUI : MonoBehaviour
         }
     }
 
+    // Update the displayed data based on the team and object type
     private void UpdateUI()
     {
         bool isTeamA = gm.turnCount % 2 == 0;
@@ -135,6 +136,7 @@ public class ResourceUI : MonoBehaviour
         DissableButtion(dissabled, dissabled ? blockedReason : null);
     }
 
+    // Sets the object UI availability based on the team condition
     private void DissableButtion(bool isDisabled, string text)
     {
         dissabledScreen.SetActive(isDisabled);
@@ -156,6 +158,7 @@ public class ResourceUI : MonoBehaviour
         }
     }
 
+    // Increment the object count
     public void PlaceObject()
     {
         if (gm.turnCount % 2 == 0)

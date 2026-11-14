@@ -2,12 +2,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static GameManager;
 
+// This is the main controller for player spawned objects.
+
+// By OS.
+
 public class ObjectController : MonoBehaviour
 {
-    // This is the main controller for player spawned objects.
-
-    // By OS.
-
     [SerializeField]
     private SpriteRenderer spriteRenderer;
     [SerializeField]
@@ -17,7 +17,7 @@ public class ObjectController : MonoBehaviour
 
     private UnitHealth unitHealth;
 
-    public Vector2Int WorldSize
+    public Vector2Int WorldSize // Returns the real world size and accomodates for rotation.
     {
         get
         {
@@ -41,6 +41,7 @@ public class ObjectController : MonoBehaviour
 
     ResourceUI ui;
 
+    //Passes all data from object data onto the world space object and assignes references
     public void SetObject(ObjectData data, ResourceUI resourceUI)
     {
         objectData = data;
@@ -56,8 +57,6 @@ public class ObjectController : MonoBehaviour
         unitHealth.SetUnit(data.health, data.explosionResistance, data.objectSize.y);
 
 
-
-
         ui = resourceUI;
         size = data.objectSize;
         spriteRenderer.sprite = data.objectSprite;
@@ -68,15 +67,18 @@ public class ObjectController : MonoBehaviour
         colliderTransform.localScale = new Vector3(data.objectSize.x, data.objectSize.y, 1f);
     }
 
+    // Function to run on object place
     public void PlaceObject()
     {
         isPlaced = true;
 
+        // Set correct tag
         if (!objectData.isBuilding)
             colliderTransform.tag = "Object";
         else
             colliderTransform.tag = "Building";
         
+        // Charge the correct team
         if (gm.turnCount % 2 == 0)
         {
             gm.teamACash -= objectData.objectCost;
@@ -96,14 +98,18 @@ public class ObjectController : MonoBehaviour
             if (objectData.requiresPower)
                 gm.teamBPower--;
         }
-            
 
+        // Dissable trigger to allow collision with object
+        Collider col = colliderTransform.GetComponent<Collider>();
+        col.isTrigger = false;
+            
+        // Run custom place action if present
         placeAction?.OnPlace(this);
 
         ui.PlaceObject();
     }
 
-
+    // Run custom destroy funciton
     private void OnDestroy()
     {
         if (isPlaced)

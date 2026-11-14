@@ -17,7 +17,7 @@ public class ResourceManager : MonoBehaviour
         {
             if (instance == null)
             {
-                GameObject obj = new GameObject("TileMapManager");
+                GameObject obj = new GameObject("ResourceManager");
                 instance = obj.AddComponent<ResourceManager>();
             }
 
@@ -106,6 +106,7 @@ public class ResourceManager : MonoBehaviour
         pointerController.FollowPointer(obj.gameObject);
     }
 
+    // Close all the side UI buttons
     public void CloseMenu()
     {
         foreach (ResourceButton button in buttons)

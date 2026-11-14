@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Metal4 - Object
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 5
+  explosionResistance: 0
   objectCost: 300
   maxObjects: 6
   requiresPower: 0
@@ -26,4 +27,6 @@ MonoBehaviour:
   objectDescription: 'Metal Wall. Strong yet expensive defence. '
   useCustomColor: 1
   customColor: {r: 1, g: 1, b: 1, a: 1}
+  deathEffect: {fileID: 0}
   placeAction: {fileID: 0}
+  healthBar: {fileID: 3570146258254840631, guid: 0437167346aaa394e9b23749902a235d, type: 3}

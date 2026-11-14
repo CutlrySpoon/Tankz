@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Reference to healthbar prefab components
+
 public class HealthBarPrefab : MonoBehaviour
 {
     public TMP_Text damageText;

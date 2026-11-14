@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditor.Build;
 using UnityEngine;
 public class UnitHealth : MonoBehaviour
 {
@@ -13,6 +12,8 @@ public class UnitHealth : MonoBehaviour
     private MeshRenderer savedRenderer;
     private Color originalColor;
     private Coroutine flashCoroutine;
+
+    private bool isActive = false;
     
     [SerializeField] private HealthBarPrefab healthUI;
 
@@ -29,6 +30,8 @@ public class UnitHealth : MonoBehaviour
         {
             originalColor = savedRenderer.material.color;
         }
+
+        healthUI.gameObject.SetActive(false);
 
         SetHealthUI(offset);
     }
@@ -87,6 +90,12 @@ public class UnitHealth : MonoBehaviour
         }
         if (healthUI != null)
         {
+            if (!isActive)
+            {
+                healthUI.gameObject.SetActive(true);
+                isActive = true;
+            }                
+
             healthUI.damageText.alpha = 1f;
             healthUI.damageText.fontSize = Mathf.Lerp(healthUI.damageText.fontSize, 5f, Time.deltaTime * 0.5f);
 

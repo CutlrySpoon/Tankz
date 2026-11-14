@@ -7,6 +7,8 @@ using static ResourceManager;
 
 // By OS
 
+// Shooting queue by JM
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
@@ -194,13 +196,11 @@ public class GameManager : MonoBehaviour
     {
         if (turnCount % 2 == 0)
         {
-            blueTurn = true;
             teamACash -= cost;
         }
         else
         {
             teamBCash -= cost;
-            blueTurn = false;
         }
 
     }
@@ -230,14 +230,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ManageShootTurn()
     {
-        PlayMenuManager.instance.turnScreen.SetActive(false);
-
         shootTurn = true;
         while (shotQueue.Count > 0)
         {
             QueuedShot shot = shotQueue.Dequeue();
 
-            // If the unit has moved, use its current positionelse fallback to the queued position.
+            // If the unit has moved, use its current position else fallback to the queued position.
             Vector3 firePos = (shot.shootPoint != null) ? shot.shootPoint.position : shot.position;
             Quaternion fireRot = (shot.shootPoint != null) ? shot.shootPoint.rotation : shot.rotation;
 
@@ -252,8 +250,9 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
+        shotQueue.Clear();
+
         turnCount++;
-        blueTurn = (turnCount % 2 == 0);
         currentTurnTime = maxTurnTime;
         shootTurn = false;
         Debug.Log("Shoot Turn Ended");

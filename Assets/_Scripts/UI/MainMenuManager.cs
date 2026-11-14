@@ -13,7 +13,9 @@ public class MainMenuManager : MonoBehaviour
 {
     // References to UI elements
     [SerializeField]
-    private GameObject PlayPanel;
+    private GameObject playPanel;
+    [SerializeField]
+    private GameObject infoPanel;
 
     [SerializeField]
     private TMP_Dropdown mapTypeDropdown;
@@ -47,7 +49,7 @@ public class MainMenuManager : MonoBehaviour
     // Set slider settings, update UI and generate default map.
     private void Start()
     {
-        PlayPanel.SetActive(false);
+        playPanel.SetActive(false);
         volumeSlider.minValue = tm.minNoiseVolume;
         volumeSlider.maxValue = tm.maxNoiseVolume;
 
@@ -69,12 +71,29 @@ public class MainMenuManager : MonoBehaviour
     public void OnPlayButtonClick()
     {
         gm.ResetManager();
-        PlayPanel.SetActive(!PlayPanel.activeSelf);
+        infoPanel.SetActive(false);
+        playPanel.SetActive(!playPanel.activeSelf);
     }
 
-    public void OnCloseButtonClick()
+    public void OnClosePlayButtonClick()
     {
-        PlayPanel.SetActive(false);
+        playPanel.SetActive(false);
+    }
+
+    public void OnInfoButtonClick()
+    {
+        playPanel.SetActive(false);
+        infoPanel.SetActive(!infoPanel.activeSelf);
+    }
+
+    public void OnCloseInfoButtonClick()
+    {
+        infoPanel.SetActive(false);
+    }
+
+    public void OnExitButtonClick()
+    {
+        Application.Quit();
     }
 
     public void OnRandomiseSeedButtonClick()

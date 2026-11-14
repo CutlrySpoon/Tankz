@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1175972814953113712}
   - component: {fileID: 6313686698627899973}
   m_Layer: 6
-  m_Name: cubert
+  m_Name: APHE Tank
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

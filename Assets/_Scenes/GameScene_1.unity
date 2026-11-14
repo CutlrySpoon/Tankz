@@ -7877,6 +7877,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c2281ae0221ae7458c925ea0c689fa4, type: 2}
   - {fileID: 11400000, guid: da1a9cbc8f3af714e8ee055fdbefa2c4, type: 2}
   units:
+  - {fileID: 11400000, guid: 0abb164fd3e89554cbbbd3e0926820b8, type: 2}
+  - {fileID: 11400000, guid: ea3badbde817ae9449592964b130724e, type: 2}
   - {fileID: 11400000, guid: af8f0ff227897b942815dccd73d30f16, type: 2}
   - {fileID: 11400000, guid: 0e6c0ef059145ee45a3e58e7e293c2b4, type: 2}
   - {fileID: 11400000, guid: 2458f9255d1901b4595a860bb7da2e3b, type: 2}
@@ -10890,7 +10892,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

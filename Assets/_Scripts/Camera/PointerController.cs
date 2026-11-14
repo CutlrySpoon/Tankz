@@ -6,6 +6,8 @@ using static GameManager;
 
 // By OS.
 
+// Troop targeting by JM
+
 public class PointerController : MonoBehaviour
 {
     [Header("References")]

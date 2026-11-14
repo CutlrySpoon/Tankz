@@ -222,7 +222,7 @@ MonoBehaviour:
   damage: 10
   penetration: 10
   explosionRadius: 0
-  lifetime: 7
+  lifetime: 8
   weight: 0.1
   shotStregth: 1
   explosionEffectPrefab: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}

@@ -34,7 +34,15 @@ public class UnitMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f, layermask) && !PointerController.Instance.selectedUnit == this.gameObject)
+        if(PointerController.Instance.ReturnIsFollowing() == true && grounded == true)
+        {
+            
+        }
+        else
+        {
+            
+        }
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f, layermask) && !PointerController.Instance.selectedUnit == this.gameObject)
         {
             grounded = false;
         }
@@ -52,8 +60,9 @@ public class UnitMovement : MonoBehaviour
         // Apply gravity if not grounded
         else if (!grounded)
         {
-            verticalVelocity -= gravity * Time.fixedDeltaTime;
-            verticalVelocity = Mathf.Max(verticalVelocity, -maxFallSpeed);
+
+                verticalVelocity -= gravity * Time.fixedDeltaTime;
+                verticalVelocity = Mathf.Max(verticalVelocity, -maxFallSpeed);
         }
         //Death border
         if (transform.position.y <= -12f)
@@ -65,11 +74,8 @@ public class UnitMovement : MonoBehaviour
         Vector3 finalMovement = new Vector3(moveInput.x * speed, verticalVelocity, 0f) * Time.fixedDeltaTime;
         transform.Translate(finalMovement, Space.World);
     }
-
     private void OnCollisionStay(Collision collision)
     {
-        if (((1 << collision.gameObject.layer) & layermask) != 0)
-        {
             foreach (ContactPoint contact in collision.contacts)
             {
                 // Ground check
@@ -106,14 +112,11 @@ public class UnitMovement : MonoBehaviour
                 }
 
             }
-        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         moveInput = rawInput;
-        if (((1 << collision.gameObject.layer) & layermask) != 0)
-        {
             if(Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f, layermask) == false)
             {
                 grounded = false;
@@ -122,7 +125,6 @@ public class UnitMovement : MonoBehaviour
             {
                 grounded = true;
             }
-        }
     }
 
     public void Move(InputAction.CallbackContext context)

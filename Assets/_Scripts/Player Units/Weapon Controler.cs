@@ -25,7 +25,7 @@ public class WeaponControler : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
+        if(PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
         {
             selectionTime += Time.fixedDeltaTime;
         }
@@ -34,7 +34,7 @@ public class WeaponControler : MonoBehaviour
             selectionTime = 0f;
         }
         selectionTime += Time.fixedDeltaTime;
-        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
         {
 
             if (isCharging)
@@ -77,7 +77,7 @@ public class WeaponControler : MonoBehaviour
 
     public void LookAtMouse(InputAction.CallbackContext context)
     {
-        if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
         {
             mouseScreenPos = context.ReadValue<Vector2>();
         }
@@ -86,39 +86,38 @@ public class WeaponControler : MonoBehaviour
     public void Shoot(InputAction.CallbackContext context)
     {
         if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && selectionTime > 0.5f && GetComponent<UnitMovement>().grounded == true)
+        {
+            if (GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
             {
-                if (GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
+                if (context.started)
                 {
-                    if (context.started)
-                    {
-                        isCharging = true;
-                    }
+                    isCharging = true;
                 }
+            }
 
-                if (context.canceled && minChargeTime <= chargeTime)
-                {
-                    isCharging = false;
-
-                    finalShotStrength = chargeTime;
-
-                    shotqueued = true;
-                    PointerController.Instance.selectedUnit = null;
-                }
+            if (context.canceled && minChargeTime <= chargeTime)
+            {
+                isCharging = false;
+                finalShotStrength = chargeTime;
+                shotqueued = true;
+                PointerController.Instance.selectedUnit = null;
+            }
         }
+
         if (shotqueued == true && GetComponent<UnitMovement>().grounded == true && hasShot == false)
         {
-            GameManager.gm.QueueShot(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation, finalShotStrength);
+            GameManager.gm.QueueShot(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation, finalShotStrength, shootPoint.transform);
+
             shotqueued = false;
             ResetUI();
             hasShot = true;
         }
-
     }
 
 
     private void RotatePivotToMouse()
     {
-        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)// condition for selected unit
+        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
         {
             // Get the position of the pivot in screen space
             Vector3 pivotScreenPos = Camera.main.WorldToScreenPoint(pivot.transform.position);

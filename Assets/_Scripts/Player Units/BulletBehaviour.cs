@@ -38,7 +38,7 @@ public class BulletBehaviour : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        if (penetration != 0 && Vector3.Distance(collisionPoint, transform.position) > penetration && firstCollision == false)
+        if (penetration != 0 && Vector3.Distance(collisionPoint, transform.position) > penetration && firstCollision == false && explosionRadius <= 0)
         {
             Destroy(gameObject);
         }

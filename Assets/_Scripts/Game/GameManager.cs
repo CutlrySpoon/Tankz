@@ -207,27 +207,37 @@ public class GameManager : MonoBehaviour
         public Vector3 position;
         public Quaternion rotation;
         public float strength;
+        public Transform shootPoint;
     }
-
 
     private Queue<QueuedShot> shotQueue = new Queue<QueuedShot>();
 
-    public void QueueShot(GameObject prefab, Vector3 pos, Quaternion rot, float strength)
+    public void QueueShot(GameObject prefab, Vector3 pos, Quaternion rot, float strength, Transform shootPoint)
     {
-        shotQueue.Enqueue(new QueuedShot { prefab = prefab, position = pos, rotation = rot, strength = strength });
+        shotQueue.Enqueue(new QueuedShot
+        {
+            prefab = prefab,
+            position = pos,
+            rotation = rot,
+            strength = strength,
+            shootPoint = shootPoint
+        });
     }
-
-
 
     private IEnumerator ManageShootTurn()
     {
         PlayMenuManager.instance.turnScreen.SetActive(false);
-        
+
         shootTurn = true;
         while (shotQueue.Count > 0)
         {
             QueuedShot shot = shotQueue.Dequeue();
-            GameObject bullet = Instantiate(shot.prefab, shot.position, shot.rotation);
+
+            // If the unit has moved, use its current positionelse fallback to the queued position.
+            Vector3 firePos = (shot.shootPoint != null) ? shot.shootPoint.position : shot.position;
+            Quaternion fireRot = (shot.shootPoint != null) ? shot.shootPoint.rotation : shot.rotation;
+
+            GameObject bullet = Instantiate(shot.prefab, firePos, fireRot);
             BulletBehaviour bulletScript = bullet.GetComponent<BulletBehaviour>();
             if (bulletScript != null)
             {
@@ -237,7 +247,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitUntil(() => bullet == null);
             yield return new WaitForSeconds(1f);
         }
-        
+
         turnCount++;
         blueTurn = (turnCount % 2 == 0);
         currentTurnTime = maxTurnTime;
@@ -246,6 +256,4 @@ public class GameManager : MonoBehaviour
         PlayMenuManager.instance.SetUI();
         PlayMenuManager.instance.turnScreen.SetActive(true);
     }
-
-
 }

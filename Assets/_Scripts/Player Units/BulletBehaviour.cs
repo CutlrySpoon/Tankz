@@ -35,8 +35,7 @@ public class BulletBehaviour : MonoBehaviour
         velocity = transform.right * startSpeed * shotStregth;
         baseDirection = transform.right;
 
-        gm.audioSource.clip = shootSound;
-        gm.audioSource.Play();
+        gm.audioSource.PlayOneShot(shootSound);
     }
 
     void FixedUpdate()
@@ -78,18 +77,18 @@ public class BulletBehaviour : MonoBehaviour
         {
             Destroy(gameObject);
         }
-       
+
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object"))
         {
             detonate = true;
         }
-        
+
         //after first collision, reduce penetration and continue moving unitl it reaches 0
         if (firstCollision == true)
         {
@@ -100,13 +99,11 @@ public class BulletBehaviour : MonoBehaviour
         // logic for doing damage
         if (explosionRadius > 0f && Vector3.Distance(collisionPoint, transform.position) >= penetration || detonate)
         {
+
             isExplosive = true;
             Vector3 center = transform.position;
             Collider[] colliders = Physics.OverlapSphere(center, explosionRadius);
 
-            gm.audioSource.clip = explosionSound;
-            gm.audioSource.Play();
-            
             foreach (Collider hit in colliders)
             {
                 if (hit.gameObject.transform.GetComponent<UnitHealth>() != null)
@@ -115,22 +112,29 @@ public class BulletBehaviour : MonoBehaviour
                     Debug.Log("Hit " + hit.gameObject.name + " with explosion");
                     hit.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
                 }
+
+                if (hit.gameObject.transform.GetComponentInParent<UnitHealth>() != null)
+                {
+                    //Destroy(hit.gameObject.transform.parent.gameObject);
+                    Debug.Log("Hit " + hit.gameObject.name + " with explosion");
+                    hit.gameObject.GetComponentInParent<UnitHealth>().TakeDamage(damage, isExplosive);
+                }
             }
+
             Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            gm.audioSource.PlayOneShot(explosionSound);
+
             Destroy(gameObject);
         }
+
         else if (collision.gameObject.transform.GetComponent<UnitHealth>() != null)
         {
             collision.gameObject.transform.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
         }
 
-        
-        
-
-       
+        else if (collision.gameObject.transform.GetComponentInParent<UnitHealth>() != null)
+        {
+            collision.gameObject.transform.gameObject.GetComponentInParent<UnitHealth>().TakeDamage(damage, isExplosive);
+        }
     }
-
-
-
-
 }

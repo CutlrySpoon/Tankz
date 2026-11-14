@@ -32,7 +32,8 @@ public class UnitHealth : MonoBehaviour
             originalColor = savedRenderer.material.color;
         }
 
-        healthUI.gameObject.SetActive(false);
+        if (healthUI != null)
+            healthUI.gameObject.SetActive(false);
 
         SetHealthUI(offset);
     }

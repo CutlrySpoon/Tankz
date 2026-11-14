@@ -205,6 +205,8 @@ MonoBehaviour:
   shotStregth: 2.0800047
   explosionEffectPrefab: {fileID: 0}
   zigZagfrequency: 5
+  shootSound: {fileID: 8300000, guid: ab50168445e2b5744ac6d789e41f49dc, type: 3}
+  explosionSound: {fileID: 8300000, guid: 0862024b6fc4fd345a95bacdf22c0c1c, type: 3}
 --- !u!136 &6906784112259460851
 CapsuleCollider:
   m_ObjectHideFlags: 0

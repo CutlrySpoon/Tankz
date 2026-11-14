@@ -79,7 +79,7 @@ MonoBehaviour:
     m_Bits: 8
   maxFallSpeed: 6
   grounded: 0
-  jumpHeight: 5
+  jumpHeight: 7
   spriteRenderer: {fileID: 788884806969001507}
   isBlue: 0
 --- !u!114 &5607351868229891723
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7162df0c7f9f63142b6ab80536b6cf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitHealth
-  health: 85
+  health: 50
   explosionResistance: 0
   flashTime: 25
   deathFX: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}

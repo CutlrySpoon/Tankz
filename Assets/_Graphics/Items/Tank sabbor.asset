@@ -22,7 +22,7 @@ MonoBehaviour:
   isBuilding: 0
   canRotate: 0
   objectSize: {x: 1, y: 1}
-  objectSprite: {fileID: 21300000, guid: c4d72868f95420549b16f18a42e6fe5d, type: 3}
+  objectSprite: {fileID: 21300000, guid: 9e01d72abcdaa1743ac722afa7469755, type: 3}
   objectName: Sabbot tank
   objectDescription: 
   useCustomColor: 0

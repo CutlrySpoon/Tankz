@@ -22,7 +22,7 @@ MonoBehaviour:
   isBuilding: 0
   canRotate: 0
   objectSize: {x: 1, y: 1}
-  objectSprite: {fileID: 21300000, guid: a4c3fa6c121edfc4280058ab32754d4e, type: 3}
+  objectSprite: {fileID: 21300000, guid: 860f8cc6b748a2841a46a9424c9e3470, type: 3}
   objectName: HE Tank
   objectDescription: 'Tank with High Explosive shell.
 

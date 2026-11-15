@@ -50,41 +50,45 @@ public class BulletBehaviour : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         if (penetration != 0 && Vector3.Distance(collisionPoint, transform.position) > penetration && firstCollision == false && explosionRadius <= 0)
         {
             Destroy(gameObject);
         }
+
         Vector3 travelDir = baseDirection;
         if (zigZagfrequency > 0)
         {
-            // rotate the bullet's velocity vector by 45 degrees to create a zig-zag effect
-            float flipDirection = Mathf.Sign(Mathf.Sin(Time.time * zigZagfrequency));
+            // Rotate the bullet's direction vector by 45 degrees back and forth
+            float flipDirection = Mathf.Sign(Mathf.Sin(Time.fixedTime * zigZagfrequency));
             Quaternion rotationOffset = Quaternion.Euler(0, 0, flipDirection * 45f);
             travelDir = rotationOffset * baseDirection;
         }
 
-        // apply gravity to the bullet's velocity and update its position
+        // Apply travel direction speed and gravity to velocity
         velocity.x = travelDir.x * startSpeed * shotStregth;
-        velocity.y -= gravity * weight * Time.fixedDeltaTime;
+        velocity.y = (travelDir.y * startSpeed * shotStregth) - (gravity * weight * Time.fixedDeltaTime);
+
         transform.position += velocity * Time.fixedDeltaTime;
+
         if (velocity != Vector3.zero)
         {
-            // rotate the bullet to face the direction of its velocity
+            // Rotate the bullet to face the direction of its velocity
             float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
         }
+
         if (penetration <= 0 && explosionRadius <= 0)
         {
             Destroy(gameObject);
         }
-
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object"))
+        if ((collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object")) && explosionRadius > 0)
         {
             detonate = true;
         }
@@ -130,11 +134,19 @@ public class BulletBehaviour : MonoBehaviour
         else if (collision.gameObject.transform.GetComponent<UnitHealth>() != null)
         {
             collision.gameObject.transform.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
+            if(collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object"))
+            {
+                Destroy(gameObject);
+            }
         }
 
         else if (collision.gameObject.transform.GetComponentInParent<UnitHealth>() != null)
         {
             collision.gameObject.transform.gameObject.GetComponentInParent<UnitHealth>().TakeDamage(damage, isExplosive);
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

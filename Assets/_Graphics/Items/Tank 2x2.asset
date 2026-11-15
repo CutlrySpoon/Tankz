@@ -22,7 +22,7 @@ MonoBehaviour:
   isBuilding: 0
   canRotate: 0
   objectSize: {x: 2, y: 2}
-  objectSprite: {fileID: 21300000, guid: 16847801359c0a04485d44acedd47c55, type: 3}
+  objectSprite: {fileID: 21300000, guid: 689baa1c44bbfd34a8666289eb46e1c0, type: 3}
   objectName: 2X2 tank
   objectDescription: 
   useCustomColor: 0

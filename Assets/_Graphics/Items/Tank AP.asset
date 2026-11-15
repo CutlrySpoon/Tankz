@@ -22,7 +22,7 @@ MonoBehaviour:
   isBuilding: 0
   canRotate: 0
   objectSize: {x: 1, y: 1}
-  objectSprite: {fileID: 21300000, guid: a4c3fa6c121edfc4280058ab32754d4e, type: 3}
+  objectSprite: {fileID: 21300000, guid: 5647e09c34ede5b498c4051cf67d76b1, type: 3}
   objectName: AP Tank
   objectDescription: 'Tank with Armour Piercing shell.
 

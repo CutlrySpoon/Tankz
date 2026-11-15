@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26a77169634ffc4699916bd2b56e248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBehaviour
-  startSpeed: 8
+  startSpeed: 4
   damage: 25
   penetration: 20
   explosionRadius: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   weight: 0
   shotStregth: 1
   explosionEffectPrefab: {fileID: 7668926386312958630, guid: 34a3ee035f4f8d9469c11a83321f1eeb, type: 3}
-  zigZagfrequency: 2
+  zigZagfrequency: 3
   shootSound: {fileID: 8300000, guid: ab50168445e2b5744ac6d789e41f49dc, type: 3}
   explosionSound: {fileID: 8300000, guid: 0862024b6fc4fd345a95bacdf22c0c1c, type: 3}
 --- !u!136 &6906784112259460851

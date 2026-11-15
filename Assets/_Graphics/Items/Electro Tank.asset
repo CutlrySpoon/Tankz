@@ -22,7 +22,7 @@ MonoBehaviour:
   isBuilding: 0
   canRotate: 0
   objectSize: {x: 1, y: 1}
-  objectSprite: {fileID: 21300000, guid: ea0404cbe2feec84483796a2c0ea263b, type: 3}
+  objectSprite: {fileID: 21300000, guid: 5fbf9485b408217418c5690a2cc3e8fc, type: 3}
   objectName: Electro Tank
   objectDescription: 'Electro Tank (Needs asset)
 

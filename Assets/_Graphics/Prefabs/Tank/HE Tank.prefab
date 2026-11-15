@@ -9,15 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5521368711581075010}
-  - component: {fileID: 6939929301970415705}
   - component: {fileID: 6363613058260358894}
   - component: {fileID: 5607351868229891723}
   - component: {fileID: 8375931838074745838}
   - component: {fileID: 1175972814953113712}
   - component: {fileID: 6313686698627899973}
+  - component: {fileID: 1560042987364831621}
   m_Layer: 6
   m_Name: HE Tank
-  m_TagString: Building
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,27 +40,6 @@ Transform:
   - {fileID: 6461043486324780004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6939929301970415705
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678714860511866790}
-  m_Material: {fileID: 13400000, guid: 54051ebf4517b1b42bacd897712fa19f, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6363613058260358894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,14 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitMovement
   speed: 5
-  layermask:
-    serializedVersion: 2
-    m_Bits: 8
-  maxFallSpeed: 6
-  grounded: 0
   jumpHeight: 7
+  maxFallSpeed: 6
   spriteRenderer: {fileID: 788884806969001507}
-  isBlue: 0
 --- !u!114 &5607351868229891723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +274,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!136 &1560042987364831621
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678714860511866790}
+  m_Material: {fileID: 13400000, guid: 54051ebf4517b1b42bacd897712fa19f, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2626679349591486693
 GameObject:
   m_ObjectHideFlags: 0

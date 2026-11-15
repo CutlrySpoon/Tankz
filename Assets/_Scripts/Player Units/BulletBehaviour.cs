@@ -17,8 +17,6 @@ public class BulletBehaviour : MonoBehaviour
     public GameObject explosionEffectPrefab;
     private Vector3 velocity;
     public float zigZagfrequency = 5f;
-    private float flipDirection;
-    private float zigZagTimer;
     private Vector3 baseDirection;
     private Vector3 collisionPoint;
     private bool firstCollision = true;
@@ -36,7 +34,7 @@ public class BulletBehaviour : MonoBehaviour
         //set the initial velocity of the bullet
         velocity = transform.right * startSpeed * shotStregth;
         baseDirection = transform.right;
-        zigZagTimer = zigZagfrequency;
+
         gm.audioSource.PlayOneShot(shootSound);
     }
 
@@ -59,22 +57,8 @@ public class BulletBehaviour : MonoBehaviour
         Vector3 travelDir = baseDirection;
         if (zigZagfrequency > 0)
         {
-            
-            
             // rotate the bullet's velocity vector by 45 degrees to create a zig-zag effect
-            Debug.Log("ZigZagTimer: " + zigZagTimer);
-            Debug.Log(flipDirection);
-            if (zigZagTimer >= -zigZagfrequency)
-            {
-                zigZagTimer -= Time.time;
-                flipDirection = 1;
-                
-            }
-            if (zigZagTimer <= zigZagfrequency)
-            {
-                zigZagTimer += Time.time;
-                flipDirection = -1;
-            }
+            float flipDirection = Mathf.Sign(Mathf.Sin(Time.time * zigZagfrequency));
             Quaternion rotationOffset = Quaternion.Euler(0, 0, flipDirection * 45f);
             travelDir = rotationOffset * baseDirection;
         }
@@ -89,12 +73,10 @@ public class BulletBehaviour : MonoBehaviour
             float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
         }
-        //destroy the bullet if it goes out of bounds or has no penetration and no explosion radius
-        if ((penetration <= 0 && explosionRadius <= 0) || transform.position.x < -15 || transform.position.x > 170 || transform.position.y < -12)
+        if (penetration <= 0 && explosionRadius <= 0)
         {
             Destroy(gameObject);
         }
-        
 
     }
 
@@ -102,7 +84,7 @@ public class BulletBehaviour : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (explosionRadius > 0f && (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object")))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Units") || collision.gameObject.tag == ("Building") || collision.gameObject.tag == ("Object"))
         {
             detonate = true;
         }
@@ -144,10 +126,12 @@ public class BulletBehaviour : MonoBehaviour
 
             Destroy(gameObject);
         }
+
         else if (collision.gameObject.transform.GetComponent<UnitHealth>() != null)
         {
             collision.gameObject.transform.gameObject.GetComponent<UnitHealth>().TakeDamage(damage, isExplosive);
         }
+
         else if (collision.gameObject.transform.GetComponentInParent<UnitHealth>() != null)
         {
             collision.gameObject.transform.gameObject.GetComponentInParent<UnitHealth>().TakeDamage(damage, isExplosive);

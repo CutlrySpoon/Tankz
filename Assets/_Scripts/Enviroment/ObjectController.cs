@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static GameManager;
+using static UnityEngine.UI.Image;
 
 // This is the main controller for player spawned objects.
 
@@ -14,6 +16,7 @@ public class ObjectController : MonoBehaviour
     private Transform colliderTransform;
 
     public Vector2 size { get; private set; }
+    public Color colour { get; private set; }
 
     private UnitHealth unitHealth;
 
@@ -41,6 +44,38 @@ public class ObjectController : MonoBehaviour
 
     ResourceUI ui;
 
+    // Check if the object is a building and is grounded
+    // Destroy floating buildings
+    private void FixedUpdate()
+    {
+        if (!objectData.isBuilding || !isPlaced) return;
+
+        if (!IsGrounded())
+            unitHealth.TakeDamage(999, false);
+    }
+
+    // Return bool for if the object is grounded based on its size.
+    private bool IsGrounded()
+    {
+        int width = WorldSize.x;
+        int height = WorldSize.y;
+
+        Vector3 origin = center - new Vector3(width / 2f, height / 2f, 0f);
+
+        for (int x = 0; x < width; x++)
+        {
+            Vector3 below = origin + new Vector3(x + 0.5f, -0.5f, 0f);
+
+            foreach (Collider col in Physics.OverlapBox(below, new Vector3(0.1f, 0.1f, 50f)))
+            {
+                if (col.CompareTag("Ground") || col.CompareTag("Object"))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     //Passes all data from object data onto the world space object and assignes references
     public void SetObject(ObjectData data, ResourceUI resourceUI)
     {
@@ -60,7 +95,8 @@ public class ObjectController : MonoBehaviour
         ui = resourceUI;
         size = data.objectSize;
         spriteRenderer.sprite = data.objectSprite;
-        spriteRenderer.color = data.useCustomColor ? data.customColor : gm.turnCount % 2 == 0 ? gm.teamAColour : gm.teamBColour;
+        colour = data.useCustomColor ? data.customColor : gm.turnCount % 2 == 0 ? gm.teamAColour : gm.teamBColour;
+        spriteRenderer.color = colour;
 
         placeAction = data.placeAction;
 

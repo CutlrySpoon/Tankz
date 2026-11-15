@@ -8,9 +8,11 @@ public class Object_Tank : PlaceAction
     {
         GameObject tank = Instantiate(tankPrefab, obj.transform.position, obj.transform.rotation);
         UnitHealth health = tank.GetComponent<UnitHealth>();
+        UnitMovement unit = tank.GetComponent<UnitMovement>();
 
         health.SetHealthBar(obj.objectData.healthBar);
         health.SetHealthUI(obj.objectData.objectSize.y);
+        unit.spriteRenderer.color = obj.colour;
 
         Destroy(obj.gameObject);
     }

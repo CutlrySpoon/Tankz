@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5521368711581075010}
-  - component: {fileID: 6939929301970415705}
+  - component: {fileID: 5679929232423881576}
   - component: {fileID: 6363613058260358894}
   - component: {fileID: 5607351868229891723}
   - component: {fileID: 8375931838074745838}
@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6313686698627899973}
   m_Layer: 6
   m_Name: 2X2 tank
-  m_TagString: Unit
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,8 +40,8 @@ Transform:
   - {fileID: 6461043486324780004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6939929301970415705
-BoxCollider:
+--- !u!136 &5679929232423881576
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -58,9 +58,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.912899, y: 1.2812712, z: 1}
-  m_Center: {x: 0.0024670362, y: 0.14063612, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.75
+  m_Height: 2
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &6363613058260358894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,14 +76,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitMovement
   speed: 2.3
-  layermask:
-    serializedVersion: 2
-    m_Bits: 8
-  maxFallSpeed: 19
-  grounded: 0
   jumpHeight: 5.5
+  maxFallSpeed: 19
   spriteRenderer: {fileID: 788884806969001507}
-  isBlue: 0
 --- !u!114 &5607351868229891723
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,148 +1,130 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static GameManager;
+
+// Tank movement
+
+// By JM and OS
 
 public class UnitMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public LayerMask layermask;
+    [Header("Movement Settings")]
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpHeight = 8f;
+    [SerializeField] private float maxFallSpeed = 15f;
+    [Space(5)]
 
-    public float maxFallSpeed = 15f;
+    [Header("References")]
+    public SpriteRenderer spriteRenderer;
+
+
+    private Rigidbody rb;
+
+    private const RigidbodyConstraints mobileCons = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+    private const RigidbodyConstraints parkedCons = mobileCons | RigidbodyConstraints.FreezePositionX;
+
+    private Collider col;
+    private WeaponControler weapon;
+
+    public bool grounded { get; private set; }
+    public bool isBlue { get; private set; }
+    private bool jumpQueued;
+    private bool wasMobile;
+
     private Vector2 moveInput;
     private Vector2 rawInput;
-    private float verticalVelocity;
-    [HideInInspector] public bool grounded;
-    private float gravity = 9.81f;
-    public float jumpHeight = 8f;
-    private bool jumpUp;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [HideInInspector] public bool isBlue;
-    private RaycastHit hit;
 
+    private Vector3 velocity
+    {
+        get => rb.linearVelocity;
+        set => rb.linearVelocity = value;
+    }
+
+    // 
     void Awake()
     {
-        if (GameManager.gm.turnCount % 2 == 0)
-        {
-            isBlue = true;
-        }
-        else
-        {
-            isBlue = false;
-        }
-        layermask = LayerMask.GetMask("Ground");
+        isBlue = gm.turnCount % 2 == 0;
+
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+        weapon = GetComponent<WeaponControler>();
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.constraints = parkedCons;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
     void FixedUpdate()
     {
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f, layermask) && !PointerController.Instance.selectedUnit == this.gameObject)
+        bool selected = PointerController.Instance.selectedUnit == gameObject;
+        bool canMove = selected && !weapon.isCharging;
+
+        // Prevent movement of non selected tanks
+        if (canMove != wasMobile)
         {
-            grounded = false;
+            rb.constraints = canMove ? mobileCons : parkedCons;
+            wasMobile = canMove;
         }
-        if (GetComponent<WeaponControler>().isCharging == true || PointerController.Instance.selectedUnit != this.gameObject)
+
+        if (!canMove)
         {
             moveInput = Vector2.zero;
+            jumpQueued = false;
         }
-        //jump if grounded
-        if (jumpUp && (grounded))
-        {
-            verticalVelocity = jumpHeight;
-            grounded = false;
-            jumpUp = false;
-        }
-        // Apply gravity if not grounded
-        else if (!grounded)
-        {
 
-                verticalVelocity -= gravity * Time.fixedDeltaTime;
-                verticalVelocity = Mathf.Max(verticalVelocity, -maxFallSpeed);
+        Vector3 v = velocity;
+        v.x = canMove ? moveInput.x * speed : 0f;
+        v.z = 0f;
+
+        if (jumpQueued && grounded)
+        {
+            v.y = jumpHeight;
+            jumpQueued = false;
         }
-        //Death border
+
+        v.y = Mathf.Max(v.y, -maxFallSpeed);
+        velocity = v;
+
+        grounded = false;
+
+        // Death Border
         if (transform.position.y <= -12f)
         {
             UnitHealth unitHealth = GetComponent<UnitHealth>();
             unitHealth.TakeDamage(9999, false);
         }
-
-        Vector3 finalMovement = new Vector3(moveInput.x * speed, verticalVelocity, 0f) * Time.fixedDeltaTime;
-        transform.Translate(finalMovement, Space.World);
     }
+
+    // Grounded check
     private void OnCollisionStay(Collision collision)
     {
-            foreach (ContactPoint contact in collision.contacts)
-            {
-                // Ground check
-                if (contact.normal.y > 0.5f)
-                {
-                    grounded = true;
-                    if (verticalVelocity < 0)
-                    {
-                        verticalVelocity = 0f;
-                    }
-                }
-                // Ceiling check
-                else if (contact.normal.y < -0.5f)
-                {
-                    if (verticalVelocity > 0)
-                    {
-                        verticalVelocity = 0f;
-                    }
-                }
-                // Wall checks 
-                Vector2 rawInput = moveInput;
-                if (contact.normal.x > 0.5f && rawInput.x < 0)
-                {
-                    // Block left movement into a right-facing wall
-                    transform.Translate(new Vector3(0.01f, 0f, 0f), Space.World);
-                    moveInput.x = 0f;
-                }
-                else if (contact.normal.x < -0.5f && rawInput.x > 0)
-                {
-
-                    // Block right movement into a left-facing wall
-                    transform.Translate(new Vector3(-0.01f, 0f, 0f), Space.World);
-                    moveInput.x = 0f;
-                }
-
-            }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        moveInput = rawInput;
-            if(Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f, layermask) == false)
-            {
-                grounded = false;
-            }
-            else
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            if (collision.GetContact(i).normal.y > 0.5f)
             {
                 grounded = true;
-            }
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        Debug.Log(PointerController.Instance.selectedUnit);
-        Debug.Log(GetComponent<WeaponControler>().shotqueued);
-        Debug.Log(GameManager.gm.blueTurn);
-        if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<WeaponControler>().shotqueued == false && isBlue == GameManager.gm.blueTurn)
-        {
-
-            rawInput = context.ReadValue<Vector2>();
-            moveInput = new Vector2(rawInput.x, 0f);
-            if(rawInput.x > 0)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if (rawInput.x < 0)
-            {
-                spriteRenderer.flipX = false;
-            }
-            if (rawInput.y > 0 && (context.started || context.performed))
-            {
-                if (grounded && GetComponent<WeaponControler>().isCharging == false)
-                {
-                    jumpUp = true;
-                }
+                return;
             }
         }
+    }
+
+    // Movement and jumping
+    public void Move(InputAction.CallbackContext context)
+    {
+        if (PointerController.Instance.selectedUnit != gameObject || weapon.shotqueued || isBlue != gm.blueTurn) return;
+
+        Vector2 rawInput = context.ReadValue<Vector2>();
+        moveInput = new Vector2(rawInput.x, 0f);
+
+        if (rawInput.x > 0) spriteRenderer.flipX = true;
+        else if (rawInput.x < 0) spriteRenderer.flipX = false;
+
+        if (rawInput.y > 0 && (context.started || context.performed) && grounded && !weapon.isCharging)
+        {
+            jumpQueued = true;
+        }
+
     }
 }

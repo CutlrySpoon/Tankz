@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -85,17 +84,17 @@ public class WeaponControler : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && selectionTime > 0.5f && GetComponent<UnitMovement>().grounded == true)
+        var movement = GetComponent<UnitMovement>();
+        bool myTurn = movement.isBlue == GameManager.gm.blueTurn;
+
+        if (myTurn && PointerController.Instance.selectedUnit == this.gameObject && !shotqueued && !hasShot && selectionTime > 0.5f && movement.grounded)
         {
-            if (GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
+            if (context.started)
             {
-                if (context.started)
-                {
-                    isCharging = true;
-                }
+                isCharging = true;
             }
 
-            if (context.canceled && minChargeTime <= chargeTime)
+            else if (context.canceled && isCharging && chargeTime >= minChargeTime)
             {
                 isCharging = false;
                 finalShotStrength = chargeTime;
@@ -104,13 +103,12 @@ public class WeaponControler : MonoBehaviour
             }
         }
 
-        if (shotqueued == true && GetComponent<UnitMovement>().grounded == true && hasShot == false)
+        if (shotqueued && !hasShot && movement.grounded)
         {
             GameManager.gm.QueueShot(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation, finalShotStrength, shootPoint.transform);
-
             shotqueued = false;
-            ResetUI();
             hasShot = true;
+            ResetUI();
         }
     }
 

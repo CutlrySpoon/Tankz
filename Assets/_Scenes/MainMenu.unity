@@ -5760,7 +5760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1189650237
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6777,15 +6777,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Once you start your turn, you have 60 seconds to finish it. Use this time
     to construct buildings and order troops.\n\nOn the right of the screen there
-    are 3 tabs that stores different types of placable objects and their variations.\n\t-
-    The building tab has has buildings that require research to be placed. Place
-    a \"Lab\" to gain more research.\n\t- The troops tab has troops that require
-    power to be placed. Place an \"Armoury\" to gain more power.\n\t- The walls tab
-    has placable walls that can defend your buildings and provide a path for troops
-    to use.\n\nTo cancel placing an object, press \"Right Click\"\nYou can rotate
-    walls with keys: \"Q\" / \"E\"\nTo order a troop, press \"Left Click\" , aim
-    with \"Mouse\" then press \"Left Click\" to confirm order\nTroops will shoot
-    in chronological order after ending turn. "
+    are 3 tabs that stores different types of placeable objects and their variations.\n\t-
+    The building tab has buildings that require research to be placed. Place a \"Lab\"
+    to gain more research.\n\t- The troops tab has troops that require power to be
+    placed. Place an \"Armoury\" to gain more power.\n\t- The walls tab has placeable
+    walls that can defend your buildings and provide a path for troops to use.\n\nTo
+    cancel placing an object, press \"Right Click\"\nYou can rotate walls with keys:
+    \"Q\" / \"E\"\nTo order a troop, press \"Left Click\" , aim with \"Mouse\" then
+    press \"Left Click\" to confirm order\nTroops will shoot in chronological order
+    after ending turn. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

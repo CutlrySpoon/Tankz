@@ -24,18 +24,10 @@ MonoBehaviour:
   objectSize: {x: 1, y: 1}
   objectSprite: {fileID: 21300000, guid: 5fbf9485b408217418c5690a2cc3e8fc, type: 3}
   objectName: Electro Tank
-  objectDescription: 'Electro Tank (Needs asset)
+  objectDescription: 'Tank with Electrically charged "Zig Zag" Shell.
 
-    50 HP
-
-    1 Explosion ressistance
-
-    Shoots
-    a zig-zaging bullet which has no gravity
-
-    25 Damage
-
-    4 Speed'
+    Unpredicatble
+    shot but highly effective.'
   useCustomColor: 0
   customColor: {r: 0, g: 0, b: 0, a: 0}
   deathEffect: {fileID: 0}

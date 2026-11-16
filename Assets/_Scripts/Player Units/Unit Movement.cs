@@ -16,6 +16,7 @@ public class UnitMovement : MonoBehaviour
 
     [Header("References")]
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer barrelSprite;
 
 
     private Rigidbody rb;
@@ -113,7 +114,7 @@ public class UnitMovement : MonoBehaviour
     // Movement and jumping
     public void Move(InputAction.CallbackContext context)
     {
-        if (PointerController.Instance.selectedUnit != gameObject || weapon.shotqueued || isBlue != gm.blueTurn) return;
+        if (PointerController.Instance.selectedUnit != gameObject || weapon.hasShot || isBlue != gm.blueTurn) return;
 
         Vector2 rawInput = context.ReadValue<Vector2>();
         moveInput = new Vector2(rawInput.x, 0f);

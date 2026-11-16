@@ -13,6 +13,7 @@ public class Object_Tank : PlaceAction
         health.SetHealthBar(obj.objectData.healthBar);
         health.SetHealthUI(obj.objectData.objectSize.y);
         unit.spriteRenderer.color = obj.colour;
+        unit.barrelSprite.color = obj.colour;
 
         Destroy(obj.gameObject);
     }

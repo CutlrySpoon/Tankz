@@ -7,20 +7,16 @@ public class Object_Bank : PlaceAction
     [SerializeField]
     private int income = 0;
 
-    private bool isTeamA;
-
     public override void OnPlace(ObjectController obj)
     {
         if (gm.turnCount % 2 == 0)
         {
             gm.teamAIncome += income;
-            isTeamA = true;
         }
 
         else
         {
             gm.teamBIncome += income;
-            isTeamA = false;
         }
 
         Debug.Log("Bank placed");
@@ -28,7 +24,7 @@ public class Object_Bank : PlaceAction
 
     public override void OnObjectDestroyed(ObjectController obj)
     {
-        if (isTeamA)
+        if (obj.isTeamA)
         {
             gm.teamAIncome -= income;
         }

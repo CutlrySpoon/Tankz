@@ -67,7 +67,11 @@ public class BulletBehaviour : MonoBehaviour
 
         // Apply travel direction speed and gravity to velocity
         velocity.x = travelDir.x * startSpeed * shotStregth;
-        velocity.y = (travelDir.y * startSpeed * shotStregth) - (gravity * weight * Time.fixedDeltaTime);
+
+        if (zigZagfrequency == 0)
+            velocity.y -= (gravity * weight * Time.fixedDeltaTime);
+        else
+            velocity.y = (travelDir.y * startSpeed * shotStregth) - (gravity * weight * Time.fixedDeltaTime);
 
         transform.position += velocity * Time.fixedDeltaTime;
 

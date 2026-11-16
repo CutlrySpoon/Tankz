@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using static GameManager;
 
@@ -12,8 +11,6 @@ public class Object_FOB : PlaceAction
     [SerializeField]
     private int research = 0;
 
-    private bool isTeamA;
-
     public override void OnPlace(ObjectController obj)
     {
         if (gm.turnCount % 2 == 0)
@@ -21,8 +18,6 @@ public class Object_FOB : PlaceAction
             gm.teamAIncome += income;
             gm.teamAPower += power;
             gm.teamAResearch += research;
-
-            isTeamA = true;
         }
 
         else
@@ -30,8 +25,6 @@ public class Object_FOB : PlaceAction
             gm.teamBIncome += income;
             gm.teamBPower += power;
             gm.teamBResearch += research;
-
-            isTeamA = false;
         }
 
         Debug.Log("FOB placed");
@@ -39,7 +32,7 @@ public class Object_FOB : PlaceAction
 
     public override void OnObjectDestroyed(ObjectController obj)
     {
-        gm.EndGame(isTeamA);
+        gm.EndGame(obj.isTeamA);
 
         Debug.Log("FOB destroyed");
     }

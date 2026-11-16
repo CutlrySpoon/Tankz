@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd9efde520f91845bb958e6f85ad069, type: 3}
   m_Name: Bank2 - Place Action
   m_EditorClassIdentifier: Assembly-CSharp::Object_Bank
-  income: 250
+  income: 200

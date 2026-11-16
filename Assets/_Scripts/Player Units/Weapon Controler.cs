@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -20,7 +21,7 @@ public class WeaponControler : MonoBehaviour
     private float finalShotStrength = 0f;
     private float selectionTime = 0f;
     private bool hitMaxCharge = false;
-    private bool hasShot = false;
+    public bool hasShot { get; private set; } = false;
 
     void FixedUpdate()
     {
@@ -52,7 +53,7 @@ public class WeaponControler : MonoBehaviour
 
                 chargeBar.fillAmount = ((chargeTime) / (maxChargeTime));
             }
-            if (shotqueued == false)
+            if (shotqueued == false && !hasShot)
             {
                 RotatePivotToMouse();
             }
@@ -87,13 +88,12 @@ public class WeaponControler : MonoBehaviour
         var movement = GetComponent<UnitMovement>();
         bool myTurn = movement.isBlue == GameManager.gm.blueTurn;
 
-        if (myTurn && PointerController.Instance.selectedUnit == this.gameObject && !shotqueued && !hasShot && selectionTime > 0.5f && movement.grounded)
+        if (myTurn && PointerController.Instance.selectedUnit == this.gameObject && !shotqueued && !hasShot && selectionTime > 0.5f&& movement.grounded)
         {
             if (context.started)
             {
                 isCharging = true;
             }
-
             else if (context.canceled && isCharging && chargeTime >= minChargeTime)
             {
                 isCharging = false;

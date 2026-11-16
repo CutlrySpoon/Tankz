@@ -20,6 +20,8 @@ public class ObjectController : MonoBehaviour
 
     private UnitHealth unitHealth;
 
+    public bool isTeamA { get; private set; }
+
     public Vector2Int WorldSize // Returns the real world size and accomodates for rotation.
     {
         get
@@ -80,6 +82,8 @@ public class ObjectController : MonoBehaviour
     public void SetObject(ObjectData data, ResourceUI resourceUI)
     {
         objectData = data;
+
+        isTeamA = gm.turnCount % 2 == 0;
 
         unitHealth = this.AddComponent<UnitHealth>();
 

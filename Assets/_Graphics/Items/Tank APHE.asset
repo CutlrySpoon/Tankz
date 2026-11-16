@@ -15,7 +15,7 @@ MonoBehaviour:
   health: 100
   explosionResistance: 0
   objectCost: 250
-  maxObjects: 5
+  maxObjects: 100
   requiresPower: 1
   requiresResearch: 0
   isWall: 0

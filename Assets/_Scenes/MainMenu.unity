@@ -853,7 +853,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: The objective of the game is to destroy the enemy FOB. Use tanks from a
-    vast selection to carve a path of stratergy and dominate your enemy. Construct
+    vast selection to carve a path of strategy and dominate your enemy. Construct
     buildings to strengthen your economy, gain power and research. Dont forget about
     defending your own buildings!
   m_isRightToLeft: 0
@@ -5760,7 +5760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1189650237
 RectTransform:
   m_ObjectHideFlags: 0

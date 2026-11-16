@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectData
   health: 50
   explosionResistance: 0
-  objectCost: 550
+  objectCost: 350
   maxObjects: 6
   requiresPower: 0
   requiresResearch: 0

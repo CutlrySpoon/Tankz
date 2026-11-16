@@ -79,6 +79,7 @@ MonoBehaviour:
   jumpHeight: 7
   maxFallSpeed: 11
   spriteRenderer: {fileID: 788884806969001507}
+  barrelSprite: {fileID: 2809586425432680882}
 --- !u!114 &5607351868229891723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +711,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 5647e09c34ede5b498c4051cf67d76b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

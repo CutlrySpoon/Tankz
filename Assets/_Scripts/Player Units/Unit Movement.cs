@@ -27,8 +27,8 @@ public class UnitMovement : MonoBehaviour
     private Collider col;
     private WeaponControler weapon;
 
-    public bool grounded { get; private set; }
-    public bool isBlue { get; private set; }
+    [HideInInspector] public bool grounded { get; private set; }
+    [HideInInspector] public bool isBlue { get; private set; }
     private bool jumpQueued;
     private bool wasMobile;
 
@@ -41,15 +41,15 @@ public class UnitMovement : MonoBehaviour
         set => rb.linearVelocity = value;
     }
 
-    // 
     void Awake()
     {
+        //set who this unit belongs to
         isBlue = gm.turnCount % 2 == 0;
 
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         weapon = GetComponent<WeaponControler>();
-
+        // Set the rigidbody to ensure it works with the movement system
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.constraints = parkedCons;
@@ -71,6 +71,7 @@ public class UnitMovement : MonoBehaviour
 
         if (!canMove)
         {
+            // lock movement if imobilised or not selected
             moveInput = Vector2.zero;
             jumpQueued = false;
         }
@@ -81,10 +82,11 @@ public class UnitMovement : MonoBehaviour
 
         if (jumpQueued && grounded)
         {
+            //apply jump
             v.y = jumpHeight;
             jumpQueued = false;
         }
-
+        //limit fall speed
         v.y = Mathf.Max(v.y, -maxFallSpeed);
         velocity = v;
 
@@ -105,6 +107,7 @@ public class UnitMovement : MonoBehaviour
         {
             if (collision.GetContact(i).normal.y > 0.5f)
             {
+                // if the contact normal is pointing upwards set grounded
                 grounded = true;
                 return;
             }
@@ -118,10 +121,10 @@ public class UnitMovement : MonoBehaviour
 
         Vector2 rawInput = context.ReadValue<Vector2>();
         moveInput = new Vector2(rawInput.x, 0f);
-
+        // Flip the sprite based on the direction of movement
         if (rawInput.x > 0) spriteRenderer.flipX = true;
         else if (rawInput.x < 0) spriteRenderer.flipX = false;
-
+        //check if the player is trying to jump and queue the jump if they are
         if (rawInput.y > 0 && (context.started || context.performed) && grounded && !weapon.isCharging)
         {
             jumpQueued = true;

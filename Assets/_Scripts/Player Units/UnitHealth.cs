@@ -5,9 +5,9 @@ public class UnitHealth : MonoBehaviour
 {
     public float health = 100;
     private float maxHealth;
-    public float explosionResistance = 0f;
+    public float explosionResistance = 0f; // Resistance to explosive damage 0 = no resistance and 1 = full resistance
     public float flashTime = 0.5f; // Duration of the flash
-    public GameObject deathFX;
+    public GameObject deathFX; // Death effect prefab
     public AudioClip deathSFX;
 
     private MeshRenderer savedRenderer;
@@ -16,10 +16,11 @@ public class UnitHealth : MonoBehaviour
 
     private bool isActive = false;
     
-    [SerializeField] private HealthBarPrefab healthUI;
+    [SerializeField] private HealthBarPrefab healthUI; 
 
     public void SetUnit(int health, int explosionResistance, float offset)
     {
+        // Initialize the unit's health and explosion resistance
         this.health = health;
         this.explosionResistance = explosionResistance;
         
@@ -42,6 +43,7 @@ public class UnitHealth : MonoBehaviour
     {
         if (healthUI != null)
         {
+            
             Vector3 pos = new Vector3(transform.position.x, transform.position.y - (offset / 2), transform.position.z);
 
             this.healthUI = Instantiate(healthUI, pos, Quaternion.identity, transform);
@@ -66,6 +68,7 @@ public class UnitHealth : MonoBehaviour
     {
         if (healthUI != null)
         {
+            // fade out the damage text over time
             healthUI.damageText.alpha -= Time.deltaTime * 0.2f;
         }
 
@@ -73,9 +76,10 @@ public class UnitHealth : MonoBehaviour
 
     public void TakeDamage(int damage, bool isExplosive)
     {
-
+        // Apply damage to the unit's health
         if (isExplosive)
         {
+            // if explosive damage then apply resistance
             health -= damage * (1f - explosionResistance);
             if (healthUI != null)
             {
@@ -84,6 +88,7 @@ public class UnitHealth : MonoBehaviour
         }
         else
         {
+            // do damage normally
             health -= damage;
             if (healthUI != null)
             {
@@ -96,8 +101,8 @@ public class UnitHealth : MonoBehaviour
             {
                 healthUI.gameObject.SetActive(true);
                 isActive = true;
-            }                
-
+            }
+            // Update the health bar and damage text
             healthUI.damageText.alpha = 1f;
             healthUI.damageText.fontSize = Mathf.Lerp(healthUI.damageText.fontSize, 5f, Time.deltaTime * 0.5f);
 
@@ -122,7 +127,8 @@ public class UnitHealth : MonoBehaviour
         {
             if(isExplosive == false)
             {
-                if(deathFX != null)
+                // Trigger death effect and sound
+                if (deathFX != null)
                     Instantiate(deathFX, transform.position, Quaternion.identity);
 
                 if (deathSFX != null)
@@ -138,6 +144,7 @@ public class UnitHealth : MonoBehaviour
 
     private IEnumerator FlashWhiteRoutine()
     {
+        // Change the material colour to white and wait for the flash duration then reset
         savedRenderer.material.color = Color.white;
         Debug.Log("Flashing white");
         yield return new WaitForSeconds(flashTime);

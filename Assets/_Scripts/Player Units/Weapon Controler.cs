@@ -5,27 +5,29 @@ using UnityEngine.UI;
 
 public class WeaponControler : MonoBehaviour
 {
-    
+    [Header("References")]
     public GameObject gun;
     public GameObject bulletPrefab;
     public GameObject pivot;
     public GameObject shootPoint;
     private Vector2 mouseScreenPos;
     public Image chargeBar;
-    public bool isCharging = false;
-    [SerializeField] private float chargeTime = 0f;
-    [SerializeField] private float maxChargeTime = 2.5f;
-    [SerializeField] private float chargeRate = 1f;
-    [SerializeField] private float minChargeTime = 0.1f;
-    public bool shotqueued = false;
+    [Header("Gun stats")]
+    [HideInInspector] public bool isCharging = false;
+    private float chargeTime = 0f;
+    [SerializeField] private float maxChargeTime = 2.5f; // maximum time the player can charge the shot
+    [SerializeField] private float chargeRate = 1f; // how quickly the charge time increases per second
+    private float minChargeTime = 0.1f;
+    [HideInInspector] public bool shotqueued = false;
     private float finalShotStrength = 0f;
     private float selectionTime = 0f;
     private bool hitMaxCharge = false;
-    public bool hasShot { get; private set; } = false;
+    [HideInInspector] public bool hasShot { get; private set; } = false;
 
     void FixedUpdate()
     {
-        if(PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
+        // Update the selection time if this unit is selected and it's the player turn
+        if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
         {
             selectionTime += Time.fixedDeltaTime;
         }
@@ -33,10 +35,10 @@ public class WeaponControler : MonoBehaviour
         {
             selectionTime = 0f;
         }
-        selectionTime += Time.fixedDeltaTime;
+        
         if (PointerController.Instance.selectedUnit == this.gameObject && shotqueued == false && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
         {
-
+            //if is charging then increase the charge time and update the charge bar
             if (isCharging)
             {
                 if (chargeTime < maxChargeTime && hitMaxCharge == false)
@@ -47,6 +49,7 @@ public class WeaponControler : MonoBehaviour
                 }
                 else if (hitMaxCharge == true)
                 {
+                    // if hit max charge then start to decrease the charge time and update the charge bar
                     chargeTime -= chargeRate * Time.fixedDeltaTime;
                     if (chargeTime <= 0) hitMaxCharge = false;
                 }
@@ -77,6 +80,7 @@ public class WeaponControler : MonoBehaviour
 
     public void LookAtMouse(InputAction.CallbackContext context)
     {
+        // Update the mouse position when the player moves the mouse
         if (PointerController.Instance.selectedUnit == this.gameObject && GetComponent<UnitMovement>().isBlue == GameManager.gm.blueTurn)
         {
             mouseScreenPos = context.ReadValue<Vector2>();
@@ -87,9 +91,9 @@ public class WeaponControler : MonoBehaviour
     {
         var movement = GetComponent<UnitMovement>();
         bool myTurn = movement.isBlue == GameManager.gm.blueTurn;
-
         if (myTurn && PointerController.Instance.selectedUnit == this.gameObject && !shotqueued && !hasShot && selectionTime > 0.5f&& movement.grounded)
         {
+            // Start charging the shot when the player presses the left clik
             if (context.started)
             {
                 isCharging = true;
@@ -105,6 +109,7 @@ public class WeaponControler : MonoBehaviour
 
         if (shotqueued && !hasShot && movement.grounded)
         {
+            // Queue the shot with the GameManager and reset the UI
             GameManager.gm.QueueShot(bulletPrefab, shootPoint.transform.position, shootPoint.transform.rotation, finalShotStrength, shootPoint.transform);
             shotqueued = false;
             hasShot = true;
